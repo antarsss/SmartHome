@@ -1,0 +1,63 @@
+<html lang="en">
+
+<head>
+    <% include  head %>
+</head>
+<script>
+    var socket = io("http://192.168.3.6:3000");
+
+</script>
+
+<body class="container">
+
+    <header>
+        <% include  header %>
+    </header>
+
+    <main>
+        <div class="jumbotron">
+            <h1>This is great</h1>
+            <p>Welcome to templating using EJS</p>
+            <h2>
+                <input id="lightlist" type="hidden" value="<%=lightlist%>" />
+                <%lightlist.forEach(function(light){
+                    var check = light.state?'checked':'';
+                    %>
+                    <div>
+                        <label><%=light.name%></label>
+                        <input class="checkLed" value="<%=light.id%>" data-width="50" data-height="30" type="checkbox" data-toggle="toggle" <%=check%>/>
+                    </div>
+                    <%
+                });
+                
+                %>
+            </h2>
+
+        </div>
+        <h2>Loop</h2>
+    </main>
+
+    <footer>
+        <% include  footer %>
+    </footer>
+
+</body>
+<script>
+    $('.checkLed').change(function(event) {
+        var id = $(this).val();
+        var data = $(this).prop('checked');
+        var lightlist = <%- JSON.stringify(lightlist) %>;
+        lightlist.forEach(function(device) {
+            if (device.id == id) {
+                delete device._id;
+                delete device.__v;
+                device.state = data;
+                socket.emit('client-led-change', device);
+                console.log(device);
+            }
+        })
+    });
+
+</script>
+
+</html>
