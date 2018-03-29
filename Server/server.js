@@ -1,49 +1,39 @@
 var express = require('express');
-var bodyParser = require('body-parser');
+var app = express();
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
 var colors = require('colors');
 var port = process.env.PORT || 3000;
-var cors = require('cors');
+var bodyParser = require("body-parser");
+var cors = require("cors");
 
-// create express app
-var app = express();
+server.listen(port, function () {
+    console.log('Server listening at port %d'.blue, port);
+});
 
 app.use(bodyParser.urlencoded({
-    extended: true
+    extended: false
 }))
 
-app.use(bodyParser.json())
-
-app.use(cors());
-
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
+// parse application/json
+app.use(bodyParser.json());
 
 app.get('/', function (req, res) {
     res.json({
         "message": "Vô làm gì."
     });
 });
+
 require('./app/routes/user.routes')(app);
 require('./app/routes/device.routes')(app);
-
-//create socket.io
-var server = require('http').createServer(app);
-var io = require('socket.io')(server);
-
-server.listen(port, function () {
-    console.log('Server listening at port %d'.blue, port);
-});
-var sockets = {};
-
 //configuring the client
-var deviceSocket = require('./app/socket.io/device.socket.io');
+var deviceSocket = require('./app/socket.io/device.socket');
 
 // Configuring the database
 var dbConfig = require('./config/database.config.js');
 var mongoose = require('mongoose');
+
+var sockets = {};
 
 mongoose.Promise = global.Promise;
 
@@ -56,14 +46,12 @@ mongoose.connection.on('error', function () {
 
 mongoose.connection.once('open', function () {
     console.log("Successfully connected to the database".green);
-    
     io.on("connection", function (socket) {
-
         sockets[socket.id] = socket;
         console.log("New client connected: %s", socket.id.magenta);
-        console.log("Total clients connected: ".black, Object.keys(sockets).length);
+        console.log("Total clients connected: ", Object.keys(sockets).length);
 
-        //call listen  
+        //call listen
         deviceSocket(socket);
 
         //when client disconnect
