@@ -5,10 +5,15 @@ var io = require('socket.io')(server);
 var colors = require('colors');
 var port = process.env.PORT || 3000;
 var bodyParser = require("body-parser");
-var cors = require("cors");
 
 server.listen(port, function () {
     console.log('Server listening at port %d'.blue, port);
+});
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
 });
 
 app.use(bodyParser.urlencoded({

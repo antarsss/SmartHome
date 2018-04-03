@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var DeviceSchema = mongoose.Schema({
     deviceName: String,
-    typeDevice: String,
+    deviceType: String,
     description: String,
     position: String,
     state: Boolean,

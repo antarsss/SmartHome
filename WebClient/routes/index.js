@@ -4,24 +4,10 @@ var jsdom = require('jsdom');
 $ = require('jquery')(new jsdom.JSDOM().window);
 global.document = new jsdom.JSDOM().window.document;
 
-router.get('/', function (req, res, next) {
-    var lightlist = [];
-    $.ajax({
-        url: "http://192.168.3.6:3000/devices",
-        dataType: 'json',
-        async: true,
-        data: "",
-        success: function (data) {
-            console.log(data);
-            lightlist = data;
-            console.log(lightlist);
-
-        }
-    });
-
-    res.render('index', {
-        lightlist: lightlist
-    });
+router.get('/', function(req, res, next) {
+  res.render('index', {
+    title: "Home"
+  });
 
 });
 

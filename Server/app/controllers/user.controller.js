@@ -16,8 +16,8 @@ exports.login = function (req, res) {
     User.find({
         username: user.username,
         password: user.password
-    }, function (err, user) {
-        if (err) {
+    }, function (err, rs) {
+        if (rs.length==0) {
             return res.status(500).send({
                 login: false
             });
