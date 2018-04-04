@@ -1,38 +1,30 @@
 <html lang="en">
 
-<head>
-  <% include  head %>
-</head>
-<script>
-  var socket = io("http://192.168.1.118:3000");
-</script>
+   <head>
+      <% include  head %>
+      </head>
+      <script>
+         var socket = io("http://192.168.1.5:3000");
+      </script>
+      <body class="container">
+         <header>
+            <% include  header %>
+            </header>
+            <main>
+               <div class="jumbotron">
+                  <h1>This is great</h1>
+                  <p>Welcome to templating using EJS</p>
+                  <h2></h2>
 
-<body class="container">
+               </div>
+               <h2>Loop</h2>
+            </main>
 
-  <header>
-    <% include  header %>
-  </header>
+            <footer>
+               <% include  footer %>
+               </footer>
 
-  <main>
-    <div class="jumbotron">
-      <h1>This is great</h1>
-      <p>Welcome to templating using EJS</p>
-      <h2>
+            </body>
+            <script></script>
 
-            </h2>
-
-    </div>
-    <h2>Loop</h2>
-  </main>
-
-  <footer>
-    <% include  footer %>
-  </footer>
-
-</body>
-<script>
-
- 
-</script>
-
-</html>
+         </html>
