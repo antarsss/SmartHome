@@ -1,3 +1,3 @@
 module.exports = {
-    url: 'mongodb://localhost/smarthome'
+   url: 'mongodb://127.0.0.1/smarthome'
 }
