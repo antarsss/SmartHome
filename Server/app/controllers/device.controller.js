@@ -28,7 +28,7 @@ exports.create = function(req, res) {
    });
 };
 
-exports.findAll = function(req, res) {
+exports.getDevices = function(req, res) {
    // Retrieve and return all devices from the database.
    Device.find({}, null, {
       sort: {
@@ -45,7 +45,8 @@ exports.findAll = function(req, res) {
       }
    });
 };
-exports.findAllLights = function(req, res) {
+
+exports.getLights = function(req, res) {
    // Retrieve and return all devices from the database.
    Device.find({
       deviceType: "LIGHT"
@@ -64,7 +65,8 @@ exports.findAllLights = function(req, res) {
       }
    });
 };
-exports.findAllDoors = function(req, res) {
+
+exports.getDoors = function(req, res) {
    // Retrieve and return all devices from the database.
    Device.find({
       deviceType: "DOOR"
@@ -83,7 +85,8 @@ exports.findAllDoors = function(req, res) {
       }
    });
 };
-exports.findAllCameras = function(req, res) {
+
+exports.getCameras = function(req, res) {
    // Retrieve and return all devices from the database.
    Device.find({
       deviceType: "CAMERA"
@@ -102,7 +105,8 @@ exports.findAllCameras = function(req, res) {
       }
    });
 };
-exports.findLightByPosition = function(req, res) {
+
+exports.getLightByPosition = function(req, res) {
    // Retrieve and return all devices from the database.
    Device.find({
       deviceType: "LIGHT",
@@ -122,7 +126,8 @@ exports.findLightByPosition = function(req, res) {
       }
    });
 };
-exports.findDoorByPosition = function(req, res) {
+
+exports.getDoorByPosition = function(req, res) {
    // Retrieve and return all devices from the database.
    console.log(req.params.position);
    Device.find({
@@ -143,7 +148,8 @@ exports.findDoorByPosition = function(req, res) {
       }
    });
 };
-exports.findCameraByPosition = function(req, res) {
+
+exports.getCameraByPosition = function(req, res) {
    // Retrieve and return all devices from the database.
    Device.find({
       deviceType: "CAMERA",
@@ -164,41 +170,38 @@ exports.findCameraByPosition = function(req, res) {
    });
 };
 
-exports.findOne = function(req, res) {
-   // Find a single device with a devicename
-   Device.findById(req.params.deviceId, null, {
-      sort: {
-         deviceName: 1
-      }
+exports.updateDeviceById = function(req, res) {
+   // Update a device identified by the devicename in the request
+   Device.findByIdAndUpdate(req.params.deviceId, {
+      $set: req.body
    }, function(err, device) {
       if (err) {
-         console.log(err);
          if (err.kind === "ObjectId") {
             return res.status(404).send({
                message: "Note not found with id " + req.params.devicename
             });
          }
          return res.status(500).send({
-            message: "Error retrieving device with id " + req.params.devicename
+            message: "Error finding device with id " + req.params.devicename
          });
       }
-
       if (!device) {
          return res.status(404).send({
             message: "Note not found with id " + req.params.devicename
          });
       }
-      res.send(device);
+      res.send({
+         update: "ok"
+      });
    });
 };
 
-exports.update = function(req, res) {
+exports.updateDeviceByName = function(req, res) {
    // Update a device identified by the devicename in the request
-   Device.findByIdAndUpdate(req.params.deviceId, {
+   Device.findOneAndUpdate(req.params.deviceName, {
       $set: req.body
    }, function(err, device) {
       if (err) {
-         console.log(err);
          if (err.kind === "ObjectId") {
             return res.status(404).send({
                message: "Note not found with id " + req.params.devicename
@@ -218,10 +221,9 @@ exports.update = function(req, res) {
          update: "ok"
       });
    });
-
 };
 
-exports.delete = function(req, res) {
+exports.deleteDeviceById = function(req, res) {
    // Delete a device with the specified deviceId in the request
    Device.findByIdAndRemove(req.params.deviceId, function(err, device) {
       if (err) {

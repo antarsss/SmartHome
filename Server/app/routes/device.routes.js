@@ -1,25 +1,23 @@
 module.exports = function(app) {
    var devices = require('../controllers/device.controller');
    // Create a new Note
-   app.post('/devices', devices.create);
+   app.post('/create', devices.create);
 
    // Retrieve all Notes
-   app.get('/devices', devices.findAll);
+   app.get('/devices', devices.getDevices);
 
-   app.get('/device/lights', devices.findAllLights);
-   app.get('/device/doors', devices.findAllDoors);
-   app.get('/device/cameras', devices.findAllCameras);
+   app.get('/device/lights', devices.getLights);
+   app.get('/device/doors', devices.getDoors);
+   app.get('/device/cameras', devices.getCameras);
 
-   app.get('/device/light/:position', devices.findLightByPosition);
-   app.get('/device/door/:position', devices.findDoorByPosition);
-   app.get('/device/camera/:position', devices.findCameraByPosition);
-
-   // Retrieve a single Note with userId
-   app.get('/devices/:deviceId', devices.findOne);
+   app.get('/device/light/:position', devices.getLightByPosition);
+   app.get('/device/door/:position', devices.getLightByPosition);
+   app.get('/device/camera/:position', devices.getLightByPosition);
 
    // Update a Note with userId
-   app.put('/devices/:deviceId', devices.update);
+   app.put('/devices/:deviceId', devices.updateDeviceById);
+   app.put('/devices/:deviceName', devices.updateDeviceByName);
 
    // Delete a Note with userId
-   app.delete('/devices/:deviceId', devices.delete);
+   app.delete('/devices/:deviceId', devices.deleteDeviceById);
 }
