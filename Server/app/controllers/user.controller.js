@@ -97,7 +97,9 @@ exports.findOne = function(req, res) {
 
 exports.update = function(req, res) {
    // Update a user identified by the username in the request
-   User.findById(req.params.username, function(err, user) {
+   User.findOneAndUpdate(req.params.username, {
+      $set: req.body
+   }, function(err, user) {
       if (err) {
          console.log(err);
          if (err.kind === 'ObjectId') {
@@ -115,20 +117,7 @@ exports.update = function(req, res) {
             message: "Note not found with id " + req.params.username
          });
       }
-
-      user.username = req.body.username;
-      user.password = req.body.password;
-      user.fullname = req.body.fullname;
-
-      user.save(function(err, data) {
-         if (err) {
-            res.status(500).send({
-               message: "Could not update user with id " + req.params.username
-            });
-         } else {
-            res.send(data);
-         }
-      });
+      res.send(data);
    });
 
 };

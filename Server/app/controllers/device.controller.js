@@ -30,7 +30,11 @@ exports.create = function(req, res) {
 
 exports.findAll = function(req, res) {
    // Retrieve and return all devices from the database.
-   Device.find(function(err, devices) {
+   Device.find({}, null, {
+      sort: {
+         deviceName: 1
+      }
+   }, function(err, devices) {
       if (err) {
          console.log(err);
          res.status(500).send({
@@ -45,6 +49,10 @@ exports.findAllLights = function(req, res) {
    // Retrieve and return all devices from the database.
    Device.find({
       deviceType: "LIGHT"
+   }, null, {
+      sort: {
+         deviceName: 1
+      }
    }, function(err, devices) {
       if (err) {
          console.log(err);
@@ -60,6 +68,10 @@ exports.findAllDoors = function(req, res) {
    // Retrieve and return all devices from the database.
    Device.find({
       deviceType: "DOOR"
+   }, null, {
+      sort: {
+         deviceName: 1
+      }
    }, function(err, devices) {
       if (err) {
          console.log(err);
@@ -75,6 +87,10 @@ exports.findAllCameras = function(req, res) {
    // Retrieve and return all devices from the database.
    Device.find({
       deviceType: "CAMERA"
+   }, null, {
+      sort: {
+         deviceName: 1
+      }
    }, function(err, devices) {
       if (err) {
          console.log(err);
@@ -91,6 +107,10 @@ exports.findLightByPosition = function(req, res) {
    Device.find({
       deviceType: "LIGHT",
       position: req.params.position
+   }, null, {
+      sort: {
+         deviceName: 1
+      }
    }, function(err, devices) {
       if (err) {
          console.log(err);
@@ -108,6 +128,10 @@ exports.findDoorByPosition = function(req, res) {
    Device.find({
       deviceType: "DOOR",
       position: req.params.position
+   }, null, {
+      sort: {
+         deviceName: 1
+      }
    }, function(err, devices) {
       if (err) {
          console.log(err);
@@ -124,6 +148,10 @@ exports.findCameraByPosition = function(req, res) {
    Device.find({
       deviceType: "CAMERA",
       position: req.params.position
+   }, null, {
+      sort: {
+         deviceName: 1
+      }
    }, function(err, devices) {
       if (err) {
          console.log(err);
@@ -138,7 +166,11 @@ exports.findCameraByPosition = function(req, res) {
 
 exports.findOne = function(req, res) {
    // Find a single device with a devicename
-   Device.findById(req.params.deviceId, function(err, device) {
+   Device.findById(req.params.deviceId, null, {
+      sort: {
+         deviceName: 1
+      }
+   }, function(err, device) {
       if (err) {
          console.log(err);
          if (err.kind === "ObjectId") {
@@ -156,14 +188,15 @@ exports.findOne = function(req, res) {
             message: "Note not found with id " + req.params.devicename
          });
       }
-
       res.send(device);
    });
 };
 
 exports.update = function(req, res) {
    // Update a device identified by the devicename in the request
-   Device.findById(req.params.deviceId, function(err, device) {
+   Device.findByIdAndUpdate(req.params.deviceId, {
+      $set: req.body
+   }, function(err, device) {
       if (err) {
          console.log(err);
          if (err.kind === "ObjectId") {
@@ -181,25 +214,11 @@ exports.update = function(req, res) {
             message: "Note not found with id " + req.params.devicename
          });
       }
-
-      device.deviceName = req.body.deviceName;
-      device.deviceType = req.body.deviceType;
-      device.description = req.body.description;
-      device.position = req.body.position;
-      device.state = req.body.state;
-      device.connect = req.body.connect;
-      if (device.deviceName && device.deviceType) {
-         device.save(function(err, data) {
-            if (err) {
-               res.status(500).send({
-                  message: "Could not update device with id " + req.params.devicename
-               });
-            } else {
-               res.send(data);
-            }
-         });
-      }
+      res.send({
+         update: "ok"
+      });
    });
+
 };
 
 exports.delete = function(req, res) {
@@ -224,7 +243,7 @@ exports.delete = function(req, res) {
       }
 
       res.send({
-         message: "Note deleted successfully!"
+         delete: "ok"
       });
    });
 };
