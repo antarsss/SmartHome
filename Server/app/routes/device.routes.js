@@ -11,8 +11,8 @@ module.exports = function(app) {
    app.get('/device/cameras', devices.getCameras);
 
    app.get('/device/light/:position', devices.getLightByPosition);
-   app.get('/device/door/:position', devices.getLightByPosition);
-   app.get('/device/camera/:position', devices.getLightByPosition);
+   app.get('/device/door/:position', devices.getDoorByPosition);
+   app.get('/device/camera/:position', devices.getCameraByPosition);
 
    // Update a Note with userId
    app.put('/devices/:deviceId', devices.updateDeviceById);
