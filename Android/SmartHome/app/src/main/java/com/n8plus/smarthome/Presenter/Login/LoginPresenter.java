@@ -1,18 +1,14 @@
 package com.n8plus.smarthome.Presenter.Login;
 
 import android.content.Context;
-import android.content.Intent;
-import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.n8plus.smarthome.Activity.HomeActivity;
-import com.n8plus.smarthome.Utils.common.Constain;
+import com.n8plus.smarthome.Utils.common.Constant;
 import com.n8plus.smarthome.Utils.common.VolleySingleton;
-import com.n8plus.smarthome.View.Login.LoginActivity;
 import com.n8plus.smarthome.View.Login.LoginViewImpl;
 
 import org.json.JSONException;
@@ -34,7 +30,7 @@ public class LoginPresenter implements LoginPresenterImpl {
 
     @Override
     public void checkLogin(String usn, String pass) {
-        String URI = Constain.URL +"/login";
+        String URI = Constant.URL +"/login";
         System.out.println("URL: "+URI);
         Map<String, String> params = new HashMap<String, String>();
         params.put("username", usn);

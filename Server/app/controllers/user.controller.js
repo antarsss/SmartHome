@@ -28,6 +28,7 @@ exports.login = function(req, res) {
       }
    });
 };
+
 exports.create = function(req, res) {
    // Create and Save a new Note
    if (!req.body.password) {

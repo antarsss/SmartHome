@@ -10,7 +10,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.github.nkzawa.emitter.Emitter;
 import com.n8plus.smarthome.Activity.HomeActivity;
 import com.n8plus.smarthome.Model.Device;
-import com.n8plus.smarthome.Utils.common.Constain;
+import com.n8plus.smarthome.Utils.common.Constant;
 import com.n8plus.smarthome.Utils.common.VolleySingleton;
 import com.n8plus.smarthome.View.ControlLight.ControlLight;
 import com.n8plus.smarthome.View.ControlLight.ControlLightViewImpl;
@@ -70,7 +70,7 @@ public class ControlLightPresenter implements ControlLightPresenterImpl {
 
     @Override
     public void loadListLight() {
-        String URI = Constain.URL +"/device/lights";
+        String URI = Constant.URL +"/device/lights";
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, URI, null,
                 new Response.Listener<JSONArray>() {
                     @Override

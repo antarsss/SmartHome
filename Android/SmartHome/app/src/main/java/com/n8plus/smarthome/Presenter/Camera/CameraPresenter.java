@@ -8,7 +8,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.n8plus.smarthome.Activity.HomeActivity;
 import com.n8plus.smarthome.Model.Device;
-import com.n8plus.smarthome.Utils.common.Constain;
+import com.n8plus.smarthome.Utils.common.Constant;
 import com.n8plus.smarthome.Utils.common.VolleySingleton;
 import com.n8plus.smarthome.View.Camera.SelectCameraViewImpl;
 
@@ -34,7 +34,7 @@ public class CameraPresenter implements CameraPresenterImpl {
 
     @Override
     public void loadAllCamera() {
-        String URI = Constain.URL +"/device/cameras";
+        String URI = Constant.URL +"/device/cameras";
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, URI, null,
                 new Response.Listener<JSONArray>() {
                     @Override
