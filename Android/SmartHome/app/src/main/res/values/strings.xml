@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Smart Home</string>
+    <string-array name="optionroom">
+        <item>Living room</item>
+        <item>Bed room</item>
+        <item>Dining room</item>
+        <item>Working room</item>
+    </string-array>
+
+    <string-array name="optiondevice">
+        <item>Device 1</item>
+        <item>Device 2</item>
+        <item>Device 3</item>
+        <item>Device 4</item>
+        <item>Device 5</item>
+        <item>Device 6</item>
+    </string-array>
+</resources>

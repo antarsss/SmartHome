@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.n8plus.smarthome.View.LoadDoor.DetectionDoor">
+    <ScrollView
+        android:scrollbars="none"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_margin="8dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:id="@+id/linearLivingRoom"
+                android:padding="5dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:background="@drawable/title_box_shadow"
+                    android:padding="3dp"
+                    android:weightSum="10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:padding="5dp"
+                        android:src="@drawable/livingroom"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp" />
+                    <TextView
+                        android:layout_weight="10"
+                        android:layout_marginLeft="8dp"
+                        android:textSize="16dp"
+                        android:layout_gravity="center"
+                        android:text="Living room"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:background="@drawable/box_shadow"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp">
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/doorLivingRoom"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    </android.support.v7.widget.RecyclerView>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearBedRoom"
+                android:padding="5dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:background="@drawable/title_box_shadow"
+                    android:padding="3dp"
+                    android:weightSum="10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:padding="5dp"
+                        android:src="@drawable/bed"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp" />
+                    <TextView
+                        android:layout_weight="10"
+                        android:layout_marginLeft="8dp"
+                        android:textSize="16dp"
+                        android:layout_gravity="center"
+                        android:text="Bed room"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:background="@drawable/box_shadow"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp">
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/doorBedRoom"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    </android.support.v7.widget.RecyclerView>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearDiningRoom"
+                android:padding="5dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:background="@drawable/title_box_shadow"
+                    android:padding="3dp"
+                    android:weightSum="10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:padding="5dp"
+                        android:src="@drawable/dining"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp" />
+                    <TextView
+                        android:layout_weight="10"
+                        android:layout_marginLeft="8dp"
+                        android:textSize="16dp"
+                        android:layout_gravity="center"
+                        android:text="Dining room"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:background="@drawable/box_shadow"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp">
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/doorDiningRoom"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    </android.support.v7.widget.RecyclerView>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearWorkingRoom"
+                android:padding="5dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:background="@drawable/title_box_shadow"
+                    android:padding="3dp"
+                    android:weightSum="10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:padding="5dp"
+                        android:src="@drawable/working_room"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp" />
+                    <TextView
+                        android:layout_weight="10"
+                        android:layout_marginLeft="8dp"
+                        android:textSize="16dp"
+                        android:layout_gravity="center"
+                        android:text="Working room"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:background="@drawable/box_shadow"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp">
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/doorWorkingRoom"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    </android.support.v7.widget.RecyclerView>
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
