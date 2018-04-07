@@ -11,6 +11,6 @@ import org.json.JSONObject;
 
 public interface JsonConvertImpl<T> {
     public String object2Json(Device device);
-    public T json2Object(JSONObject light);
+    public Device json2Object(JSONObject light);
 //    public T jsonToObject(String mJsonString);
 }

@@ -48,8 +48,8 @@ public class ControlLightPresenter implements ControlLightPresenterImpl {
                 @Override
                 public void run() {
                     try {
-                        String data = (String) args[0];
-                        JSONObject object = new JSONObject(data);
+//                        String data = (String) args[0];
+                        JSONObject object = new JSONObject((String) args[0]);
 
                         Device light = HomeActivity.deviceConvert.json2Object(object);
                         lights.add(light);
@@ -83,7 +83,7 @@ public class ControlLightPresenter implements ControlLightPresenterImpl {
                                 object.remove("createdAt");
                                 object.remove("updatedAt");
                                 System.out.println(object.toString());
-                                Device light = HomeActivity.deviceConvert.json2Object(object);
+                                Device light = HomeActivity.deviceConvert.json2ObjectByGSon(object);
                                 lights.add(light);
                             } catch (JSONException e) {
                                 e.printStackTrace();

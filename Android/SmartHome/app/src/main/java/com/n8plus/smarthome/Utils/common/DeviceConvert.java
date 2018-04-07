@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.n8plus.smarthome.Model.Device;
+import com.n8plus.smarthome.Model.Enum.Position;
+import com.n8plus.smarthome.Model.Enum.TypeDevice;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,7 +25,7 @@ public class DeviceConvert {
         return null;
     }
 
-    public Device json2Object(JSONObject jsonObject) {
+    public Device json2ObjectByGSon(JSONObject jsonObject) {
         try {
             JsonParser parser = new JsonParser();
             JsonElement element = parser.parse(jsonObject.toString());
@@ -31,6 +33,26 @@ public class DeviceConvert {
             Device object = gson.fromJson(element, Device.class);
             return object;
         } catch (IllegalStateException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Device json2Object(JSONObject jsonObject) {
+        try {
+            Device device = new Device.Builder()
+                    .set_id(jsonObject.getString("_id"))
+                    .setDeviceName(jsonObject.getString("deviceName"))
+                    .setTypeDevice(TypeDevice.getType(jsonObject.getString("deviceType")))
+                    .setDescription(jsonObject.getString("description"))
+                    .setPosition(Position.getPos(jsonObject.getString("position")))
+                    .setState(jsonObject.getInt("state")==1 ? true:false)
+                    .setConnect(jsonObject.getInt("connect")==1 ? true:false)
+                    .build();
+            return device;
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         return null;

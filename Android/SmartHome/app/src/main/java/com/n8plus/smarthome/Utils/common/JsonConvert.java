@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.n8plus.smarthome.Model.Device;
+import com.n8plus.smarthome.Model.Enum.Position;
+import com.n8plus.smarthome.Model.Enum.TypeDevice;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,23 +26,28 @@ public class JsonConvert<T> implements JsonConvertImpl<T> {
 
     @Override
     public String object2Json(Device device) {
-        String s = "{'id':"+device.get_id()+", 'name': '"+device.getDeviceName()+"', 'position': '"+device.getPosition()+"', 'state':"+device.isState()+", 'connect':"+device.isConnect()+"}";
+        String s = "{'_id':"+device.get_id()+", 'deviceName': '"+device.getDeviceName()+"'," +
+                " 'deviceType': '"+device.getTypeDevice()+"', 'description': '"+device.getDescription()+"'," +
+                " 'position': '"+device.getPosition()+"', 'state':"+device.isState()+", 'connect':"+device.isConnect()+"}";
         return s;
     }
 
+
+
     @Override
-    public T json2Object(JSONObject jsonObject) {
+    public Device json2Object(JSONObject jsonObject) {
         try {
             JsonParser parser = new JsonParser();
             JsonElement element = parser.parse(jsonObject.toString());
             Gson gson = new Gson();
-            T object = gson.fromJson(element, typeParameterClass);
+            Device object = (Device) gson.fromJson(element, typeParameterClass);
             return object;
         } catch (IllegalStateException e) {
             e.printStackTrace();
         }
         return null;
     }
+
 
 
 

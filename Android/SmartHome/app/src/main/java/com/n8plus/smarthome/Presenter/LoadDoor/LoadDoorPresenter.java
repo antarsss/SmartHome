@@ -50,7 +50,7 @@ public class LoadDoorPresenter implements LoadDoorPresenterImpl {
                                 object.remove("createdAt");
                                 object.remove("updatedAt");
                                 System.out.println(object.toString());
-                                Device door = HomeActivity.deviceConvert.json2Object(object);
+                                Device door = HomeActivity.deviceConvert.json2ObjectByGSon(object);
                                 doors.add(door);
                             } catch (JSONException e) {
                                 e.printStackTrace();
