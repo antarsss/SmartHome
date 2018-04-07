@@ -75,11 +75,12 @@ public class ControlMainDoor extends AppCompatActivity implements ControlMainDoo
     }
 
     @Override
+
+
     public void onBackPressed() {
         Intent intent = new Intent();
         intent.putExtra("stateDoor", door);
         setResult(RESULT_OK, intent);
-
         super.onBackPressed();
     }
 

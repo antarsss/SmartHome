@@ -16,8 +16,11 @@ import org.json.JSONObject;
 
 public class DeviceConvert {
     public JSONObject object2Json(Device device) {
-        String s = "{'id': '"+device.get_id()+"', 'deviceName': '"+device.getDeviceName()+"', 'position': '"+device.getPosition()+"', 'state':"+device.isState()+", 'connect':"+device.isConnect()+"}";
         try {
+            String s = "{'_id':'"+device.get_id()+"', 'deviceName': '"+device.getDeviceName()+"'," +
+                    " 'deviceType': '"+device.getTypeDevice()+"', 'description': '"+device.getDescription()+"'," +
+                    " 'position': '"+device.getPosition()+"', 'state':"+device.isState()+", 'connect':"+device.isConnect()+"}";
+            System.out.println(s);
             return new JSONObject(s);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -46,8 +49,8 @@ public class DeviceConvert {
                     .setTypeDevice(TypeDevice.getType(jsonObject.getString("deviceType")))
                     .setDescription(jsonObject.getString("description"))
                     .setPosition(Position.getPos(jsonObject.getString("position")))
-                    .setState(jsonObject.getInt("state")==1 ? true:false)
-                    .setConnect(jsonObject.getInt("connect")==1 ? true:false)
+                    .setState(jsonObject.getInt("state")==1)
+                    .setConnect(jsonObject.getInt("connect")==1)
                     .build();
             return device;
         } catch (IllegalStateException e) {

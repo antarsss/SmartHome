@@ -48,16 +48,8 @@ public class ControlLightPresenter implements ControlLightPresenterImpl {
                 @Override
                 public void run() {
                     try {
-//                        String data = (String) args[0];
-                        JSONObject object = new JSONObject((String) args[0]);
-
-                        Device light = HomeActivity.deviceConvert.json2Object(object);
+                        Device light = HomeActivity.deviceConvert.json2Object((JSONObject) args[0]);
                         lights.add(light);
-                        if (light != null) {
-                            Toast.makeText((Context) controlLightView, "" + light.isState(), Toast.LENGTH_LONG).show();
-                        } else {
-                            Toast.makeText((Context) controlLightView, "null rồi", Toast.LENGTH_LONG).show();
-                        }
                         controlLightView.checkResponse(lights);
                     } catch (Exception e) {
 

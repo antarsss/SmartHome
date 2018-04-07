@@ -89,6 +89,7 @@ public class ControlLight extends AppCompatActivity implements ControlLightViewI
 
     @Override
     public void checkResponse(List<Device> lights) {
+        System.out.println("Có checkresponse !");
         for (Device light:lights){
             arrayList.get(light.get_id()).setState(light.isState());
         }

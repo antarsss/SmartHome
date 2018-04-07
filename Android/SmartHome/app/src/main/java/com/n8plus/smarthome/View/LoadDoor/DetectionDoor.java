@@ -102,6 +102,7 @@ public class DetectionDoor extends AppCompatActivity implements DetectionDoorVie
         super.onActivityResult(requestCode, resultCode, data);
         if (data != null & requestCode == 1 & resultCode == RESULT_OK) {
             Device door = (Device) data.getSerializableExtra("stateDoor");
+            System.out.println("doorControl: "+door.get_id()+", "+door.getDeviceName()+", "+door.getTypeDevice()+", "+door.getDescription()+", "+door.getPosition()+", "+door.isState()+", "+door.isConnect());
             switch (door.getPosition()) {
                 case LIVINGROOM:
                     listLivingRoom.get(door.get_id()).setState(door.isState());
