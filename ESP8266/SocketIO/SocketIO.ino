@@ -1,5 +1,5 @@
-#include <ESP8266HTTPClient.h>
 #include <SocketIOClient.h>
+#include <ESP8266HTTPClient.h>
 #include <ArduinoJson.h>
 #include <ESP8266WiFiMulti.h>
  
@@ -13,7 +13,7 @@ int red = D6;
 
 int LEDs[] = {D8, D7, D6, D5, D4, D3, D2, D1, D0};
 
-char host[] = "192.168.43.131";  
+char host[] = "192.168.1.6";  
 int port = 3000;                  
 
 extern String RID; // tên sự kiện
@@ -27,10 +27,12 @@ void setupNetwork() {
     WiFi.persistent(false);
     WiFi.mode(WIFI_STA);
 //    wifimulti.addAP("BON FPT", "kemtuchon19k");
-    wifimulti.addAP("BON VNPT", "kemtuchon19k");
+//    wifimulti.addAP("BON VNPT", "kemtuchon19k");
     wifimulti.addAP("FPT Telecom", "dongthap");
     wifimulti.addAP("AnhTraiMua", "meochonhe");
-//    wifimulti.addAP("HoangPhat_Pro", "20052010");
+    wifimulti.addAP("HoangPhat_Pro", "20052010");
+    wifimulti.addAP("ANDY", "01666988779");
+
 
     uint8_t i = 0;
     while (wifimulti.run() != WL_CONNECTED && i++ < 20) delay(500);

@@ -25,11 +25,10 @@ import com.n8plus.smarthome.Activity.Fragment.Fragment_Notification;
 import com.n8plus.smarthome.Activity.Fragment.Fragment_Profile;
 import com.n8plus.smarthome.Activity.Fragment.Fragment_Select_Device_Type;
 import com.n8plus.smarthome.Interface.CountMarkedAsRead;
-import com.n8plus.smarthome.Model.Device;
 import com.n8plus.smarthome.Model.Enum.TypeNotification;
 import com.n8plus.smarthome.Model.Notification;
 import com.n8plus.smarthome.R;
-import com.n8plus.smarthome.Utils.common.Constain;
+import com.n8plus.smarthome.Utils.common.Constant;
 import com.n8plus.smarthome.Utils.common.DeviceConvert;
 
 import org.json.JSONException;
@@ -49,7 +48,7 @@ public class HomeActivity extends AppCompatActivity implements CountMarkedAsRead
     ArrayList<Notification> notifications;
     int countNoti = 0;
 
-    private final String URL_SERVER = Constain.URL;
+    private final String URL_SERVER = Constant.URL;
     public static final DeviceConvert deviceConvert = new DeviceConvert();
     public static final DeviceConvert doorConvert = new DeviceConvert();
     public static Socket mSocket;

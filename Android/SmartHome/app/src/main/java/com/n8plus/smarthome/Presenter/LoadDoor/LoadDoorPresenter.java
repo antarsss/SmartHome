@@ -1,7 +1,6 @@
 package com.n8plus.smarthome.Presenter.LoadDoor;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -10,7 +9,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.n8plus.smarthome.Activity.HomeActivity;
 import com.n8plus.smarthome.Model.Device;
 import com.n8plus.smarthome.Model.Enum.Position;
-import com.n8plus.smarthome.Utils.common.Constain;
+import com.n8plus.smarthome.Utils.common.Constant;
 import com.n8plus.smarthome.Utils.common.VolleySingleton;
 import com.n8plus.smarthome.View.LoadDoor.DetectionDoorViewImpl;
 
@@ -37,7 +36,7 @@ public class LoadDoorPresenter implements LoadDoorPresenterImpl {
 
     @Override
     public void loadListDoor(final Position position) {
-        String URI = Constain.URL +"/device/door/"+ position.toString();
+        String URI = Constant.URL +"/device/door/"+ position.toString();
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, URI, null,
                 new Response.Listener<JSONArray>() {
                     @Override
