@@ -62,15 +62,18 @@ public class DetectionDoor extends AppCompatActivity implements DetectionDoorVie
 
     }
 
-    public void initView(ArrayList<Device> arrayList, RecyclerView recyclerView) {
-        if (!arrayList.isEmpty()) {
+    public void initView(HashMap<String, Device> arrayList, List<Device> doors, RecyclerView recyclerView) {
+        if (!doors.isEmpty()) {
             recyclerView.setVisibility(View.VISIBLE);
             ((LinearLayout) recyclerView.getParent().getParent()).setVisibility(View.VISIBLE);
             recyclerView.setHasFixedSize(true);
             LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
             recyclerView.setLayoutManager(layoutManager);
-
-            listDoorAdapter = new ListDoorAdapter(arrayList, DetectionDoor.this);
+            arrayList = new HashMap<>();
+            for (Device door : doors) {
+                arrayList.put(door.get_id(), door);
+            }
+            listDoorAdapter = new ListDoorAdapter(new ArrayList<Device>(arrayList.values()), DetectionDoor.this);
             recyclerView.setAdapter(listDoorAdapter);
         } else {
             ((LinearLayout) recyclerView.getParent().getParent()).setVisibility(View.INVISIBLE);
@@ -122,64 +125,18 @@ public class DetectionDoor extends AppCompatActivity implements DetectionDoorVie
         LinearLayoutManager layoutManager;
         switch (position){
             case LIVINGROOM:
-                doorLivingRoom.setVisibility(View.VISIBLE);
-                ((LinearLayout) doorLivingRoom.getParent().getParent()).setVisibility(View.VISIBLE);
-                doorLivingRoom.setHasFixedSize(true);
-                layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-                doorLivingRoom.setLayoutManager(layoutManager);
-
-                listLivingRoom = new HashMap<>();
-                for (Device door : doors) {
-                    listLivingRoom.put(door.get_id(), door);
-                }
-                listDoorAdapter = new ListDoorAdapter(new ArrayList<Device>(listLivingRoom.values()), this);
-
-                doorLivingRoom.setAdapter(listDoorAdapter);
+                initView(listLivingRoom, doors, doorLivingRoom);
                 break;
-
             case BEDROOM:
-                doorBedRoom.setVisibility(View.VISIBLE);
-                ((LinearLayout) doorBedRoom.getParent().getParent()).setVisibility(View.VISIBLE);
-                doorBedRoom.setHasFixedSize(true);
-                layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-                doorBedRoom.setLayoutManager(layoutManager);
-
-                listBedRoom = new HashMap<>();
-                for (Device door : doors) {
-                    listBedRoom.put(door.get_id(), door);
-                }
-                listDoorAdapter = new ListDoorAdapter(new ArrayList<Device>(listBedRoom.values()), this);
-                doorBedRoom.setAdapter(listDoorAdapter);
+                initView(listBedRoom, doors, doorBedRoom);
                 break;
 
             case DININGROOM:
-                doorDiningRoom.setVisibility(View.VISIBLE);
-                ((LinearLayout) doorDiningRoom.getParent().getParent()).setVisibility(View.VISIBLE);
-                doorDiningRoom.setHasFixedSize(true);
-                layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-                doorDiningRoom.setLayoutManager(layoutManager);
-
-                listDiningRoom = new HashMap<>();
-                for (Device door : doors) {
-                    listDiningRoom.put(door.get_id(), door);
-                }
-                listDoorAdapter = new ListDoorAdapter(new ArrayList<Device>(listDiningRoom.values()), this);
-                doorDiningRoom.setAdapter(listDoorAdapter);
+                initView(listDiningRoom, doors, doorDiningRoom);
                 break;
 
             case WORKINGROOM:
-                doorWorkingRoom.setVisibility(View.VISIBLE);
-                ((LinearLayout) doorWorkingRoom.getParent().getParent()).setVisibility(View.VISIBLE);
-                doorWorkingRoom.setHasFixedSize(true);
-                layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-                doorWorkingRoom.setLayoutManager(layoutManager);
-
-                listWorkingRoom = new HashMap<>();
-                for (Device door : doors) {
-                    listWorkingRoom.put(door.get_id(), door);
-                }
-                listDoorAdapter = new ListDoorAdapter(new ArrayList<Device>(listWorkingRoom.values()), this);
-                doorWorkingRoom.setAdapter(listDoorAdapter);
+                initView(listWorkingRoom, doors, doorWorkingRoom);
                 break;
         }
         Toast.makeText(this, "Load all door success!", Toast.LENGTH_SHORT).show();
