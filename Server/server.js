@@ -55,10 +55,8 @@ mongoose.connection.once("open", function() {
       sockets[socket.id] = socket;
       console.log("New client connected: %s", socket.id.magenta);
       console.log("Total clients connected: ", Object.keys(sockets).length);
-
       //call listen
       deviceSocket(socket);
-
       //when client disconnect
       socket.on("disconnect", function() {
          delete sockets[socket.id];

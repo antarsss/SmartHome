@@ -31,16 +31,26 @@ a:visited {
 
 /*header*/
 
-.menu {
+.menu-container {
   min-width: 220px;
+  position:fixed;
   top: 0;
-  height: 100vh;
-  list-style-type: none;
-  position: fixed;
   left: 0;
   top: 0;
+  bottom: 0;
   background: white;
-  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+  overflow-y: auto;
+  overflow-x: hidden;
+ }
+.menu {
+  width: 100%;
+  background: white;
+}
+footer {
+  overflow-x: hidden;
+  padding: 18px;
+  overflow-y: visible;
+  background: white;
 }
 
 .menu ul {
@@ -362,7 +372,9 @@ body {
 
 .hero-image {
   position: relative;
-	padding-top: 10px
+	padding-top: 10px;
+  max-height: 420px;
+  overflow: hidden;
 }
 
 .hero-image img {
@@ -398,7 +410,7 @@ body {
 @media screen and (min-width:968px) {
   .hero-text h1 {
     font-weight: 600;
-    font-size: 4em;
+    font-size: 5em;
   }
   .hero-text h3 {
     margin-top: 10px !important;

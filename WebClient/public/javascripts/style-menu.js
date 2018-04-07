@@ -7,12 +7,12 @@ $(document).ready(function() {
 })
 
 function control_menu() {
-   var divPa = $(".menu").parent();
+   var divPa = $(".menu-container").parent();
    var button = $(".float-button-menu");
    button.click(function(e) {
       divPa.fadeToggle();
    })
-   $(".menu").width(divPa.width())
+   $(".menu-container").width(divPa.width())
    if ($(window).width() <= 800) {
       divPa.hide();
       button.show();
