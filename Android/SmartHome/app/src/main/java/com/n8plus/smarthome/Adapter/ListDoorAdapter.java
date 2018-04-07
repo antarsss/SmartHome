@@ -100,11 +100,11 @@ public class ListDoorAdapter extends RecyclerView.Adapter<ListDoorAdapter.ViewHo
 
         @Override
         public void onClick(View view) {
-            if (arrayList.get(getAdapterPosition()).getDescription().equals("MAIN DOOR")){
+            Device mainDoor = arrayList.get(getAdapterPosition());
+            if (mainDoor.getDescription().equals("MAIN DOOR")){
                 Intent intent = new Intent(view.getContext(), ControlMainDoor.class);
-                intent.putExtra("door", arrayList.get(getAdapterPosition()));
+                intent.putExtra("door", mainDoor);
                 context.startActivityForResult(intent, 1);
-                position = getAdapterPosition();
             }
             else {
                 Toast.makeText(view.getContext(), "Windows can't be control !", Toast.LENGTH_SHORT).show();

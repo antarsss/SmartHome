@@ -8,4 +8,5 @@ import com.n8plus.smarthome.Model.Enum.Position;
 
 public interface LoadDoorPresenterImpl {
     void loadListDoor(Position position);
+    void loadState();
 }

@@ -12,5 +12,6 @@ import java.util.List;
 public interface DetectionDoorViewImpl {
     void loadAllDoorSuccess(List<Device> devices, Position position);
     void loadAllDoorFailure();
+    void checkResponse(List<Device> doors, Position position);
 
 }

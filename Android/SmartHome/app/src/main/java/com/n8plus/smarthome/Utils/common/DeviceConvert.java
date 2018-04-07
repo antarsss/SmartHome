@@ -29,13 +29,31 @@ public class DeviceConvert {
     }
 
     public Device json2ObjectByGSon(JSONObject jsonObject) {
+//        try {
+//            JsonParser parser = new JsonParser();
+//            JsonElement element = parser.parse(jsonObject.toString());
+//            Gson gson = new Gson();
+//            Device object = gson.fromJson(element, Device.class);
+//            return object;
+//        } catch (IllegalStateException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+
         try {
-            JsonParser parser = new JsonParser();
-            JsonElement element = parser.parse(jsonObject.toString());
-            Gson gson = new Gson();
-            Device object = gson.fromJson(element, Device.class);
-            return object;
+            Device device = new Device.Builder()
+                    .set_id(jsonObject.getString("_id"))
+                    .setDeviceName(jsonObject.getString("deviceName"))
+                    .setTypeDevice(TypeDevice.getType(jsonObject.getString("deviceType")))
+                    .setDescription(jsonObject.getString("description"))
+                    .setPosition(Position.getPos(jsonObject.getString("position")))
+                    .setState(jsonObject.getBoolean("state"))
+                    .setConnect(jsonObject.getBoolean("connect"))
+                    .build();
+            return device;
         } catch (IllegalStateException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         return null;

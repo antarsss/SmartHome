@@ -46,7 +46,7 @@ public class CameraPresenter implements CameraPresenterImpl {
                                 object.remove("__v");
                                 object.remove("createdAt");
                                 object.remove("updatedAt");
-                                object.remove("state");
+//                                object.remove("state");
                                 System.out.println(object.toString());
                                 Device camera = HomeActivity.deviceConvert.json2ObjectByGSon(object);
                                 cameras.add(camera);

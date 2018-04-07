@@ -44,10 +44,8 @@ public class DetectionDoor extends AppCompatActivity implements DetectionDoorVie
 
         Mount();
         loadDoorPresenter = new LoadDoorPresenter(this);
-        loadDoorPresenter.loadListDoor(Position.LIVINGROOM);
-        loadDoorPresenter.loadListDoor(Position.BEDROOM);
-        loadDoorPresenter.loadListDoor(Position.DININGROOM);
-        loadDoorPresenter.loadListDoor(Position.WORKINGROOM);
+        loadDoorPresenter.loadState();
+        loadAllDoor();
 
         animRolate = AnimationUtils.loadAnimation(this, R.anim.anim_scan);
 
@@ -60,6 +58,13 @@ public class DetectionDoor extends AppCompatActivity implements DetectionDoorVie
         doorDiningRoom = (RecyclerView) findViewById(R.id.doorDiningRoom);
         doorWorkingRoom = (RecyclerView) findViewById(R.id.doorWorkingRoom);
 
+    }
+
+    public void loadAllDoor(){
+        loadDoorPresenter.loadListDoor(Position.LIVINGROOM);
+        loadDoorPresenter.loadListDoor(Position.BEDROOM);
+        loadDoorPresenter.loadListDoor(Position.DININGROOM);
+        loadDoorPresenter.loadListDoor(Position.WORKINGROOM);
     }
 
     public void initView(HashMap<String, Device> arrayList, List<Device> doors, RecyclerView recyclerView) {
@@ -91,7 +96,7 @@ public class DetectionDoor extends AppCompatActivity implements DetectionDoorVie
         switch (item.getItemId()) {
             case R.id.mnuReload:
                 Toast.makeText(getApplicationContext(), "Refreshing...", Toast.LENGTH_SHORT).show();
-
+                loadAllDoor();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -101,29 +106,12 @@ public class DetectionDoor extends AppCompatActivity implements DetectionDoorVie
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (data != null & requestCode == 1 & resultCode == RESULT_OK) {
-            Device door = (Device) data.getSerializableExtra("stateDoor");
-            System.out.println("doorControl: "+door.get_id()+", "+door.getDeviceName()+", "+door.getTypeDevice()+", "+door.getDescription()+", "+door.getPosition()+", "+door.isState()+", "+door.isConnect());
-            switch (door.getPosition()) {
-                case LIVINGROOM:
-                    listLivingRoom.get(door.get_id()).setState(door.isState());
-                    break;
-                case BEDROOM:
-                    listBedRoom.get(door.get_id()).setState(door.isState());
-                    break;
-                case DININGROOM:
-                    listDiningRoom.get(door.get_id()).setState(door.isState());
-                    break;
-                case WORKINGROOM:
-                    listWorkingRoom.get(door.get_id()).setState(door.isState());
-                    break;
-            }
-            listDoorAdapter.notifyDataSetChanged();
+            loadAllDoor();
         }
     }
 
     @Override
     public void loadAllDoorSuccess(List<Device> doors, Position position) {
-        LinearLayoutManager layoutManager;
         switch (position){
             case LIVINGROOM:
                 initView(listLivingRoom, doors, doorLivingRoom);
@@ -140,11 +128,38 @@ public class DetectionDoor extends AppCompatActivity implements DetectionDoorVie
                 initView(listWorkingRoom, doors, doorWorkingRoom);
                 break;
         }
-        Toast.makeText(this, "Load all door success!", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Load all door success!", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void loadAllDoorFailure() {
         Toast.makeText(this, "Load all door failure!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void checkResponse(List<Device> doors, Position position) {
+        switch (position){
+            case LIVINGROOM:
+                for (Device door : doors){
+                    listLivingRoom.get(door.get_id()).setState(door.isState());
+                }
+                break;
+            case BEDROOM:
+                for (Device door : doors){
+                    listBedRoom.get(door.get_id()).setState(door.isState());
+                }
+                break;
+            case DININGROOM:
+                for (Device door : doors){
+                    listDiningRoom.get(door.get_id()).setState(door.isState());
+                }
+                break;
+            case WORKINGROOM:
+                for (Device door : doors){
+                    listWorkingRoom.get(door.get_id()).setState(door.isState());
+                }
+                break;
+        }
+        listDoorAdapter.notifyDataSetChanged();
     }
 }
