@@ -36,7 +36,6 @@ exports.getDevices = function(req, res) {
       }
    }, function(err, devices) {
       if (err) {
-         console.log(err);
          res.status(500).send({
             message: "Some error occurred while retrieving devices."
          });
@@ -56,7 +55,6 @@ exports.getLights = function(req, res) {
       }
    }, function(err, devices) {
       if (err) {
-         console.log(err);
          res.status(500).send({
             message: "Some error occurred while retrieving devices."
          });
@@ -76,7 +74,6 @@ exports.getDoors = function(req, res) {
       }
    }, function(err, devices) {
       if (err) {
-         console.log(err);
          res.status(500).send({
             message: "Some error occurred while retrieving devices."
          });
@@ -96,7 +93,6 @@ exports.getCameras = function(req, res) {
       }
    }, function(err, devices) {
       if (err) {
-         console.log(err);
          res.status(500).send({
             message: "Some error occurred while retrieving devices."
          });
@@ -117,7 +113,6 @@ exports.getLightByPosition = function(req, res) {
       }
    }, function(err, devices) {
       if (err) {
-         console.log(err);
          res.status(500).send({
             message: "Some error occurred while retrieving devices."
          });
@@ -129,7 +124,6 @@ exports.getLightByPosition = function(req, res) {
 
 exports.getDoorByPosition = function(req, res) {
    // Retrieve and return all devices from the database.
-   console.log(req.params.position);
    Device.find({
       deviceType: "DOOR",
       position: req.params.position
@@ -139,7 +133,6 @@ exports.getDoorByPosition = function(req, res) {
       }
    }, function(err, devices) {
       if (err) {
-         console.log(err);
          res.status(500).send({
             message: "Some error occurred while retrieving devices."
          });
@@ -160,7 +153,6 @@ exports.getCameraByPosition = function(req, res) {
       }
    }, function(err, devices) {
       if (err) {
-         console.log(err);
          res.status(500).send({
             message: "Some error occurred while retrieving devices."
          });

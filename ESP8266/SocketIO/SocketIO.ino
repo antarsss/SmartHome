@@ -13,7 +13,8 @@ int red = D6;
 
 int LEDs[] = {D8, D7, D6, D5, D4, D3, D2, D1, D0};
 
-char host[] = "192.168.1.6";  
+//char host[] = "192.168.1.6";
+char host[] = "172.16.199.170";    
 int port = 3000;                  
 
 extern String RID; // tên sự kiện
@@ -28,10 +29,10 @@ void setupNetwork() {
     WiFi.mode(WIFI_STA);
 //    wifimulti.addAP("BON FPT", "kemtuchon19k");
 //    wifimulti.addAP("BON VNPT", "kemtuchon19k");
-    wifimulti.addAP("FPT Telecom", "dongthap");
-    wifimulti.addAP("AnhTraiMua", "meochonhe");
+//    wifimulti.addAP("FPT Telecom", "dongthap");
+//    wifimulti.addAP("AnhTraiMua", "meochonhe");
     wifimulti.addAP("HoangPhat_Pro", "20052010");
-    wifimulti.addAP("ANDY", "01666988779");
+//    wifimulti.addAP("ANDY", "01666988779");
 
 
     uint8_t i = 0;
@@ -109,7 +110,7 @@ void checkMSG()
       JsonObject& obj = jsonBuffer.parseObject(Rfull);
       if (obj.success())
       {
-          client.send("d2s-ledchange",Rfull);
+          client.send("d2s-change",Rfull);
           Filter(obj);
       }
       else Serial.println("Parsing failed!!!");
