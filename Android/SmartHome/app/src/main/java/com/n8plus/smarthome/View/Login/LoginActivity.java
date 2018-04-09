@@ -31,7 +31,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LoginActivity extends AppCompatActivity implements LoginViewImpl{
+public class LoginActivity extends AppCompatActivity implements LoginViewImpl {
 
     EditText edtUsername, edtPassword;
     Button btnSignin;
@@ -58,10 +58,9 @@ public class LoginActivity extends AppCompatActivity implements LoginViewImpl{
             public void onClick(View view) {
                 String usn = edtUsername.getText().toString();
                 String pass = edtPassword.getText().toString();
-                if (!usn.equals("") && !pass.equals("")){
+                if (!usn.equals("") && !pass.equals("")) {
                     loginPresenter.checkLogin(usn, pass);
-                }
-                else {
+                } else {
                     Toast.makeText(LoginActivity.this, "Vui lòng nhập đầy đủ các trường!", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -70,14 +69,13 @@ public class LoginActivity extends AppCompatActivity implements LoginViewImpl{
         cbxRemember.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b){
+                if (b) {
                     editor = sharedPreferences.edit();
                     editor.putString("username", edtUsername.getText().toString());
                     editor.putString("password", edtPassword.getText().toString());
                     editor.putBoolean("remember", b);
                     editor.commit();
-                }
-                else {
+                } else {
                     editor = sharedPreferences.edit();
                     editor.putString("username", "");
                     editor.putString("password", "");
@@ -88,7 +86,7 @@ public class LoginActivity extends AppCompatActivity implements LoginViewImpl{
         });
     }
 
-    private void Mount(){
+    private void Mount() {
         edtUsername = (EditText) findViewById(R.id.edtUsername);
         edtPassword = (EditText) findViewById(R.id.edtPassword);
         btnSignin = (Button) findViewById(R.id.btnSignin);
@@ -100,6 +98,7 @@ public class LoginActivity extends AppCompatActivity implements LoginViewImpl{
     @Override
     public void loginSuccess() {
         startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+        finish();
     }
 
     @Override

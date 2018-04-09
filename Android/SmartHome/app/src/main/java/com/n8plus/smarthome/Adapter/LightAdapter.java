@@ -2,7 +2,9 @@ package com.n8plus.smarthome.Adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +12,18 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.github.nkzawa.emitter.Emitter;
 import com.kyleduo.switchbutton.SwitchButton;
 import com.n8plus.smarthome.Activity.HomeActivity;
 import com.n8plus.smarthome.Model.Device;
 import com.n8plus.smarthome.R;
+import com.n8plus.smarthome.Utils.common.SocketSingeton;
+import com.n8plus.smarthome.View.ControlLight.ControlLightView;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.logging.Handler;
 
 /**
  * Created by Hiep_Nguyen on 3/1/2018.
@@ -39,10 +47,13 @@ public class LightAdapter extends RecyclerView.Adapter<LightAdapter.ViewHolder> 
         return new ViewHolder(itemView);
     }
 
+    LightAdapter.ViewHolder holder;
+
     @Override
     public void onBindViewHolder(final LightAdapter.ViewHolder holder, final int position) {
+        this.holder = holder;
         final Device device = devices.get(position);
-        System.out.println(device.get_id());
+
         if (device.isState()) {
             holder.imgLight.setImageResource(R.drawable.light_on);
         } else {
@@ -52,15 +63,29 @@ public class LightAdapter extends RecyclerView.Adapter<LightAdapter.ViewHolder> 
         holder.swtState.setChecked(device.isState());
 
         holder.swtState.setTintColor(Color.parseColor("#00a0dc"));
-        holder.swtState.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        final boolean current = device.isState();
+        holder.swtState.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                device.setState(b);
-                holder.imgLight.setImageResource(b ? R.drawable.light_on : R.drawable.light_off);
+            public void onClick(View view) {
+                device.setState(holder.swtState.isChecked());
                 HomeActivity.mSocket.emit("c2s-change", HomeActivity.deviceConvert.object2Json(device));
+                Log.i("EMIT", HomeActivity.deviceConvert.object2Json(device).toString());
+                holder.imgLight.setImageResource(holder.swtState.isChecked() ? R.drawable.light_on : R.drawable.light_off);
+                SwitchButton swtAll = ((ControlLightView) context).findViewById(R.id.swbAllLight);
+                swtAll.setChecked(isAllItemSelected());
             }
         });
 
+    }
+
+    public boolean isAllItemSelected() {
+        int count = 0;
+        for (Device device : devices) {
+            if (device.isState()) {
+                count++;
+            }
+        }
+        return count == getItemCount();
     }
 
     @Override
@@ -80,5 +105,13 @@ public class LightAdapter extends RecyclerView.Adapter<LightAdapter.ViewHolder> 
             txtNameLight = (TextView) itemView.findViewById(R.id.txtNameLight);
             swtState = (SwitchButton) itemView.findViewById(R.id.swtState);
         }
+
     }
+
+    public void setCheckedAll() {
+        for (Device device : devices) {
+            HomeActivity.mSocket.emit("c2s-change", HomeActivity.deviceConvert.object2Json(device));
+        }
+    }
+
 }

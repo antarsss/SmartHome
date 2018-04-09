@@ -59,7 +59,6 @@ public class Device implements Serializable{
         this.description = description;
     }
 
-
     public Position getPosition() {
         return position;
     }

@@ -24,7 +24,7 @@
         <activity android:name=".Activity.NotificationDetail" />
         <activity android:name=".View.ControlDoor.ControlMainDoor" />
         <activity android:name=".Activity.ControlCamera" />
-        <activity android:name=".View.ControlLight.ControlLight" />
+        <activity android:name=".View.ControlLight.ControlLightView" />
         <activity android:name=".Activity.ChangeInformation" />
         <activity android:name=".Activity.ChangePassword" />
         <activity android:name=".Activity.DetailsListDevice" />

@@ -1,6 +1,7 @@
 package com.n8plus.smarthome.Presenter.Login;
 
 import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -30,38 +31,41 @@ public class LoginPresenter implements LoginPresenterImpl {
 
     @Override
     public void checkLogin(String usn, String pass) {
-        String URI = Constant.URL +"/login";
-        System.out.println("URL: "+URI);
-        Map<String, String> params = new HashMap<String, String>();
+        final String URI = Constant.URL + "/login";
+        final Map<String, String> params = new HashMap<String, String>();
         params.put("username", usn);
         params.put("password", pass);
         System.out.println("Set usn va pass");
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URI, new JSONObject(params),
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            if (response.getBoolean("login")) {
-                                System.out.println("Vo day r");
-                                loginView.loginSuccess();
+        ((AppCompatActivity) loginView).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URI, new JSONObject(params),
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                try {
+                                    if (response.getBoolean("login")) {
+                                        loginView.loginSuccess();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        System.out.println("change Pass response -->> " + error.toString());
-                        loginView.loginFailure();
-                    }
-                });
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                System.out.println("change Pass response -->> " + error.toString());
+                                loginView.loginFailure();
+                            }
+                        });
 
-        request.setRetryPolicy(new
-                DefaultRetryPolicy(60000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        VolleySingleton.getInstance((Context) loginView).addToRequestQueue(request);
+                request.setRetryPolicy(new
+                        DefaultRetryPolicy(60000,
+                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                VolleySingleton.getInstance((Context) loginView).addToRequestQueue(request);
+            }
+        });
     }
 }

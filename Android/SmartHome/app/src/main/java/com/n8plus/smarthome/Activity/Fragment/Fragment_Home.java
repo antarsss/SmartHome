@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.n8plus.smarthome.View.ControlLight.ControlLight;
+import com.n8plus.smarthome.View.ControlLight.ControlLightView;
 import com.n8plus.smarthome.View.LoadDoor.DetectionDoor;
 import com.n8plus.smarthome.View.Camera.SelectCamera;
 import com.n8plus.smarthome.R;
@@ -63,7 +63,7 @@ public class Fragment_Home extends Fragment {
         controlLight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), ControlLight.class));
+                startActivity(new Intent(getContext(), ControlLightView.class));
             }
         });
 

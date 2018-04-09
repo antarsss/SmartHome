@@ -18,8 +18,6 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.github.nkzawa.emitter.Emitter;
-import com.github.nkzawa.socketio.client.IO;
-import com.github.nkzawa.socketio.client.Socket;
 import com.n8plus.smarthome.Activity.Fragment.Fragment_Home;
 import com.n8plus.smarthome.Activity.Fragment.Fragment_Notification;
 import com.n8plus.smarthome.Activity.Fragment.Fragment_Profile;
@@ -28,14 +26,13 @@ import com.n8plus.smarthome.Interface.CountMarkedAsRead;
 import com.n8plus.smarthome.Model.Enum.NotificationType;
 import com.n8plus.smarthome.Model.Notification;
 import com.n8plus.smarthome.R;
-import com.n8plus.smarthome.Utils.common.Constant;
 import com.n8plus.smarthome.Utils.common.DeviceConverter;
+import com.n8plus.smarthome.Utils.common.SocketSingeton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Field;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -47,19 +44,10 @@ public class HomeActivity extends AppCompatActivity implements CountMarkedAsRead
     TextView txtCount;
     ArrayList<Notification> notifications;
     int countNoti = 0;
-
-    private final String URL_SERVER = Constant.URL;
     public static final DeviceConverter deviceConvert = new DeviceConverter();
     public static final DeviceConverter doorConvert = new DeviceConverter();
-    public static Socket mSocket;
+    public static SocketSingeton mSocket = new SocketSingeton();
     public static String tokenId;
-
-    {
-        try {
-            mSocket = IO.socket(URL_SERVER);
-        } catch (URISyntaxException e) {
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
