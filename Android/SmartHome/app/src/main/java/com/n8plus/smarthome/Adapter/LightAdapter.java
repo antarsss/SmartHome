@@ -2,28 +2,21 @@ package com.n8plus.smarthome.Adapter;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.github.nkzawa.emitter.Emitter;
 import com.kyleduo.switchbutton.SwitchButton;
-import com.n8plus.smarthome.Activity.HomeActivity;
+import com.n8plus.smarthome.View.HomePage.HomeActivity;
 import com.n8plus.smarthome.Model.Device;
 import com.n8plus.smarthome.R;
-import com.n8plus.smarthome.Utils.common.SocketSingeton;
 import com.n8plus.smarthome.View.ControlLight.ControlLightView;
 
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.logging.Handler;
 
 /**
  * Created by Hiep_Nguyen on 3/1/2018.

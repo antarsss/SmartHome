@@ -1,4 +1,4 @@
-package com.n8plus.smarthome.Activity;
+package com.n8plus.smarthome.View.HomePage;
 
 import android.annotation.SuppressLint;
 import android.app.Fragment;
@@ -16,38 +16,54 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.nkzawa.emitter.Emitter;
+import com.github.nkzawa.socketio.client.IO;
+import com.github.nkzawa.socketio.client.Socket;
 import com.n8plus.smarthome.Activity.Fragment.Fragment_Home;
 import com.n8plus.smarthome.Activity.Fragment.Fragment_Notification;
+import com.n8plus.smarthome.Presenter.Notification.NotificationPresenter;
 import com.n8plus.smarthome.Activity.Fragment.Fragment_Profile;
 import com.n8plus.smarthome.Activity.Fragment.Fragment_Select_Device_Type;
 import com.n8plus.smarthome.Interface.CountMarkedAsRead;
-import com.n8plus.smarthome.Model.Enum.NotificationType;
+
 import com.n8plus.smarthome.Model.Notification;
 import com.n8plus.smarthome.R;
+import com.n8plus.smarthome.Utils.common.Constant;
 import com.n8plus.smarthome.Utils.common.DeviceConverter;
-import com.n8plus.smarthome.Utils.common.SocketSingeton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Field;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-public class HomeActivity extends AppCompatActivity implements CountMarkedAsRead {
+public class HomeActivity extends AppCompatActivity implements CountMarkedAsRead, HomeActivityViewImpl {
 
     FrameLayout frmContent;
     View badge;
     FrameLayout frmCircle;
     TextView txtCount;
-    ArrayList<Notification> notifications;
+    ArrayList<Notification> notificationList;
     int countNoti = 0;
+    NotificationPresenter notificationPresenter;
+
+    private final String URL_SERVER = Constant.URL;
     public static final DeviceConverter deviceConvert = new DeviceConverter();
     public static final DeviceConverter doorConvert = new DeviceConverter();
-    public static SocketSingeton mSocket = new SocketSingeton();
+    public static Socket mSocket;
     public static String tokenId;
+
+    {
+        try {
+            mSocket = IO.socket(URL_SERVER);
+        } catch (URISyntaxException e) {
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +90,10 @@ public class HomeActivity extends AppCompatActivity implements CountMarkedAsRead
 
         frmContent = (FrameLayout) findViewById(R.id.frmContent);
 
-        addDataList();
+//        addDataList();
+        notificationList = new ArrayList<>();
+        notificationPresenter = new NotificationPresenter(this);
+        notificationPresenter.loadNotification();
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navMain);
         disableShiftMode(bottomNavigationView);
@@ -88,17 +107,9 @@ public class HomeActivity extends AppCompatActivity implements CountMarkedAsRead
         badge = LayoutInflater.from(this).inflate(R.layout.view_alertbadge, bottomNavigationMenuView, false);
         frmCircle = badge.findViewById(R.id.frmCircle);
         txtCount = badge.findViewById(R.id.txtCount);
-
-        for (Notification notification : notifications) {
-            if (notification.isState()) {
-                countNoti++;
-            }
-        }
-        txtCount.setText("" + countNoti);
-
+        countNotification();
         itemView.addView(badge);
         badge.setVisibility(View.VISIBLE);
-        //
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -123,7 +134,7 @@ public class HomeActivity extends AppCompatActivity implements CountMarkedAsRead
                         break;
                     case R.id.menuNotification:
                         Bundle bundle = new Bundle();
-                        bundle.putSerializable("notification", notifications);
+                        bundle.putSerializable("notification", notificationList);
                         fragment = new Fragment_Notification(HomeActivity.this);
                         frmCircle.setBackgroundResource(R.drawable.circle_red);
                         fragment.setArguments(bundle);
@@ -141,7 +152,15 @@ public class HomeActivity extends AppCompatActivity implements CountMarkedAsRead
             MenuItem item = bottomNavigationView.getMenu().getItem(0);
             bottomNavigationView.setSelectedItemId(item.getItemId());
         }
+    }
 
+    public void countNotification(){
+        for (Notification notification : notificationList) {
+            if (notification.isState()) {
+                countNoti++;
+            }
+        }
+        txtCount.setText("" + countNoti);
     }
 
     @SuppressLint("RestrictedApi")
@@ -165,28 +184,25 @@ public class HomeActivity extends AppCompatActivity implements CountMarkedAsRead
         }
     }
 
-    public void addDataList() {
-        Date date = new Date(System.currentTimeMillis());
 
-        notifications = new ArrayList<>();
-        notifications.add(new Notification(1, R.drawable.door, "Cửa phòng khách đang mở !", date, true, NotificationType.DOOR));
-        notifications.add(new Notification(2, R.drawable.door, "Cửa phòng ngủ đang mở !", date, true, NotificationType.DOOR));
-        notifications.add(new Notification(3, R.drawable.door, "Cửa phòng phòng làm việc đang mở !", date, true, NotificationType.DOOR));
-        notifications.add(new Notification(4, R.drawable.door, "Cửa phòng ngủ đang mở !", date, false, NotificationType.DOOR));
-        notifications.add(new Notification(4, R.drawable.door, "Cửa phòng ăn đang mở !", date, false, NotificationType.DOOR));
-        notifications.add(new Notification(5, R.drawable.anonymous, "Phát hiện người lạ ở phòng khách!", date, true, NotificationType.UNKNOW));
-        notifications.add(new Notification(6, R.drawable.anonymous, "Phát hiện người lạ ở phòng khách!", date, false, NotificationType.UNKNOW));
-        notifications.add(new Notification(7, R.drawable.anonymous, "Phát hiện người lạ ở phòng khách!", date, false, NotificationType.UNKNOW));
-        notifications.add(new Notification(8, R.drawable.anonymous, "Phát hiện người lạ ở phòng khách!", date, false, NotificationType.UNKNOW));
-
+    @Override
+    public void loadNotificationSuccess(List<Notification> notifications) {
+        for(Notification notification: notifications){
+            notificationList.add(notification);
+        }
+        countNotification();
+    }
+    @Override
+    public void loadNotificationFailure() {
+        Toast.makeText(this, "Load all notification failure!", Toast.LENGTH_SHORT).show();
     }
 
 
     @Override
     public void updateList(ArrayList<Notification> list) {
-        notifications = list;
+        notificationList = list;
         countNoti = 0;
-        for (Notification notification : notifications) {
+        for (Notification notification : notificationList) {
             if (notification.isState()) {
                 countNoti++;
             }

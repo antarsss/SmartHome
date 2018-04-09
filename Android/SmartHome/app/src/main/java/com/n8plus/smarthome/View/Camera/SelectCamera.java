@@ -37,25 +37,7 @@ public class SelectCamera extends AppCompatActivity implements SelectCameraViewI
 
         arrayListCam = new ArrayList<>();
         cameraPresenter = new CameraPresenter(this);
-        cameraPresenter.loadAllCamera();
-//        arrayListCam.add(new Device.Builder()
-//                .set_id("1").setDeviceName("Camera 1")
-//                .setDeviceType(DeviceViewType.CAMERA)
-//                .setPosition(Position.GATEWAY)
-//                .setConnect(true)
-//                .build());
-//        arrayListCam.add(new Device.Builder()
-//                .set_id("2").setDeviceName("Camera 2")
-//                .setDeviceType(DeviceViewType.CAMERA)
-//                .setPosition(Position.GATEWAY)
-//                .setConnect(true)
-//                .build());
-//        arrayListCam.add(new Device.Builder()
-//                .set_id("3").setDeviceName("Camera 3")
-//                .setDeviceType(DeviceViewType.CAMERA)
-//                .setPosition(Position.GATEWAY)
-//                .setConnect(false)
-//                .build());
+        cameraPresenter.loadDevices();
 
 
         listCamera.setOnItemClickListener(new AdapterView.OnItemClickListener() {

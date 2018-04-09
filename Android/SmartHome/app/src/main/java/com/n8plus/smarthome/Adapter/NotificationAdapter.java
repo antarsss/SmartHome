@@ -99,7 +99,7 @@ public class NotificationAdapter extends BaseAdapter {
         final Notification notification = list.get(i);
 
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm - dd/MM/yy");
-        viewHolder.imgNotification.setImageResource(notification.getImgNoti());
+        viewHolder.imgNotification.setImageResource(notification.getType()==NotificationType.DOOR ? R.drawable.door:R.drawable.anonymous);
         viewHolder.txtMessage.setText(notification.getMessage());
         viewHolder.txtTime.setText(sdf.format(notification.getTime()));
 

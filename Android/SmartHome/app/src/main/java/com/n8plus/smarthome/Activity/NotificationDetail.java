@@ -39,7 +39,7 @@ public class NotificationDetail extends AppCompatActivity {
             SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
 
             txtTimeDetail.setText("< "+sdfDate.format(notification.getTime())+" | "+sdfTime.format(notification.getTime())+" >");
-            imgScreenShot.setImageResource(notification.getImgNoti());
+//            imgScreenShot.setImageResource(notification.getImgNoti());
         }
     }
 }

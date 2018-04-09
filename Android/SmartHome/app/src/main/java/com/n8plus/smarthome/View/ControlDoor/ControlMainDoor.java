@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.n8plus.smarthome.Activity.HomeActivity;
+import com.n8plus.smarthome.View.HomePage.HomeActivity;
 import com.n8plus.smarthome.Model.Device;
 import com.n8plus.smarthome.R;
 

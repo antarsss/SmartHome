@@ -1,6 +1,5 @@
 package com.n8plus.smarthome.View.Login;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -14,22 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.n8plus.smarthome.Activity.HomeActivity;
+import com.n8plus.smarthome.View.HomePage.HomeActivity;
 import com.n8plus.smarthome.Presenter.Login.LoginPresenter;
-import com.n8plus.smarthome.Presenter.Login.LoginPresenterImpl;
 import com.n8plus.smarthome.R;
-import com.n8plus.smarthome.Utils.common.VolleySingleton;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity implements LoginViewImpl {
 

@@ -9,12 +9,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.github.nkzawa.emitter.Emitter;
-import com.n8plus.smarthome.Activity.HomeActivity;
+import com.n8plus.smarthome.View.HomePage.HomeActivity;
 import com.n8plus.smarthome.Model.Device;
-import com.n8plus.smarthome.Model.DeviceViewType;
 import com.n8plus.smarthome.Model.Enum.DeviceType;
 import com.n8plus.smarthome.Utils.common.Constant;
-import com.n8plus.smarthome.Utils.common.SocketSingeton;
 import com.n8plus.smarthome.Utils.common.VolleySingleton;
 import com.n8plus.smarthome.View.Common.ControlDeviceViewImpl;
 
@@ -26,12 +24,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class ControlDevicePresenter implements ControlDeviceImpl {
-    ControlDeviceViewImpl controlLightView;
+    ControlDeviceViewImpl controlDeviceView;
     List<Device> deviceList;
     DeviceType deviceType;
 
     public ControlDevicePresenter(ControlDeviceViewImpl controlLightView, DeviceType deviceType) {
-        this.controlLightView = controlLightView;
+        this.controlDeviceView = controlLightView;
         this.deviceList = new ArrayList<>();
         this.deviceType = deviceType;
     }
@@ -44,14 +42,14 @@ public abstract class ControlDevicePresenter implements ControlDeviceImpl {
     private Emitter.Listener loadStateLight = new Emitter.Listener() {
         @Override
         public void call(final Object... args) {
-            ((AppCompatActivity) controlLightView).runOnUiThread(new Runnable() {
+            ((AppCompatActivity) controlDeviceView).runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     try {
                         Device light = HomeActivity.deviceConvert.json2Object((JSONObject) args[0]);
                         deviceList.add(light);
                         Log.v("ON", args[0].toString());
-                        controlLightView.checkResponse(deviceList);
+                        controlDeviceView.checkResponse(deviceList);
                         Thread.sleep(50);
                     } catch (Exception e) {
 
@@ -63,7 +61,7 @@ public abstract class ControlDevicePresenter implements ControlDeviceImpl {
 
     @Override
     public void loadDevices() {
-        ((AppCompatActivity) controlLightView).runOnUiThread(new Runnable() {
+        ((AppCompatActivity) controlDeviceView).runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 String URI = Constant.URL + "/device/" + deviceType;
@@ -71,30 +69,30 @@ public abstract class ControlDevicePresenter implements ControlDeviceImpl {
                         new Response.Listener<JSONArray>() {
                             @Override
                             public void onResponse(JSONArray response) {
-                                List<Device> lights = new ArrayList<>();
+                                List<Device> devices = new ArrayList<>();
                                 for (int i = 0; i < response.length(); i++) {
                                     try {
                                         JSONObject object = response.getJSONObject(i);
                                         object.remove("__v");
                                         object.remove("createdAt");
                                         object.remove("updatedAt");
-                                        Device light = HomeActivity.deviceConvert.json2ObjectByGSon(object);
-                                        lights.add(light);
-//                                        Log.d(Class.class.getCanonicalName(), object.toString());
+                                        Device device = HomeActivity.deviceConvert.json2ObjectByGSon(object);
+                                        devices.add(device);
+
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
                                 }
-                                controlLightView.loadAllSuccess(lights);
+                                controlDeviceView.loadAllSuccess(devices);
                             }
                         },
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                controlLightView.loadAllFailure();
+                                controlDeviceView.loadAllFailure();
                             }
                         });
-                VolleySingleton.getInstance((Context) controlLightView).addToRequestQueue(jsonArrayRequest);
+                VolleySingleton.getInstance((Context) controlDeviceView).addToRequestQueue(jsonArrayRequest);
 
             }
         });

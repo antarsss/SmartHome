@@ -1,28 +1,19 @@
 package com.n8plus.smarthome.View.ControlLight;
 
 import android.annotation.SuppressLint;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.CompoundButton;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.kyleduo.switchbutton.SwitchButton;
-import com.n8plus.smarthome.Activity.HomeActivity;
-import com.n8plus.smarthome.Adapter.DoorAdapter;
 import com.n8plus.smarthome.Adapter.LightAdapter;
 import com.n8plus.smarthome.Model.Device;
 import com.n8plus.smarthome.Presenter.ControlLight.ControlLightPresenter;
 import com.n8plus.smarthome.R;
-import com.n8plus.smarthome.Utils.common.SocketSingeton;
-import com.n8plus.smarthome.View.LoadDoor.DetectionDoor;
 
 import java.util.ArrayList;
 import java.util.HashMap;

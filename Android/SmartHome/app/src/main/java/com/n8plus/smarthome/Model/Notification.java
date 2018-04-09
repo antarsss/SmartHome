@@ -11,15 +11,13 @@ import java.util.Date;
 
 public class Notification implements Serializable{
     private int Id;
-    private int imgNoti;
     private String Message;
     private Date time;
     private boolean state;
     private NotificationType type;
 
-    public Notification(int id, int imgNoti, String message, Date time, boolean state, NotificationType type) {
+    public Notification(int id, String message, Date time, boolean state, NotificationType type) {
         Id = id;
-        this.imgNoti = imgNoti;
         Message = message;
         this.time = time;
         this.state = state;
@@ -32,14 +30,6 @@ public class Notification implements Serializable{
 
     public void setId(int id) {
         Id = id;
-    }
-
-    public int getImgNoti() {
-        return imgNoti;
-    }
-
-    public void setImgNoti(int imgNoti) {
-        this.imgNoti = imgNoti;
     }
 
     public String getMessage() {

@@ -8,7 +8,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.github.nkzawa.emitter.Emitter;
-import com.n8plus.smarthome.Activity.HomeActivity;
+import com.n8plus.smarthome.View.HomePage.HomeActivity;
 import com.n8plus.smarthome.Model.Device;
 import com.n8plus.smarthome.Model.Enum.Position;
 import com.n8plus.smarthome.Utils.common.Constant;
@@ -40,7 +40,6 @@ public class LoadDoorPresenter implements LoadDoorPresenterImpl {
     @Override
     public void loadState() {
         HomeActivity.mSocket.on("s2c-doorchange", loadStateDoor);
-        System.out.println("Vô đây rồi");
     }
 
     private Emitter.Listener loadStateDoor = new Emitter.Listener() {
@@ -49,7 +48,6 @@ public class LoadDoorPresenter implements LoadDoorPresenterImpl {
             ((DetectionDoor) doorView).runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    System.out.println("Má mày có vô đây ko");
                     Toast.makeText((Context) doorView, "Có checkresponse !", Toast.LENGTH_SHORT).show();
                     Device door = HomeActivity.deviceConvert.json2Object((JSONObject) args[0]);
                     switch (door.getPosition()) {
