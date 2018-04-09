@@ -1,6 +1,6 @@
 package com.n8plus.smarthome.Model;
 
-import com.n8plus.smarthome.Model.Enum.TypeNotification;
+import com.n8plus.smarthome.Model.Enum.NotificationType;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -15,9 +15,9 @@ public class Notification implements Serializable{
     private String Message;
     private Date time;
     private boolean state;
-    private TypeNotification type;
+    private NotificationType type;
 
-    public Notification(int id, int imgNoti, String message, Date time, boolean state, TypeNotification type) {
+    public Notification(int id, int imgNoti, String message, Date time, boolean state, NotificationType type) {
         Id = id;
         this.imgNoti = imgNoti;
         Message = message;
@@ -66,11 +66,11 @@ public class Notification implements Serializable{
         this.state = state;
     }
 
-    public TypeNotification getType() {
+    public NotificationType getType() {
         return type;
     }
 
-    public void setType(TypeNotification type) {
+    public void setType(NotificationType type) {
         this.type = type;
     }
 }

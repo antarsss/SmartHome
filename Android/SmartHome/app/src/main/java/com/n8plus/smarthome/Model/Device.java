@@ -1,7 +1,7 @@
 package com.n8plus.smarthome.Model;
 
+import com.n8plus.smarthome.Model.Enum.DeviceType;
 import com.n8plus.smarthome.Model.Enum.Position;
-import com.n8plus.smarthome.Model.Enum.TypeDevice;
 
 import java.io.Serializable;
 
@@ -12,7 +12,7 @@ public class Device implements Serializable{
     private String _id;
     private String deviceName;
     private String description;
-    private TypeDevice typeDevice;
+    private DeviceType deviceType;
     private Position position;
     private boolean state;
     private boolean connect;
@@ -20,7 +20,7 @@ public class Device implements Serializable{
     private Device(Builder builder) {
         this._id = builder._id;
         this.deviceName = builder.deviceName;
-        this.typeDevice = builder.typeDevice;
+        this.deviceType = builder.deviceType;
         this.description = builder.description;
         this.position = builder.position;
         this.state = builder.state;
@@ -43,12 +43,12 @@ public class Device implements Serializable{
         this.deviceName = deviceName;
     }
 
-    public TypeDevice getTypeDevice() {
-        return typeDevice;
+    public DeviceType getDeviceType() {
+        return deviceType;
     }
 
-    public void setTypeDevice(TypeDevice typeDevice) {
-        this.typeDevice = typeDevice;
+    public void setDeviceType(DeviceType deviceType) {
+        this.deviceType = deviceType;
     }
 
     public String getDescription() {
@@ -85,10 +85,11 @@ public class Device implements Serializable{
     }
 
     public static class Builder {
+
         private String _id;
         private String deviceName;
         private String description;
-        private TypeDevice typeDevice;
+        private DeviceType deviceType;
         private Position position;
         private boolean state;
         private boolean connect;
@@ -115,8 +116,8 @@ public class Device implements Serializable{
             return this;
         }
 
-        public Builder setTypeDevice(TypeDevice typeDevice) {
-            this.typeDevice = typeDevice;
+        public Builder setDeviceType(DeviceType deviceType) {
+            this.deviceType = deviceType;
             return this;
         }
 

@@ -22,7 +22,7 @@ import java.util.ArrayList;
  * Created by Hiep_Nguyen on 3/1/2018.
  */
 
-public class ListDoorAdapter extends RecyclerView.Adapter<ListDoorAdapter.ViewHolder> {
+public class DoorAdapter extends RecyclerView.Adapter<DoorAdapter.ViewHolder> {
 
     ArrayList<Device> arrayList;
     DetectionDoor context;
@@ -30,7 +30,7 @@ public class ListDoorAdapter extends RecyclerView.Adapter<ListDoorAdapter.ViewHo
     int position;
 
 
-    public ListDoorAdapter(ArrayList<Device> arrayList, DetectionDoor context) {
+    public DoorAdapter(ArrayList<Device> arrayList, DetectionDoor context) {
         this.arrayList = arrayList;
         this.context = context;
     }
@@ -42,14 +42,14 @@ public class ListDoorAdapter extends RecyclerView.Adapter<ListDoorAdapter.ViewHo
     }
 
     @Override
-    public ListDoorAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public DoorAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View itemView = layoutInflater.inflate(R.layout.row_door, parent, false);
         return new ViewHolder(itemView, clickListener);
     }
 
     @Override
-    public void onBindViewHolder(ListDoorAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(DoorAdapter.ViewHolder holder, int position) {
         holder.txtNameDoor.setText(arrayList.get(position).getDeviceName());
         boolean state = arrayList.get(position).isState();
         if (state) {

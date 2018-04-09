@@ -25,11 +25,11 @@ import com.n8plus.smarthome.Activity.Fragment.Fragment_Notification;
 import com.n8plus.smarthome.Activity.Fragment.Fragment_Profile;
 import com.n8plus.smarthome.Activity.Fragment.Fragment_Select_Device_Type;
 import com.n8plus.smarthome.Interface.CountMarkedAsRead;
-import com.n8plus.smarthome.Model.Enum.TypeNotification;
+import com.n8plus.smarthome.Model.Enum.NotificationType;
 import com.n8plus.smarthome.Model.Notification;
 import com.n8plus.smarthome.R;
 import com.n8plus.smarthome.Utils.common.Constant;
-import com.n8plus.smarthome.Utils.common.DeviceConvert;
+import com.n8plus.smarthome.Utils.common.DeviceConverter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,8 +49,8 @@ public class HomeActivity extends AppCompatActivity implements CountMarkedAsRead
     int countNoti = 0;
 
     private final String URL_SERVER = Constant.URL;
-    public static final DeviceConvert deviceConvert = new DeviceConvert();
-    public static final DeviceConvert doorConvert = new DeviceConvert();
+    public static final DeviceConverter deviceConvert = new DeviceConverter();
+    public static final DeviceConverter doorConvert = new DeviceConverter();
     public static Socket mSocket;
     public static String tokenId;
 
@@ -181,15 +181,15 @@ public class HomeActivity extends AppCompatActivity implements CountMarkedAsRead
         Date date = new Date(System.currentTimeMillis());
 
         notifications = new ArrayList<>();
-        notifications.add(new Notification(1, R.drawable.door, "Cửa phòng khách đang mở !", date, true, TypeNotification.DOOR));
-        notifications.add(new Notification(2, R.drawable.door, "Cửa phòng ngủ đang mở !", date, true, TypeNotification.DOOR));
-        notifications.add(new Notification(3, R.drawable.door, "Cửa phòng phòng làm việc đang mở !", date, true, TypeNotification.DOOR));
-        notifications.add(new Notification(4, R.drawable.door, "Cửa phòng ngủ đang mở !", date, false, TypeNotification.DOOR));
-        notifications.add(new Notification(4, R.drawable.door, "Cửa phòng ăn đang mở !", date, false, TypeNotification.DOOR));
-        notifications.add(new Notification(5, R.drawable.anonymous, "Phát hiện người lạ ở phòng khách!", date, true, TypeNotification.UNKNOW));
-        notifications.add(new Notification(6, R.drawable.anonymous, "Phát hiện người lạ ở phòng khách!", date, false, TypeNotification.UNKNOW));
-        notifications.add(new Notification(7, R.drawable.anonymous, "Phát hiện người lạ ở phòng khách!", date, false, TypeNotification.UNKNOW));
-        notifications.add(new Notification(8, R.drawable.anonymous, "Phát hiện người lạ ở phòng khách!", date, false, TypeNotification.UNKNOW));
+        notifications.add(new Notification(1, R.drawable.door, "Cửa phòng khách đang mở !", date, true, NotificationType.DOOR));
+        notifications.add(new Notification(2, R.drawable.door, "Cửa phòng ngủ đang mở !", date, true, NotificationType.DOOR));
+        notifications.add(new Notification(3, R.drawable.door, "Cửa phòng phòng làm việc đang mở !", date, true, NotificationType.DOOR));
+        notifications.add(new Notification(4, R.drawable.door, "Cửa phòng ngủ đang mở !", date, false, NotificationType.DOOR));
+        notifications.add(new Notification(4, R.drawable.door, "Cửa phòng ăn đang mở !", date, false, NotificationType.DOOR));
+        notifications.add(new Notification(5, R.drawable.anonymous, "Phát hiện người lạ ở phòng khách!", date, true, NotificationType.UNKNOW));
+        notifications.add(new Notification(6, R.drawable.anonymous, "Phát hiện người lạ ở phòng khách!", date, false, NotificationType.UNKNOW));
+        notifications.add(new Notification(7, R.drawable.anonymous, "Phát hiện người lạ ở phòng khách!", date, false, NotificationType.UNKNOW));
+        notifications.add(new Notification(8, R.drawable.anonymous, "Phát hiện người lạ ở phòng khách!", date, false, NotificationType.UNKNOW));
 
     }
 

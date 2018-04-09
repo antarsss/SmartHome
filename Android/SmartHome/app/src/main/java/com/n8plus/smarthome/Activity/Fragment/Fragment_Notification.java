@@ -16,7 +16,7 @@ import com.n8plus.smarthome.Activity.NotificationDetail;
 import com.n8plus.smarthome.Adapter.NotificationAdapter;
 import com.n8plus.smarthome.Interface.CountMarkedAsRead;
 import com.n8plus.smarthome.Model.Notification;
-import com.n8plus.smarthome.Model.Enum.TypeNotification;
+import com.n8plus.smarthome.Model.Enum.NotificationType;
 import com.n8plus.smarthome.R;
 
 import java.util.ArrayList;
@@ -53,7 +53,7 @@ public class Fragment_Notification extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Notification notification = arrayList.get(i);
-                if (notification.getType()== TypeNotification.DOOR){
+                if (notification.getType()== NotificationType.DOOR){
                     view.getContext().startActivity(new Intent(view.getContext(), DetectionDoor.class));
                     notification.setState(false);
                     countMarkedAsRead.updateList(arrayList);

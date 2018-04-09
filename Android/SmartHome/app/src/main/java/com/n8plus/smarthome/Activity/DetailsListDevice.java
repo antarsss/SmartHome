@@ -5,13 +5,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.n8plus.smarthome.Adapter.DeviceAdapter;
 import com.n8plus.smarthome.Model.Device;
-import com.n8plus.smarthome.Model.Enum.TypeDevice;
+import com.n8plus.smarthome.Model.Enum.DeviceType;
 import com.n8plus.smarthome.R;
 
 import java.util.ArrayList;
@@ -44,7 +43,7 @@ public class DetailsListDevice extends AppCompatActivity {
         lvDeviceAvailable.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (deviceArrayList.get(i).getTypeDevice()== TypeDevice.CAMERA) {
+                if (deviceArrayList.get(i).getDeviceType()== DeviceType.CAMERA) {
                     if (deviceArrayList.get(i).isConnect()) {
                         Toast.makeText(DetailsListDevice.this, "Disconnecting...", Toast.LENGTH_SHORT).show();
                         deviceArrayList.get(i).setConnect(false);

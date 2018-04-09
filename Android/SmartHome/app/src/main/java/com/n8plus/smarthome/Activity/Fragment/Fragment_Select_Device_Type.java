@@ -13,16 +13,14 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.n8plus.smarthome.Activity.DetailsListDevice;
 import com.n8plus.smarthome.Adapter.DeviceTypeAdapter;
 import com.n8plus.smarthome.Model.Device;
-import com.n8plus.smarthome.Model.DeviceType;
+import com.n8plus.smarthome.Model.DeviceViewType;
+import com.n8plus.smarthome.Model.Enum.DeviceType;
 import com.n8plus.smarthome.Model.Enum.Position;
-import com.n8plus.smarthome.Model.Enum.TypeDevice;
-import com.n8plus.smarthome.Model.Enum.TypeDoor;
 import com.n8plus.smarthome.R;
 
 import java.util.ArrayList;
@@ -35,7 +33,7 @@ public class Fragment_Select_Device_Type extends Fragment {
 
     ListView lstDeviceType;
     View view;
-    ArrayList<DeviceType> arrayList;
+    ArrayList<DeviceViewType> arrayList;
     ArrayList<Device> listDoor, listLight, listCamera;
     DeviceTypeAdapter adapter;
     LinearLayout scanAvailable;
@@ -86,55 +84,55 @@ public class Fragment_Select_Device_Type extends Fragment {
         listDoor = new ArrayList<>();
 
         listDoor.add(new Device.Builder().set_id("0").setDeviceName("Main door")
-                .setDescription("MAIN DOOR").setTypeDevice(TypeDevice.DOOR)
+                .setDescription("MAIN DOOR").setDeviceType(DeviceType.DOOR)
                 .setPosition(Position.LIVINGROOM).setConnect(false)
                 .setConnect(false).build());
         listDoor.add(new Device.Builder().set_id("0").setDeviceName("Window 1")
-                .setDescription("WINDOWS").setTypeDevice(TypeDevice.DOOR)
+                .setDescription("WINDOWS").setDeviceType(DeviceType.DOOR)
                 .setPosition(Position.LIVINGROOM).setConnect(false)
                 .setConnect(false).build());
         listDoor.add(new Device.Builder().set_id("0").setDeviceName("Window 2")
-                .setDescription("WINDOWS").setTypeDevice(TypeDevice.DOOR)
+                .setDescription("WINDOWS").setDeviceType(DeviceType.DOOR)
                 .setPosition(Position.LIVINGROOM).setConnect(false)
                 .setConnect(false).build());
 
         listLight = new ArrayList<>();
 
         listLight.add(new Device.Builder().set_id("0").setDeviceName("Light 1")
-                .setDescription("None").setTypeDevice(TypeDevice.LIGHT)
+                .setDescription("None").setDeviceType(DeviceType.LIGHT)
                 .setPosition(Position.LIVINGROOM).setConnect(false)
                 .setConnect(false).build());
         listLight.add(new Device.Builder().set_id("1").setDeviceName("Light 2")
-                .setDescription("None").setTypeDevice(TypeDevice.LIGHT)
+                .setDescription("None").setDeviceType(DeviceType.LIGHT)
                 .setPosition(Position.BEDROOM).setConnect(false)
                 .setConnect(false).build());
         listLight.add(new Device.Builder().set_id("2").setDeviceName("Light 3")
-                .setDescription("None").setTypeDevice(TypeDevice.LIGHT)
+                .setDescription("None").setDeviceType(DeviceType.LIGHT)
                 .setPosition(Position.DININGROOM).setConnect(false)
                 .setConnect(false).build());
         listLight.add(new Device.Builder().set_id("3").setDeviceName("Light 4")
-                .setDescription("None").setTypeDevice(TypeDevice.LIGHT)
+                .setDescription("None").setDeviceType(DeviceType.LIGHT)
                 .setPosition(Position.GATEWAY).setConnect(false)
                 .setConnect(false).build());
 
         listCamera = new ArrayList<>();
 
         listCamera.add(new Device.Builder().set_id("0").setDeviceName("Camera 1")
-                .setDescription("None").setTypeDevice(TypeDevice.CAMERA)
+                .setDescription("None").setDeviceType(DeviceType.CAMERA)
                 .setPosition(Position.GATEWAY).setConnect(false)
                 .setConnect(false).build());
         listCamera.add(new Device.Builder().set_id("0").setDeviceName("Camera 2")
-                .setDescription("None").setTypeDevice(TypeDevice.CAMERA)
+                .setDescription("None").setDeviceType(DeviceType.CAMERA)
                 .setPosition(Position.LIVINGROOM).setConnect(false)
                 .setConnect(false).build());
         listCamera.add(new Device.Builder().set_id("0").setDeviceName("Camera 3")
-                .setDescription("None").setTypeDevice(TypeDevice.CAMERA)
+                .setDescription("None").setDeviceType(DeviceType.CAMERA)
                 .setPosition(Position.WORKINGROOM).setConnect(false)
                 .setConnect(false).build());
 
         arrayList = new ArrayList<>();
-        arrayList.add(new DeviceType(1, "Door Devices", listDoor, R.drawable.close_door));
-        arrayList.add(new DeviceType(2, "Light Devices", listLight, R.drawable.idea));
-        arrayList.add(new DeviceType(3, "Camera Devices", listCamera, R.drawable.cctv));
+        arrayList.add(new DeviceViewType(1, "Door Devices", listDoor, R.drawable.close_door));
+        arrayList.add(new DeviceViewType(2, "Light Devices", listLight, R.drawable.idea));
+        arrayList.add(new DeviceViewType(3, "Camera Devices", listCamera, R.drawable.cctv));
     }
 }

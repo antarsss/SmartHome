@@ -17,7 +17,7 @@ import com.n8plus.smarthome.View.LoadDoor.DetectionDoor;
 import com.n8plus.smarthome.Activity.NotificationDetail;
 import com.n8plus.smarthome.Interface.CountMarkedAsRead;
 import com.n8plus.smarthome.Model.Notification;
-import com.n8plus.smarthome.Model.Enum.TypeNotification;
+import com.n8plus.smarthome.Model.Enum.NotificationType;
 import com.n8plus.smarthome.R;
 
 import java.text.SimpleDateFormat;
@@ -116,7 +116,7 @@ public class NotificationAdapter extends BaseAdapter {
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         switch (menuItem.getItemId()){
                             case R.id.mnuDetails:
-                                if (notification.getType()== TypeNotification.DOOR){
+                                if (notification.getType()== NotificationType.DOOR){
                                     view.getContext().startActivity(new Intent(view.getContext(), DetectionDoor.class));
                                 }
                                 else {

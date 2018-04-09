@@ -14,7 +14,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.n8plus.smarthome.Adapter.ListDoorAdapter;
+import com.n8plus.smarthome.Adapter.DoorAdapter;
 import com.n8plus.smarthome.Model.Device;
 import com.n8plus.smarthome.Model.Enum.Position;
 import com.n8plus.smarthome.Presenter.LoadDoor.LoadDoorPresenter;
@@ -29,7 +29,7 @@ public class DetectionDoor extends AppCompatActivity implements DetectionDoorVie
 
     HashMap<String, Device> listBedRoom, listLivingRoom, listDiningRoom, listWorkingRoom;
 
-    ListDoorAdapter listDoorAdapter;
+    DoorAdapter doorAdapter;
     Animation animRolate;
 
     LoadDoorPresenter loadDoorPresenter;
@@ -78,8 +78,8 @@ public class DetectionDoor extends AppCompatActivity implements DetectionDoorVie
             for (Device door : doors) {
                 arrayList.put(door.get_id(), door);
             }
-            listDoorAdapter = new ListDoorAdapter(new ArrayList<Device>(arrayList.values()), DetectionDoor.this);
-            recyclerView.setAdapter(listDoorAdapter);
+            doorAdapter = new DoorAdapter(new ArrayList<Device>(arrayList.values()), DetectionDoor.this);
+            recyclerView.setAdapter(doorAdapter);
         } else {
             ((LinearLayout) recyclerView.getParent().getParent()).setVisibility(View.INVISIBLE);
         }
@@ -160,6 +160,6 @@ public class DetectionDoor extends AppCompatActivity implements DetectionDoorVie
                 }
                 break;
         }
-        listDoorAdapter.notifyDataSetChanged();
+        doorAdapter.notifyDataSetChanged();
     }
 }

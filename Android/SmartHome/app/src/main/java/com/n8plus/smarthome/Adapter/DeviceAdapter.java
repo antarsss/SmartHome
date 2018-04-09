@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.n8plus.smarthome.Model.Device;
-import com.n8plus.smarthome.Model.Enum.TypeDevice;
+import com.n8plus.smarthome.Model.Enum.DeviceType;
 import com.n8plus.smarthome.R;
 
 import java.util.List;
@@ -76,10 +76,10 @@ public class DeviceAdapter extends BaseAdapter {
 
         // Set image
         Device device = deviceList.get(i);
-        if (device.getTypeDevice()== TypeDevice.LIGHT){
+        if (device.getDeviceType()== DeviceType.LIGHT){
             viewHolder.imgIcon.setImageResource(R.drawable.idea);
         }
-        else if (device.getTypeDevice()== TypeDevice.DOOR){
+        else if (device.getDeviceType()== DeviceType.DOOR){
             if (device.getDescription().contains("MAIN DOOR")){
                 viewHolder.imgIcon.setImageResource(R.drawable.close_door);
             }
@@ -93,7 +93,7 @@ public class DeviceAdapter extends BaseAdapter {
 
         viewHolder.txtName.setText(device.getDeviceName());
 
-        if (device.getTypeDevice()== TypeDevice.CAMERA){
+        if (device.getDeviceType()== DeviceType.CAMERA){
             if (device.isConnect()){
                 viewHolder.txtState.setText("Connected");
                 viewHolder.txtState.setTextColor(Color.parseColor("#00a0dc"));

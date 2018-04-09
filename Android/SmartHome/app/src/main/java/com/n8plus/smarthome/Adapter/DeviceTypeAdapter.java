@@ -8,8 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.n8plus.smarthome.Model.Device;
-import com.n8plus.smarthome.Model.DeviceType;
+import com.n8plus.smarthome.Model.DeviceViewType;
 import com.n8plus.smarthome.R;
 
 import java.util.List;
@@ -20,19 +19,19 @@ import java.util.List;
 
 public class DeviceTypeAdapter extends BaseAdapter {
     private Context context;
-    private List<DeviceType> deviceTypeList;
+    private List<DeviceViewType> deviceViewTypeList;
     private int layout;
 
-    public DeviceTypeAdapter(Context context, List<DeviceType> deviceTypeList, int layout) {
+    public DeviceTypeAdapter(Context context, List<DeviceViewType> deviceViewTypeList, int layout) {
         this.context = context;
-        this.deviceTypeList = deviceTypeList;
+        this.deviceViewTypeList = deviceViewTypeList;
         this.layout = layout;
     }
 
 
     @Override
     public int getCount() {
-        return deviceTypeList.size();
+        return deviceViewTypeList.size();
     }
 
     @Override
@@ -70,11 +69,11 @@ public class DeviceTypeAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) view.getTag();
         }
 
-        DeviceType deviceType = deviceTypeList.get(i);
+        DeviceViewType deviceViewType = deviceViewTypeList.get(i);
 
-        viewHolder.imgDeviceType.setImageResource(deviceType.getImage());
-        viewHolder.txtNameType.setText(deviceType.getNameType());
-        viewHolder.txtQuantity.setText(""+deviceType.getDeviceList().size());
+        viewHolder.imgDeviceType.setImageResource(deviceViewType.getImage());
+        viewHolder.txtNameType.setText(deviceViewType.getNameType());
+        viewHolder.txtQuantity.setText(""+ deviceViewType.getDeviceList().size());
 
         return view;
     }

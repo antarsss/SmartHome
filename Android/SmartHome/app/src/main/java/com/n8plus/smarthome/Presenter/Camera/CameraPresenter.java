@@ -54,13 +54,13 @@ public class CameraPresenter implements CameraPresenterImpl {
                                 e.printStackTrace();
                             }
                         }
-                        cameraView.loadAllCameraSuccess(cameras);
+                        cameraView.loadAllSuccess(cameras);
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        cameraView.loadAllCameraFailure();
+                        cameraView.loadAllFailure();
                     }
                 });
         VolleySingleton.getInstance((Context) cameraView).addToRequestQueue(jsonArrayRequest);

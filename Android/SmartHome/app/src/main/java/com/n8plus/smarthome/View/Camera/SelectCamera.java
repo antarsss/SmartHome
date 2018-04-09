@@ -13,8 +13,6 @@ import android.widget.Toast;
 import com.n8plus.smarthome.Activity.ControlCamera;
 import com.n8plus.smarthome.Adapter.DeviceAdapter;
 import com.n8plus.smarthome.Model.Device;
-import com.n8plus.smarthome.Model.Enum.Position;
-import com.n8plus.smarthome.Model.Enum.TypeDevice;
 import com.n8plus.smarthome.Presenter.Camera.CameraPresenter;
 import com.n8plus.smarthome.R;
 
@@ -42,19 +40,19 @@ public class SelectCamera extends AppCompatActivity implements SelectCameraViewI
         cameraPresenter.loadAllCamera();
 //        arrayListCam.add(new Device.Builder()
 //                .set_id("1").setDeviceName("Camera 1")
-//                .setTypeDevice(TypeDevice.CAMERA)
+//                .setDeviceType(DeviceViewType.CAMERA)
 //                .setPosition(Position.GATEWAY)
 //                .setConnect(true)
 //                .build());
 //        arrayListCam.add(new Device.Builder()
 //                .set_id("2").setDeviceName("Camera 2")
-//                .setTypeDevice(TypeDevice.CAMERA)
+//                .setDeviceType(DeviceViewType.CAMERA)
 //                .setPosition(Position.GATEWAY)
 //                .setConnect(true)
 //                .build());
 //        arrayListCam.add(new Device.Builder()
 //                .set_id("3").setDeviceName("Camera 3")
-//                .setTypeDevice(TypeDevice.CAMERA)
+//                .setDeviceType(DeviceViewType.CAMERA)
 //                .setPosition(Position.GATEWAY)
 //                .setConnect(false)
 //                .build());
@@ -95,16 +93,22 @@ public class SelectCamera extends AppCompatActivity implements SelectCameraViewI
         });
     }
 
+
     @Override
-    public void loadAllCameraSuccess(List<Device> cameras) {
-        arrayListCam = (ArrayList<Device>) cameras;
+    public void loadAllSuccess(List<Device> devices) {
+        arrayListCam = (ArrayList<Device>) devices;
         deviceAdapter = new DeviceAdapter(this, arrayListCam, R.layout.row_list_device);
         listCamera.setAdapter(deviceAdapter);
         Toast.makeText(this, "Load all camera success!", Toast.LENGTH_LONG).show();
     }
 
     @Override
-    public void loadAllCameraFailure() {
+    public void loadAllFailure() {
         Toast.makeText(this, "Load all camera failure!", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void checkResponse(List<Device> lights) {
+
     }
 }

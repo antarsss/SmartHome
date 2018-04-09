@@ -16,50 +16,48 @@ import com.n8plus.smarthome.Model.Device;
 import com.n8plus.smarthome.R;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by Hiep_Nguyen on 3/1/2018.
  */
 
-public class ListLightAdapter extends RecyclerView.Adapter<ListLightAdapter.ViewHolder> {
+public class LightAdapter extends RecyclerView.Adapter<LightAdapter.ViewHolder> {
 
-    ArrayList<Device> arrayList;
+    ArrayList<Device> devices;
 
     Context context;
 
-    public ListLightAdapter(ArrayList<Device> arrayList, Context context) {
-        this.arrayList = arrayList;
+    public LightAdapter(ArrayList<Device> devices, Context context) {
+        this.devices = devices;
         this.context = context;
     }
 
     @Override
-    public ListLightAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public LightAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View itemView = layoutInflater.inflate(R.layout.row_light, parent, false);
         return new ViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(final ListLightAdapter.ViewHolder holder, final int position) {
-        final Device light = arrayList.get(position);
-
-        if (light.isState()) {
+    public void onBindViewHolder(final LightAdapter.ViewHolder holder, final int position) {
+        final Device device = devices.get(position);
+        System.out.println(device.get_id());
+        if (device.isState()) {
             holder.imgLight.setImageResource(R.drawable.light_on);
         } else {
             holder.imgLight.setImageResource(R.drawable.light_off);
         }
-        holder.txtNameLight.setText(light.getDeviceName());
-        holder.swtState.setChecked(light.isState());
+        holder.txtNameLight.setText(device.getDeviceName());
+        holder.swtState.setChecked(device.isState());
 
         holder.swtState.setTintColor(Color.parseColor("#00a0dc"));
         holder.swtState.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                light.setState(b ? true : false);
+                device.setState(b);
                 holder.imgLight.setImageResource(b ? R.drawable.light_on : R.drawable.light_off);
-                HomeActivity.mSocket.emit("c2s-ledchange", HomeActivity.deviceConvert.object2Json(light));
+                HomeActivity.mSocket.emit("c2s-change", HomeActivity.deviceConvert.object2Json(device));
             }
         });
 
@@ -67,7 +65,7 @@ public class ListLightAdapter extends RecyclerView.Adapter<ListLightAdapter.View
 
     @Override
     public int getItemCount() {
-        return arrayList.size();
+        return devices.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -78,7 +76,6 @@ public class ListLightAdapter extends RecyclerView.Adapter<ListLightAdapter.View
 
         public ViewHolder(View itemView) {
             super(itemView);
-
             imgLight = (ImageView) itemView.findViewById(R.id.imgLight);
             txtNameLight = (TextView) itemView.findViewById(R.id.txtNameLight);
             swtState = (SwitchButton) itemView.findViewById(R.id.swtState);
