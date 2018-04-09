@@ -162,7 +162,7 @@
                         android:layout_marginLeft="8dp"
                         android:textSize="16dp"
                         android:layout_gravity="center"
-                        android:text="Working room"
+                        android:text="Bath room"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
@@ -172,7 +172,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="150dp">
                     <android.support.v7.widget.RecyclerView
-                        android:id="@+id/doorWorkingRoom"
+                        android:id="@+id/doorBathRoom"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 

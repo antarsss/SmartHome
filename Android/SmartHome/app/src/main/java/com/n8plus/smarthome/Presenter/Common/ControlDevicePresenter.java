@@ -9,6 +9,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.github.nkzawa.emitter.Emitter;
+import com.n8plus.smarthome.Model.Enum.Position;
 import com.n8plus.smarthome.View.HomePage.HomeActivity;
 import com.n8plus.smarthome.Model.Device;
 import com.n8plus.smarthome.Model.Enum.DeviceType;
@@ -23,7 +24,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class ControlDevicePresenter implements ControlDeviceImpl {
+public class ControlDevicePresenter implements ControlDeviceImpl {
     ControlDeviceViewImpl controlDeviceView;
     List<Device> deviceList;
     DeviceType deviceType;
@@ -98,4 +99,46 @@ public abstract class ControlDevicePresenter implements ControlDeviceImpl {
         });
 
     }
+
+    @Override
+    public void loadDeviceByPosition(final Position position) {
+        ((AppCompatActivity) controlDeviceView).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                String URI = Constant.URL + "/device/" + deviceType + "/" +position;
+                JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, URI, null,
+                        new Response.Listener<JSONArray>() {
+                            @Override
+                            public void onResponse(JSONArray response) {
+                                List<Device> devices = new ArrayList<>();
+                                for (int i = 0; i < response.length(); i++) {
+                                    try {
+                                        JSONObject object = response.getJSONObject(i);
+                                        object.remove("__v");
+                                        object.remove("createdAt");
+                                        object.remove("updatedAt");
+                                        Device device = HomeActivity.deviceConvert.json2ObjectByGSon(object);
+                                        devices.add(device);
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                controlDeviceView.loadAllByPositionSuccess(devices, position);
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                controlDeviceView.loadAllFailure();
+                            }
+                        });
+                VolleySingleton.getInstance((Context) controlDeviceView).addToRequestQueue(jsonArrayRequest);
+
+            }
+        });
+
+    }
+
+
 }

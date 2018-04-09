@@ -6,11 +6,6 @@
     android:layout_height="match_parent"
     tools:context="com.n8plus.smarthome.View.ControlLight.ControlLightView">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -19,7 +14,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorBackground"
+                android:background="@drawable/border_bottom_line"
                 android:orientation="horizontal"
                 android:paddingBottom="12dp"
                 android:paddingLeft="16dp"
@@ -31,7 +26,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="8.5"
+                    android:layout_weight="8.7"
                     android:text="All Lights"
                     android:textColor="@color/txtColor1"
                     android:textSize="16sp" />
@@ -41,29 +36,194 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="1.5" />
+                    android:layout_weight="1.3" />
             </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/bgDark"
-                android:paddingBottom="4dp"
-                android:paddingLeft="16dp"
-                android:paddingTop="4dp"
-                android:text="Custom"
-                android:textColor="@color/txtColor3" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rcvLight"
+            <ScrollView
+                android:layout_marginTop="8dp"
+                android:scrollbars="none"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="8dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:paddingTop="8dp">
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:id="@+id/linearLivingRoom"
+                        android:padding="5dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:background="@drawable/title_box_shadow"
+                            android:padding="3dp"
+                            android:weightSum="10"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:layout_gravity="center"
+                                android:padding="5dp"
+                                android:src="@drawable/livingroom"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp" />
+                            <TextView
+                                android:layout_weight="10"
+                                android:layout_marginLeft="8dp"
+                                android:textSize="16dp"
+                                android:layout_gravity="center"
+                                android:text="Living room"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content" />
 
-            </android.support.v7.widget.RecyclerView>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:background="@drawable/box_shadow"
+                            android:paddingLeft="8dp"
+                            android:paddingRight="8dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/lightLivingRoom"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                            </android.support.v7.widget.RecyclerView>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearBedRoom"
+                        android:padding="5dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:background="@drawable/title_box_shadow"
+                            android:padding="3dp"
+                            android:weightSum="10"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:layout_gravity="center"
+                                android:padding="5dp"
+                                android:src="@drawable/bed"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp" />
+                            <TextView
+                                android:layout_weight="10"
+                                android:layout_marginLeft="8dp"
+                                android:textSize="16dp"
+                                android:layout_gravity="center"
+                                android:text="Bed room"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:background="@drawable/box_shadow"
+                            android:paddingLeft="8dp"
+                            android:paddingRight="8dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/lightBedRoom"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                            </android.support.v7.widget.RecyclerView>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearDiningRoom"
+                        android:padding="5dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:background="@drawable/title_box_shadow"
+                            android:padding="3dp"
+                            android:weightSum="10"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:layout_gravity="center"
+                                android:padding="5dp"
+                                android:src="@drawable/dining"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp" />
+                            <TextView
+                                android:layout_weight="10"
+                                android:layout_marginLeft="8dp"
+                                android:textSize="16dp"
+                                android:layout_gravity="center"
+                                android:text="Dining room"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:background="@drawable/box_shadow"
+                            android:paddingLeft="8dp"
+                            android:paddingRight="8dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/lightDiningRoom"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                            </android.support.v7.widget.RecyclerView>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearBathRoom"
+                        android:padding="5dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:background="@drawable/title_box_shadow"
+                            android:padding="3dp"
+                            android:weightSum="10"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:layout_gravity="center"
+                                android:padding="5dp"
+                                android:src="@drawable/working_room"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp" />
+                            <TextView
+                                android:layout_weight="10"
+                                android:layout_marginLeft="8dp"
+                                android:textSize="16dp"
+                                android:layout_gravity="center"
+                                android:text="Bath room"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:background="@drawable/box_shadow"
+                            android:paddingLeft="8dp"
+                            android:paddingRight="8dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/lightBathRoom"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                            </android.support.v7.widget.RecyclerView>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </ScrollView>
         </LinearLayout>
-    </ScrollView>
 </LinearLayout>

@@ -114,8 +114,8 @@ public class ControlMainDoor extends AppCompatActivity implements ControlMainDoo
                 titleRoom.setText("Kitchen Room");
                 imgRoom.setImageResource(R.drawable.dining);
                 break;
-            case WORKINGROOM:
-                titleRoom.setText("Working Room");
+            case BATHROOM:
+                titleRoom.setText("Bath Room");
                 imgRoom.setImageResource(R.drawable.working_room);
         }
     }

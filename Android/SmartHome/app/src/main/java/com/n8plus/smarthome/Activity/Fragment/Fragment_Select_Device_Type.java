@@ -127,7 +127,7 @@ public class Fragment_Select_Device_Type extends Fragment {
                 .setConnect(false).build());
         listCamera.add(new Device.Builder().set_id("0").setDeviceName("Camera 3")
                 .setDescription("None").setDeviceType(DeviceType.CAMERA)
-                .setPosition(Position.WORKINGROOM).setConnect(false)
+                .setPosition(Position.DININGROOM).setConnect(false)
                 .setConnect(false).build());
 
         arrayList = new ArrayList<>();

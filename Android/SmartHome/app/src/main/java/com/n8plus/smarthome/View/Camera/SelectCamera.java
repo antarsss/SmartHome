@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.n8plus.smarthome.Activity.ControlCamera;
 import com.n8plus.smarthome.Adapter.DeviceAdapter;
 import com.n8plus.smarthome.Model.Device;
+import com.n8plus.smarthome.Model.Enum.Position;
 import com.n8plus.smarthome.Presenter.Camera.CameraPresenter;
 import com.n8plus.smarthome.R;
 
@@ -37,8 +38,7 @@ public class SelectCamera extends AppCompatActivity implements SelectCameraViewI
 
         arrayListCam = new ArrayList<>();
         cameraPresenter = new CameraPresenter(this);
-        cameraPresenter.loadDevices();
-
+        cameraPresenter.loadDeviceByPosition(Position.LIVINGROOM);
 
         listCamera.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -78,6 +78,11 @@ public class SelectCamera extends AppCompatActivity implements SelectCameraViewI
 
     @Override
     public void loadAllSuccess(List<Device> devices) {
+
+    }
+
+    @Override
+    public void loadAllByPositionSuccess(List<Device> devices, Position position) {
         arrayListCam = (ArrayList<Device>) devices;
         deviceAdapter = new DeviceAdapter(this, arrayListCam, R.layout.row_list_device);
         listCamera.setAdapter(deviceAdapter);
@@ -93,4 +98,5 @@ public class SelectCamera extends AppCompatActivity implements SelectCameraViewI
     public void checkResponse(List<Device> lights) {
 
     }
+
 }

@@ -1,6 +1,7 @@
 package com.n8plus.smarthome.Presenter.Camera;
 
 import com.n8plus.smarthome.Model.Enum.DeviceType;
+import com.n8plus.smarthome.Model.Enum.Position;
 import com.n8plus.smarthome.Presenter.Common.ControlDevicePresenter;
 import com.n8plus.smarthome.View.Common.ControlDeviceViewImpl;
 

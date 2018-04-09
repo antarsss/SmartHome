@@ -8,6 +8,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.github.nkzawa.emitter.Emitter;
+import com.n8plus.smarthome.Model.Enum.DeviceType;
+import com.n8plus.smarthome.Presenter.Common.ControlDevicePresenter;
+import com.n8plus.smarthome.View.Common.ControlDeviceViewImpl;
 import com.n8plus.smarthome.View.HomePage.HomeActivity;
 import com.n8plus.smarthome.Model.Device;
 import com.n8plus.smarthome.Model.Enum.Position;
@@ -27,83 +30,9 @@ import java.util.List;
  * Created by Hiep_Nguyen on 3/30/2018.
  */
 
-public class LoadDoorPresenter implements LoadDoorPresenterImpl {
+public class LoadDoorPresenter extends ControlDevicePresenter {
 
-    DetectionDoorViewImpl doorView;
-    List<Device> doors;
-
-    public LoadDoorPresenter(DetectionDoorViewImpl doorView) {
-        this.doorView = doorView;
-        doors = new ArrayList<>();
-    }
-
-    @Override
-    public void loadState() {
-        HomeActivity.mSocket.on("s2c-doorchange", loadStateDoor);
-    }
-
-    private Emitter.Listener loadStateDoor = new Emitter.Listener() {
-        @Override
-        public void call(final Object... args) {
-            ((DetectionDoor) doorView).runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Toast.makeText((Context) doorView, "Có checkresponse !", Toast.LENGTH_SHORT).show();
-                    Device door = HomeActivity.deviceConvert.json2Object((JSONObject) args[0]);
-                    switch (door.getPosition()) {
-                        case LIVINGROOM:
-                            doors.add(door);
-                            doorView.checkResponse(doors, Position.LIVINGROOM);
-                            break;
-                        case BEDROOM:
-                            doors.add(door);
-                            doorView.checkResponse(doors, Position.BEDROOM);
-                            break;
-                        case DININGROOM:
-                            doors.add(door);
-                            doorView.checkResponse(doors, Position.DININGROOM);
-                            break;
-                        case WORKINGROOM:
-                            doors.add(door);
-                            doorView.checkResponse(doors, Position.WORKINGROOM);
-                            break;
-                    }
-
-                }
-            });
-        }
-    };
-
-    @Override
-    public void loadListDoor(final Position position) {
-        String URI = Constant.URL + "/device/door/" + position.toString();
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, URI, null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        List<Device> doors = new ArrayList<>();
-                        for (int i = 0; i < response.length(); i++) {
-                            try {
-                                JSONObject object = response.getJSONObject(i);
-                                object.remove("__v");
-                                object.remove("createdAt");
-                                object.remove("updatedAt");
-                                System.out.println(object.toString());
-                                Device door = HomeActivity.deviceConvert.json2ObjectByGSon(object);
-                                doors.add(door);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        doorView.loadAllDoorSuccess(doors, position);
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        doorView.loadAllDoorFailure();
-                    }
-                });
-        VolleySingleton.getInstance((Context) doorView).addToRequestQueue(jsonArrayRequest);
+    public LoadDoorPresenter(ControlDeviceViewImpl controlLightView) {
+        super(controlLightView, DeviceType.DOOR);
     }
 }
