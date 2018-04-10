@@ -13,7 +13,8 @@ int red = D6;
 
 int LEDs[] = {D8, D7, D6, D5, D4, D3, D2, D1, D0};
 
-char host[] = "172.16.199.170";    
+//char host[] = "172.16.199.170"; 
+char host[] = "rpi-chuna.strangled.net";   
 int port = 3000;                  
 
 extern String RID; // tên sự kiện
@@ -100,12 +101,13 @@ void Light(String device, String position, boolean st)
 void parseJsonArray(String s)
 {
     DynamicJsonBuffer bufferred(512);
-    JsonArray& arr = bufferred.parseArray(s);
+    JsonObject& object = bufferred.parseObject(s);
+    JsonArray& arr = object["devices"];
     if (arr.success())
         for (int i = 0; i < arr.size(); i++)
         {
-            JsonObject& object = arr[i];
-            Filter(object);
+            JsonObject& device = arr[i];
+            Filter(device);
         }
     else Serial.println("parsing failed!!!");
 }
@@ -148,7 +150,7 @@ void loadDeviceByType(String deviceType)
     Serial.println("With query " + query);   
      
     int httpCode = httpClient.POST(query);
-    Serial.println(httpCode);   //Print HTTP return code
+//    Serial.println(httpCode);   //Print HTTP return code
     
     if(httpCode == 200){
         String payload = httpClient.getString();
