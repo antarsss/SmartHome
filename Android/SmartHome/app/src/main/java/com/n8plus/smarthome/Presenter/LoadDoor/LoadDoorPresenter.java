@@ -24,15 +24,24 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Hiep_Nguyen on 3/30/2018.
  */
 
-public class LoadDoorPresenter extends ControlDevicePresenter {
+public class LoadDoorPresenter extends ControlDevicePresenter implements LoadDoorPresenterImpl {
 
     public LoadDoorPresenter(ControlDeviceViewImpl controlLightView) {
-        super(controlLightView, DeviceType.DOOR);
+        super(controlLightView);
     }
+
+    @Override
+    public void loadDeviceProperty(Map<String, String> headers) {
+        headers.put("deviceType", DeviceType.DOOR.name());
+        super.loadDeviceProperty(headers);
+    }
+
 }

@@ -68,7 +68,9 @@ exports.getUserByProperty = function(req, res) {
             message: "Some error occurred while retrieving users."
          });
       } else {
-         res.send(users);
+         var result = {};
+         result.users = users;
+         res.send(result);
       }
    });
 

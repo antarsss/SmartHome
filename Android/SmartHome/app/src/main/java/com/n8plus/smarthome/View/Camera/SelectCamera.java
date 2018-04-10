@@ -18,14 +18,15 @@ import com.n8plus.smarthome.Presenter.Camera.CameraPresenter;
 import com.n8plus.smarthome.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SelectCamera extends AppCompatActivity implements SelectCameraViewImpl {
 
     ListView listCamera;
     ArrayList<Device> arrayListCam;
     DeviceAdapter deviceAdapter;
-    int pos;
     CameraPresenter cameraPresenter;
 
     @Override
@@ -38,13 +39,11 @@ public class SelectCamera extends AppCompatActivity implements SelectCameraViewI
 
         arrayListCam = new ArrayList<>();
         cameraPresenter = new CameraPresenter(this);
-        cameraPresenter.loadDeviceByPosition(Position.LIVINGROOM);
-
+        loadAlldevices();
         listCamera.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                pos = i;
-                if (arrayListCam.get(i).isConnect()) {
+            public void onItemClick(AdapterView<?> adapterView, View view, final int pos, long l) {
+                if (arrayListCam.get(pos).isConnect()) {
                     Intent intent = new Intent(SelectCamera.this, ControlCamera.class);
                     intent.putExtra("nameCamera", arrayListCam.get(pos).getDeviceName());
                     startActivity(intent);
@@ -75,14 +74,23 @@ public class SelectCamera extends AppCompatActivity implements SelectCameraViewI
         });
     }
 
+    public void loadAlldevices() {
+        Map<String, String> params = new HashMap<>();
+        params.put("position", Position.LIVINGROOM.name());
+        cameraPresenter.loadDeviceProperty(params);
 
-    @Override
-    public void loadAllSuccess(List<Device> devices) {
+        params.put("position", Position.BEDROOM.name());
+        cameraPresenter.loadDeviceProperty(params);
 
+        params.put("position", Position.DININGROOM.name());
+        cameraPresenter.loadDeviceProperty(params);
+
+        params.put("position", Position.BATHROOM.name());
+        cameraPresenter.loadDeviceProperty(params);
     }
 
     @Override
-    public void loadAllByPositionSuccess(List<Device> devices, Position position) {
+    public void loadDevicesSuccess(List<Device> devices) {
         arrayListCam = (ArrayList<Device>) devices;
         deviceAdapter = new DeviceAdapter(this, arrayListCam, R.layout.row_list_device);
         listCamera.setAdapter(deviceAdapter);
@@ -90,7 +98,7 @@ public class SelectCamera extends AppCompatActivity implements SelectCameraViewI
     }
 
     @Override
-    public void loadAllFailure() {
+    public void loadDeviceFailure() {
         Toast.makeText(this, "Load all camera failure!", Toast.LENGTH_LONG).show();
     }
 

@@ -77,14 +77,14 @@ public class LightAdapter extends RecyclerView.Adapter<LightAdapter.ViewHolder> 
 
 
     public boolean isAllItemSelected(Device device) {
-            if (device.isState()) {
-                ((ControlLightView) context).count++;
+        if (device.isState()) {
+            ((ControlLightView) context).count++;
 
-            } else {
-                if (((ControlLightView) context).count > 0) {
-                    ((ControlLightView) context).count --;
-                }
+        } else {
+            if (((ControlLightView) context).count > 0) {
+                ((ControlLightView) context).count--;
             }
+        }
         System.out.println("count: " + ((ControlLightView) context).count + " | " + ((ControlLightView) context).getCountAllLight());
         return ((ControlLightView) context).count == ((ControlLightView) context).getCountAllLight();
     }
@@ -101,7 +101,6 @@ public class LightAdapter extends RecyclerView.Adapter<LightAdapter.ViewHolder> 
             txtNameLight = (TextView) itemView.findViewById(R.id.txtNameLight);
             swtState = (SwitchButton) itemView.findViewById(R.id.swtState);
         }
-
     }
 
     public void emitAll() {

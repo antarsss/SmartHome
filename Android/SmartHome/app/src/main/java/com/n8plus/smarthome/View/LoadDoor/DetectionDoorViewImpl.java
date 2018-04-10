@@ -11,8 +11,4 @@ import java.util.List;
  */
 
 public interface DetectionDoorViewImpl extends ControlDeviceViewImpl {
-//    void loadAllDoorSuccess(List<Device> devices, Position position);
-//    void loadAllDoorFailure();
-//    void checkResponse(List<Device> doors, Position position);
-
 }

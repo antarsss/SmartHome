@@ -29,7 +29,6 @@ exports.createDevice = function(req, res) {
 };
 
 exports.getDevicesProperty = function(req, res) {
-   console.log(req.body);
    Device.find(req.body, null, {
       sort: {
          deviceName: 1
@@ -40,7 +39,9 @@ exports.getDevicesProperty = function(req, res) {
             message: "Some error occurred while retrieving devices."
          });
       } else {
-         res.send(devices);
+         var result = {};
+         result.devices = devices;
+         res.send(result);
       }
    });
 };

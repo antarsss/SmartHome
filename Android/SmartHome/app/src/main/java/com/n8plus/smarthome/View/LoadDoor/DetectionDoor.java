@@ -16,13 +16,19 @@ import android.widget.Toast;
 
 import com.n8plus.smarthome.Adapter.DoorAdapter;
 import com.n8plus.smarthome.Model.Device;
+import com.n8plus.smarthome.Model.Enum.DeviceType;
 import com.n8plus.smarthome.Model.Enum.Position;
 import com.n8plus.smarthome.Presenter.LoadDoor.LoadDoorPresenter;
 import com.n8plus.smarthome.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DetectionDoor extends AppCompatActivity implements DetectionDoorViewImpl {
     RecyclerView doorBedRoom, doorLivingRoom, doorDiningRoom, doorBathRoom;
@@ -60,11 +66,19 @@ public class DetectionDoor extends AppCompatActivity implements DetectionDoorVie
 
     }
 
-    public void loadAllDoor(){
-        loadDoorPresenter.loadDeviceByPosition(Position.LIVINGROOM);
-        loadDoorPresenter.loadDeviceByPosition(Position.BEDROOM);
-        loadDoorPresenter.loadDeviceByPosition(Position.DININGROOM);
-        loadDoorPresenter.loadDeviceByPosition(Position.BATHROOM);
+    public void loadAllDoor() {
+        Map<String, String> params = new HashMap<>();
+        params.put("position", Position.LIVINGROOM.name());
+        loadDoorPresenter.loadDeviceProperty(params);
+
+        params.put("position", Position.BEDROOM.name());
+        loadDoorPresenter.loadDeviceProperty(params);
+
+        params.put("position", Position.DININGROOM.name());
+        loadDoorPresenter.loadDeviceProperty(params);
+
+        params.put("position", Position.BATHROOM.name());
+        loadDoorPresenter.loadDeviceProperty(params);
     }
 
     public void initView(HashMap<String, Device> arrayList, List<Device> doors, RecyclerView recyclerView) {
@@ -110,49 +124,44 @@ public class DetectionDoor extends AppCompatActivity implements DetectionDoorVie
         }
     }
 
-    @Override
-    public void loadAllSuccess(List<Device> devices) {
-
-    }
 
     @Override
-    public void loadAllByPositionSuccess(List<Device> doors, Position position) {
-        switch (position){
+    public void loadDevicesSuccess(List<Device> devices) {
+        switch (devices.get(0).getPosition()) {
             case LIVINGROOM:
-                initView(listLivingRoom, doors, doorLivingRoom);
+                initView(listLivingRoom, devices, doorLivingRoom);
                 break;
             case BEDROOM:
-                initView(listBedRoom, doors, doorBedRoom);
+                initView(listBedRoom, devices, doorBedRoom);
                 break;
 
             case DININGROOM:
-                initView(listDiningRoom, doors, doorDiningRoom);
+                initView(listDiningRoom, devices, doorDiningRoom);
                 break;
 
             case BATHROOM:
-                initView(listBathRoom, doors, doorBathRoom);
+                initView(listBathRoom, devices, doorBathRoom);
                 break;
         }
-//        Toast.makeText(this, "Load all door success!", Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void loadAllFailure() {
+    public void loadDeviceFailure() {
         Toast.makeText(this, "Load all door failure!", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void checkResponse(List<Device> doors) {
-        for (Device door : doors){
+        for (Device door : doors) {
             listLivingRoom.get(door.get_id()).setState(door.isState());
         }
-        for (Device door : doors){
+        for (Device door : doors) {
             listBedRoom.get(door.get_id()).setState(door.isState());
         }
-        for (Device door : doors){
+        for (Device door : doors) {
             listDiningRoom.get(door.get_id()).setState(door.isState());
         }
-        for (Device door : doors){
+        for (Device door : doors) {
             listBathRoom.get(door.get_id()).setState(door.isState());
         }
     }

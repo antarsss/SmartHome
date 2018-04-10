@@ -13,9 +13,14 @@ import android.widget.Toast;
 import com.kyleduo.switchbutton.SwitchButton;
 import com.n8plus.smarthome.Adapter.LightAdapter;
 import com.n8plus.smarthome.Model.Device;
+import com.n8plus.smarthome.Model.Enum.DeviceType;
 import com.n8plus.smarthome.Model.Enum.Position;
 import com.n8plus.smarthome.Presenter.ControlLight.ControlLightPresenter;
 import com.n8plus.smarthome.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,12 +48,12 @@ public class ControlLightView extends AppCompatActivity implements ControlLightV
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
 
         controlLightPresenter = new ControlLightPresenter(this);
-        loadAllLights();
+        loadAlldevices();
 
         swbAllLight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("swt all: "+swbAllLight.isChecked());
+                System.out.println("swt all: " + swbAllLight.isChecked());
                 for (Device device : lightLivingRoom.values()) {
                     device.setState(swbAllLight.isChecked());
                     lightLivingRoom.get(device.get_id()).setState(device.isState());
@@ -79,99 +84,98 @@ public class ControlLightView extends AppCompatActivity implements ControlLightV
         listBathRoom = (RecyclerView) findViewById(R.id.lightBathRoom);
         swbAllLight = (SwitchButton) findViewById(R.id.swbAllLight);
 
-        lightLivingRoom = new HashMap<String, Device>();
-        lightBedRoom = new HashMap<String, Device>();
-        lightDiningRoom = new HashMap<String, Device>();
-        lightBathRoom = new HashMap<String, Device>();
+        lightLivingRoom = new HashMap<>();
+        lightBedRoom = new HashMap<>();
+        lightDiningRoom = new HashMap<>();
+        lightBathRoom = new HashMap<>();
     }
 
-    public void loadAllLights() {
-        controlLightPresenter.loadDeviceByPosition(Position.LIVINGROOM);
-        controlLightPresenter.loadDeviceByPosition(Position.BEDROOM);
-        controlLightPresenter.loadDeviceByPosition(Position.DININGROOM);
-        controlLightPresenter.loadDeviceByPosition(Position.BATHROOM);
+    public void loadAlldevices() {
+        Map<String, String> params = new HashMap<>();
+        params.put("position", Position.LIVINGROOM.name());
+        controlLightPresenter.loadDeviceProperty(params);
+
+        params.put("position", Position.BEDROOM.name());
+        controlLightPresenter.loadDeviceProperty(params);
+
+        params.put("position", Position.DININGROOM.name());
+        controlLightPresenter.loadDeviceProperty(params);
+
+        params.put("position", Position.BATHROOM.name());
+        controlLightPresenter.loadDeviceProperty(params);
     }
 
-    public void setCheckAll(boolean b){
+    public void setCheckAll(boolean b) {
         swbAllLight.setChecked(b);
     }
 
     public void initView(RecyclerView recyclerView) {
-            recyclerView.setVisibility(View.VISIBLE);
-            ((LinearLayout) recyclerView.getParent().getParent()).setVisibility(View.VISIBLE);
-            recyclerView.setHasFixedSize(true);
-            LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-            recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setVisibility(View.VISIBLE);
+        ((LinearLayout) recyclerView.getParent().getParent()).setVisibility(View.VISIBLE);
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(layoutManager);
     }
 
-    public void setDataValue(Map<String, Device> arrayList, List<Device> lights){
-        for (Device light : lights) {
+    public void setDataValue(Map<String, Device> arrayList, List<Device> devices) {
+        for (Device light : devices) {
             arrayList.put(light.get_id(), light);
         }
     }
 
-
-    @Override
-    public void loadAllSuccess(List<Device> lights) {
-
+    public int getCountAllLight() {
+        return countAllLight;
     }
 
     @Override
-    public void loadAllByPositionSuccess(List<Device> lights, Position position) {
-        switch (position) {
+    public void loadDevicesSuccess(List<Device> devices) {
+        switch (devices.get(0).getPosition()) {
             case LIVINGROOM:
                 initView(listLivingRoom);
-                setDataValue(lightLivingRoom, lights);
+                setDataValue(lightLivingRoom, devices);
                 livingRoomAdapter = new LightAdapter(new ArrayList<Device>(lightLivingRoom.values()), this);
                 listLivingRoom.setAdapter(livingRoomAdapter);
                 break;
             case BEDROOM:
                 initView(listBedRoom);
-                setDataValue(lightBedRoom, lights);
+                setDataValue(lightBedRoom, devices);
                 bedRoomAdapter = new LightAdapter(new ArrayList<Device>(lightBedRoom.values()), this);
                 listBedRoom.setAdapter(bedRoomAdapter);
                 break;
             case DININGROOM:
                 initView(listDiningRoom);
-                setDataValue(lightDiningRoom, lights);
+                setDataValue(lightDiningRoom, devices);
                 diningRoomAdapter = new LightAdapter(new ArrayList<Device>(lightDiningRoom.values()), this);
                 listDiningRoom.setAdapter(diningRoomAdapter);
                 break;
             case BATHROOM:
                 initView(listBathRoom);
-                setDataValue(lightBathRoom, lights);
+                setDataValue(lightBathRoom, devices);
                 bathRoomAdapter = new LightAdapter(new ArrayList<Device>(lightBathRoom.values()), this);
                 listBathRoom.setAdapter(bathRoomAdapter);
                 break;
         }
         controlLightPresenter.listenState();
-        countAllLight += lights.size();
-
-//        Toast.makeText(this, "Load all light success!", Toast.LENGTH_LONG).show();
-
-    }
-
-    public int getCountAllLight(){
-        return countAllLight;
+        countAllLight += devices.size();
     }
 
     @Override
-    public void loadAllFailure() {
+    public void loadDeviceFailure() {
         Toast.makeText(this, "Load all light failure!", Toast.LENGTH_LONG).show();
     }
 
     @Override
-    public void checkResponse(List<Device> lights) {
-        for (Device light : lights) {
+    public void checkResponse(List<Device> devices) {
+        for (Device light : devices) {
             lightLivingRoom.get(light.get_id()).setState(light.isState());
         }
-        for (Device light : lights) {
+        for (Device light : devices) {
             lightBedRoom.get(light.get_id()).setState(light.isState());
         }
-        for (Device light : lights) {
+        for (Device light : devices) {
             lightDiningRoom.get(light.get_id()).setState(light.isState());
         }
-        for (Device light : lights) {
+        for (Device light : devices) {
             lightBathRoom.get(light.get_id()).setState(light.isState());
         }
         reloadList();
@@ -189,7 +193,7 @@ public class ControlLightView extends AppCompatActivity implements ControlLightV
         });
     }
 
-    public void emitAllList(){
+    public void emitAllList() {
         livingRoomAdapter.emitAll();
         bedRoomAdapter.emitAll();
         diningRoomAdapter.emitAll();
