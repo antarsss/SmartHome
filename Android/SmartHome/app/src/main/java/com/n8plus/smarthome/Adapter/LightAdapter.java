@@ -25,7 +25,6 @@ import java.util.ArrayList;
 public class LightAdapter extends RecyclerView.Adapter<LightAdapter.ViewHolder> {
 
     ArrayList<Device> devices;
-
     Context context;
 
     public LightAdapter(ArrayList<Device> devices, Context context) {
@@ -64,26 +63,30 @@ public class LightAdapter extends RecyclerView.Adapter<LightAdapter.ViewHolder> 
                 HomeActivity.mSocket.emit("c2s-change", HomeActivity.deviceConvert.object2Json(device));
                 Log.i("EMIT", HomeActivity.deviceConvert.object2Json(device).toString());
                 holder.imgLight.setImageResource(holder.swtState.isChecked() ? R.drawable.light_on : R.drawable.light_off);
-                SwitchButton swtAll = ((ControlLightView) context).findViewById(R.id.swbAllLight);
-                swtAll.setChecked(isAllItemSelected());
+
+                ((ControlLightView) context).setCheckAll(isAllItemSelected(device));
             }
         });
 
     }
 
-    public boolean isAllItemSelected() {
-        int count = 0;
-        for (Device device : devices) {
-            if (device.isState()) {
-                count++;
-            }
-        }
-        return count == getItemCount();
-    }
-
     @Override
     public int getItemCount() {
         return devices.size();
+    }
+
+
+    public boolean isAllItemSelected(Device device) {
+            if (device.isState()) {
+                ((ControlLightView) context).count++;
+
+            } else {
+                if (((ControlLightView) context).count > 0) {
+                    ((ControlLightView) context).count --;
+                }
+            }
+        System.out.println("count: " + ((ControlLightView) context).count + " | " + ((ControlLightView) context).getCountAllLight());
+        return ((ControlLightView) context).count == ((ControlLightView) context).getCountAllLight();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -101,7 +104,7 @@ public class LightAdapter extends RecyclerView.Adapter<LightAdapter.ViewHolder> 
 
     }
 
-    public void setCheckedAll() {
+    public void emitAll() {
         for (Device device : devices) {
             HomeActivity.mSocket.emit("c2s-change", HomeActivity.deviceConvert.object2Json(device));
         }

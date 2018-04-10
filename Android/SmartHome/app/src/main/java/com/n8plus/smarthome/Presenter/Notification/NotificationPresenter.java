@@ -33,7 +33,7 @@ public class NotificationPresenter implements NotificationPresenterImpl {
 
     @Override
     public void loadNotification() {
-        String URI = Constant.URL + "/device/door";
+        String URI = Constant.URL + "/device/doors";
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, URI, null,
                 new Response.Listener<JSONArray>() {
                     @Override

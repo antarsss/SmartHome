@@ -17,7 +17,7 @@ public class DeviceConverter {
             String s = "{'_id':'"+device.get_id()+"', 'deviceName': '"+device.getDeviceName()+"'," +
                     " 'deviceType': '"+device.getDeviceType()+"', 'description': '"+device.getDescription()+"'," +
                     " 'position': '"+device.getPosition()+"', 'state':"+device.isState()+", 'connect':"+device.isConnect()+"}";
-
+            System.out.println("Emit: "+s);
             return new JSONObject(s);
         } catch (JSONException e) {
             e.printStackTrace();

@@ -1,0 +1,18 @@
+db.devices.insert([
+	{deviceName: "Light 1", deviceType: "LIGHT", description: "None", position: "LIVINGROOM", state: false, connect: true},
+	{deviceName: "Light 2", deviceType: "LIGHT", description: "None", position: "LIVINGROOM", state: false, connect: true},
+	{deviceName: "Light 1", deviceType: "LIGHT", description: "None", position: "BEDROOM", state: false, connect: true},
+	{deviceName: "Light 2", deviceType: "LIGHT", description: "None", position: "BEDROOM", state: false, connect: true},
+	{deviceName: "Light 1", deviceType: "LIGHT", description: "None", position: "DININGROOM", state: false, connect: true},
+	{deviceName: "Light 2", deviceType: "LIGHT", description: "None", position: "DININGROOM", state: false, connect: true},
+	{deviceName: "Light 1", deviceType: "LIGHT", description: "None", position: "BATHROOM", state: false, connect: true},
+	{deviceName: "Main Door", deviceType: "DOOR", description: "MAINDOOR", position: "LIVINGROOM", state: true, connect: true},
+	{deviceName: "Window 1", deviceType: "DOOR", description: "WINDOWS", position: "LIVINGROOM", state: true, connect: true},
+	{deviceName: "Window 2", deviceType: "DOOR", description: "WINDOWS", position: "LIVINGROOM", state: false, connect: true},
+	{deviceName: "Door", deviceType: "DOOR", description: "MAINDOOR", position: "BEDROOM", state: false, connect: true},
+	{deviceName: "Window 1", deviceType: "DOOR", description: "WINDOWS", position: "BEDROOM", state: false, connect: true},
+	{deviceName: "Door", deviceType: "DOOR", description: "MAINDOOR", position: "DININGROOM", state: true, connect: true},
+	{deviceName: "Window 1", deviceType: "DOOR", description: "WINDOWS", position: "DININGROOM", state: true, connect: true},
+	{deviceName: "Door", deviceType: "DOOR", description: "MAINDOOR", position: "BATHROOM", state: true, connect: true},
+	{deviceName: "Camera 1", deviceType: "CAMERA", description: "None", position: "LIVINGROOM", state: true, connect: true}
+])

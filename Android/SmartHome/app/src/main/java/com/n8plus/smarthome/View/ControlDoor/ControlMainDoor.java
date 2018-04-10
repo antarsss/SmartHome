@@ -116,7 +116,7 @@ public class ControlMainDoor extends AppCompatActivity implements ControlMainDoo
                 break;
             case BATHROOM:
                 titleRoom.setText("Bath Room");
-                imgRoom.setImageResource(R.drawable.working_room);
+                imgRoom.setImageResource(R.drawable.bathroom);
         }
     }
 }
