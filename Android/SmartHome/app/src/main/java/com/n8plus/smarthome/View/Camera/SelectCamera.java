@@ -25,7 +25,8 @@ import java.util.Map;
 public class SelectCamera extends AppCompatActivity implements SelectCameraViewImpl {
 
     ListView listCamera;
-    ArrayList<Device> arrayListCam;
+//    ArrayList<Device> arrayListCam;
+    HashMap<String, Device> arrayListCam;
     DeviceAdapter deviceAdapter;
     CameraPresenter cameraPresenter;
 
@@ -37,15 +38,15 @@ public class SelectCamera extends AppCompatActivity implements SelectCameraViewI
 
         listCamera = (ListView) findViewById(R.id.listCamera);
 
-        arrayListCam = new ArrayList<>();
         cameraPresenter = new CameraPresenter(this);
         loadAlldevices();
         listCamera.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, final int pos, long l) {
-                if (arrayListCam.get(pos).isConnect()) {
+                final ArrayList<Device> arrayList = new ArrayList<Device>(arrayListCam.values());
+                if (arrayList.get(pos).isConnect()) {
                     Intent intent = new Intent(SelectCamera.this, ControlCamera.class);
-                    intent.putExtra("nameCamera", arrayListCam.get(pos).getDeviceName());
+                    intent.putExtra("Camera", arrayList.get(pos));
                     startActivity(intent);
                 } else {
                     final AlertDialog.Builder alert = new AlertDialog.Builder(SelectCamera.this);
@@ -57,7 +58,7 @@ public class SelectCamera extends AppCompatActivity implements SelectCameraViewI
                             arrayListCam.get(pos).setConnect(true);
                             deviceAdapter.notifyDataSetChanged();
                             Intent intent = new Intent(SelectCamera.this, ControlCamera.class);
-                            intent.putExtra("nameCamera", arrayListCam.get(pos).getDeviceName());
+                            intent.putExtra("Camera", arrayList.get(pos));
                             startActivity(intent);
                         }
                     });
@@ -79,20 +80,23 @@ public class SelectCamera extends AppCompatActivity implements SelectCameraViewI
         params.put("position", Position.LIVINGROOM.name());
         cameraPresenter.loadDeviceProperty(params);
 
-        params.put("position", Position.BEDROOM.name());
-        cameraPresenter.loadDeviceProperty(params);
-
-        params.put("position", Position.DININGROOM.name());
-        cameraPresenter.loadDeviceProperty(params);
-
-        params.put("position", Position.BATHROOM.name());
-        cameraPresenter.loadDeviceProperty(params);
+//        params.put("position", Position.BEDROOM.name());
+//        cameraPresenter.loadDeviceProperty(params);
+//
+//        params.put("position", Position.DININGROOM.name());
+//        cameraPresenter.loadDeviceProperty(params);
+//
+//        params.put("position", Position.BATHROOM.name());
+//        cameraPresenter.loadDeviceProperty(params);
     }
 
     @Override
     public void loadDevicesSuccess(List<Device> devices) {
-        arrayListCam = (ArrayList<Device>) devices;
-        deviceAdapter = new DeviceAdapter(this, arrayListCam, R.layout.row_list_device);
+        arrayListCam = new HashMap<String, Device>();
+        for (Device device: devices){
+            arrayListCam.put(device.get_id(), device);
+        }
+        deviceAdapter = new DeviceAdapter(this, new ArrayList<Device>(arrayListCam.values()), R.layout.row_list_device);
         listCamera.setAdapter(deviceAdapter);
         Toast.makeText(this, "Load all camera success!", Toast.LENGTH_LONG).show();
     }

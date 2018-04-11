@@ -93,25 +93,15 @@ public class DeviceAdapter extends BaseAdapter {
 
         viewHolder.txtName.setText(device.getDeviceName());
 
-        if (device.getDeviceType()== DeviceType.CAMERA){
-            if (device.isConnect()){
-                viewHolder.txtState.setText("Connected");
-                viewHolder.txtState.setTextColor(Color.parseColor("#00a0dc"));
-            }
-            else {
-                viewHolder.txtState.setText("Disconnected");
-                viewHolder.txtState.setTextColor(Color.parseColor("#ffff4444"));
-            }
-        } else {
-            if (device.isState()){
-                viewHolder.txtState.setText("Connected");
-                viewHolder.txtState.setTextColor(Color.parseColor("#00a0dc"));
-            }
-            else {
-                viewHolder.txtState.setText("Disconnected");
-                viewHolder.txtState.setTextColor(Color.parseColor("#ffff4444"));
-            }
+        if (device.isConnect()){
+            viewHolder.txtState.setText("Connected");
+            viewHolder.txtState.setTextColor(Color.parseColor("#00a0dc"));
         }
+        else {
+            viewHolder.txtState.setText("Disconnected");
+            viewHolder.txtState.setTextColor(Color.parseColor("#ffff4444"));
+        }
+
         return view;
     }
 }

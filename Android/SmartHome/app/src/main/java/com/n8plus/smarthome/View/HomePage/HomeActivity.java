@@ -23,9 +23,11 @@ import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 import com.n8plus.smarthome.Activity.Fragment.Fragment_Home;
 import com.n8plus.smarthome.Activity.Fragment.Fragment_Notification;
+import com.n8plus.smarthome.Model.Enum.DeviceType;
 import com.n8plus.smarthome.Presenter.Notification.NotificationPresenter;
 import com.n8plus.smarthome.Activity.Fragment.Fragment_Profile;
-import com.n8plus.smarthome.Activity.Fragment.Fragment_Select_Device_Type;
+import com.n8plus.smarthome.Presenter.SelectDeviceType.DeviceTypePresenter;
+import com.n8plus.smarthome.View.SelectDeviceType.Fragment_Select_Device_Type;
 import com.n8plus.smarthome.Interface.CountMarkedAsRead;
 
 import com.n8plus.smarthome.Model.Notification;
@@ -39,7 +41,7 @@ import org.json.JSONObject;
 import java.lang.reflect.Field;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity implements CountMarkedAsRead, HomeActivityViewImpl {
@@ -51,6 +53,7 @@ public class HomeActivity extends AppCompatActivity implements CountMarkedAsRead
     ArrayList<Notification> notificationList;
     int countNoti = 0;
     NotificationPresenter notificationPresenter;
+    DeviceTypePresenter deviceTypePresenter;
 
     private final String URL_SERVER = Constant.URL;
     public static final DeviceConverter deviceConvert = new DeviceConverter();
@@ -93,6 +96,7 @@ public class HomeActivity extends AppCompatActivity implements CountMarkedAsRead
 //        addDataList();
         notificationList = new ArrayList<>();
         notificationPresenter = new NotificationPresenter(this);
+
         notificationPresenter.loadNotification();
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navMain);
@@ -162,6 +166,7 @@ public class HomeActivity extends AppCompatActivity implements CountMarkedAsRead
         }
         txtCount.setText("" + countNoti);
     }
+
 
     @SuppressLint("RestrictedApi")
     private void disableShiftMode(BottomNavigationView view) {
