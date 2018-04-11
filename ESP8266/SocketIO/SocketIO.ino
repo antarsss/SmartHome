@@ -13,7 +13,7 @@ int red = D6;
 
 int LEDs[] = {D8, D7, D6, D5, D4, D3, D2, D1, D0};
 
-//char host[] = "172.16.199.170"; 
+//char host[] = "192.168.1.200"; 
 char host[] = "rpi-chuna.strangled.net";   
 int port = 3000;                  
 

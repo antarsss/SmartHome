@@ -9,30 +9,24 @@ import com.github.nkzawa.socketio.client.Socket;
 import java.net.URISyntaxException;
 
 public class SocketSingeton {
-    private final String URL_SERVER = Constant.URL;
-    private static Socket socket;
-    private static boolean emit = false;
-    private static boolean on = false;
+    private static Socket connect;
     public static int countEmit = 0;
     public static int countReceive = 0;
 
-    {
+    public void connect() {
         try {
-            socket = IO.socket(URL_SERVER);
+            connect = IO.socket(Constant.URL).connect();
         } catch (URISyntaxException e) {
+            e.printStackTrace();
         }
     }
 
-    public void connect() {
-        socket.connect();
-    }
-
     public void emit(final String event, final Object... objects) {
-        synchronized (socket) {
+        synchronized (connect) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    socket.emit(event, objects);
+                    connect.emit(event, objects);
                     Log.e("COUNT EMIT", "" + countEmit++);
                 }
             }).start();
@@ -40,8 +34,8 @@ public class SocketSingeton {
     }
 
     public void on(String event, Emitter.Listener emitter) {
-        synchronized (socket) {
-            socket.on(event, emitter);
+        synchronized (connect) {
+            connect.on(event, emitter);
             Log.e("COUNT RECEIVE", "" + countReceive++);
         }
     }

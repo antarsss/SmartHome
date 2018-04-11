@@ -18,28 +18,19 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.nkzawa.emitter.Emitter;
-import com.github.nkzawa.socketio.client.IO;
-import com.github.nkzawa.socketio.client.Socket;
 import com.n8plus.smarthome.Activity.Fragment.Fragment_Home;
 import com.n8plus.smarthome.Activity.Fragment.Fragment_Notification;
-import com.n8plus.smarthome.Presenter.Notification.NotificationPresenter;
 import com.n8plus.smarthome.Activity.Fragment.Fragment_Profile;
 import com.n8plus.smarthome.Activity.Fragment.Fragment_Select_Device_Type;
 import com.n8plus.smarthome.Interface.CountMarkedAsRead;
-
 import com.n8plus.smarthome.Model.Notification;
+import com.n8plus.smarthome.Presenter.Notification.NotificationPresenter;
 import com.n8plus.smarthome.R;
-import com.n8plus.smarthome.Utils.common.Constant;
 import com.n8plus.smarthome.Utils.common.DeviceConverter;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.n8plus.smarthome.Utils.common.SocketSingeton;
 
 import java.lang.reflect.Field;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity implements CountMarkedAsRead, HomeActivityViewImpl {
@@ -52,42 +43,15 @@ public class HomeActivity extends AppCompatActivity implements CountMarkedAsRead
     int countNoti = 0;
     NotificationPresenter notificationPresenter;
 
-    private final String URL_SERVER = Constant.URL;
     public static final DeviceConverter deviceConvert = new DeviceConverter();
     public static final DeviceConverter doorConvert = new DeviceConverter();
-    public static Socket mSocket;
-    public static String tokenId;
-
-    {
-        try {
-            mSocket = IO.socket(URL_SERVER);
-        } catch (URISyntaxException e) {
-        }
-    }
+    public static SocketSingeton mSocket = new SocketSingeton();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         mSocket.connect();
-        mSocket.emit("login", "admin");
-        mSocket.on("authorized", new Emitter.Listener() {
-            @Override
-            public void call(final Object... args) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            JSONObject object = new JSONObject(args[0].toString());
-                            tokenId = object.getString("tokenid");
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-            }
-        });
-
         frmContent = (FrameLayout) findViewById(R.id.frmContent);
 
 //        addDataList();
@@ -154,7 +118,7 @@ public class HomeActivity extends AppCompatActivity implements CountMarkedAsRead
         }
     }
 
-    public void countNotification(){
+    public void countNotification() {
         for (Notification notification : notificationList) {
             if (notification.isState()) {
                 countNoti++;
@@ -187,11 +151,12 @@ public class HomeActivity extends AppCompatActivity implements CountMarkedAsRead
 
     @Override
     public void loadNotificationSuccess(List<Notification> notifications) {
-        for(Notification notification: notifications){
+        for (Notification notification : notifications) {
             notificationList.add(notification);
         }
         countNotification();
     }
+
     @Override
     public void loadNotificationFailure() {
         Toast.makeText(this, "Load all notification failure!", Toast.LENGTH_SHORT).show();

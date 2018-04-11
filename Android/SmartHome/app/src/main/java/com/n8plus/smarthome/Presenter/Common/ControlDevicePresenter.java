@@ -4,18 +4,17 @@ import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.github.nkzawa.emitter.Emitter;
-import com.n8plus.smarthome.View.HomePage.HomeActivity;
 import com.n8plus.smarthome.Model.Device;
 import com.n8plus.smarthome.Utils.common.Constant;
 import com.n8plus.smarthome.Utils.common.VolleySingleton;
 import com.n8plus.smarthome.View.Common.ControlDeviceViewImpl;
+import com.n8plus.smarthome.View.HomePage.HomeActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,7 +23,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class ControlDevicePresenter implements ControlDeviceImpl {
     ControlDeviceViewImpl controlDeviceView;
@@ -94,6 +92,10 @@ public class ControlDevicePresenter implements ControlDeviceImpl {
                                 controlDeviceView.loadDeviceFailure();
                             }
                         });
+                jreq.setRetryPolicy(new
+                        DefaultRetryPolicy(60000,
+                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                 VolleySingleton.getInstance((Context) controlDeviceView).addToRequestQueue(jreq);
             }
         });

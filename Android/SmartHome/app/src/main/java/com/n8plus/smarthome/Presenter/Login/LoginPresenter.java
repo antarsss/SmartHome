@@ -35,7 +35,6 @@ public class LoginPresenter implements LoginPresenterImpl {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("username", usn);
         params.put("password", pass);
-        System.out.println("Set usn va pass");
         ((AppCompatActivity) loginView).runOnUiThread(new Runnable() {
             @Override
             public void run() {
