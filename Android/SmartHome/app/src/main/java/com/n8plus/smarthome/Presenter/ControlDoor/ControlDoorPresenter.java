@@ -18,7 +18,7 @@ public class ControlDoorPresenter extends ControlDevicePresenter {
 
     @Override
     public void loadDeviceProperty(Map<String, String> headers) {
-        headers.put("deviceType", DeviceType.LIGHT.name());
+        headers.put("deviceType", DeviceType.DOOR.name());
         super.loadDeviceProperty(headers);
     }
 }

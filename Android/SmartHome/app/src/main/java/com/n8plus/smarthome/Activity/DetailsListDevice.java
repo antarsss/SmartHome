@@ -43,26 +43,14 @@ public class DetailsListDevice extends AppCompatActivity {
         lvDeviceAvailable.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (deviceArrayList.get(i).getDeviceType()== DeviceType.CAMERA) {
-                    if (deviceArrayList.get(i).isConnect()) {
-                        Toast.makeText(DetailsListDevice.this, "Disconnecting...", Toast.LENGTH_SHORT).show();
-                        deviceArrayList.get(i).setConnect(false);
-                        deviceAdapter.notifyDataSetChanged();
-                    } else {
-                        Toast.makeText(DetailsListDevice.this, "Connecting...", Toast.LENGTH_SHORT).show();
-                        deviceArrayList.get(i).setConnect(true);
-                        deviceAdapter.notifyDataSetChanged();
-                    }
+                if (deviceArrayList.get(i).isConnect()) {
+                    Toast.makeText(DetailsListDevice.this, "Disconnecting...", Toast.LENGTH_SHORT).show();
+                    deviceArrayList.get(i).setConnect(false);
+                    deviceAdapter.notifyDataSetChanged();
                 } else {
-                    if (deviceArrayList.get(i).isState()) {
-                        Toast.makeText(DetailsListDevice.this, "Disconnecting...", Toast.LENGTH_SHORT).show();
-                        deviceArrayList.get(i).setState(false);
-                        deviceAdapter.notifyDataSetChanged();
-                    } else {
-                        Toast.makeText(DetailsListDevice.this, "Connecting...", Toast.LENGTH_SHORT).show();
-                        deviceArrayList.get(i).setState(true);
-                        deviceAdapter.notifyDataSetChanged();
-                    }
+                    Toast.makeText(DetailsListDevice.this, "Connecting...", Toast.LENGTH_SHORT).show();
+                    deviceArrayList.get(i).setConnect(true);
+                    deviceAdapter.notifyDataSetChanged();
                 }
 
             }

@@ -53,7 +53,6 @@ public class ControlLightView extends AppCompatActivity implements ControlLightV
         swbAllLight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("swt all: " + swbAllLight.isChecked());
                 for (Device device : lightLivingRoom.values()) {
                     device.setState(swbAllLight.isChecked());
                     lightLivingRoom.get(device.get_id()).setState(device.isState());
@@ -72,7 +71,12 @@ public class ControlLightView extends AppCompatActivity implements ControlLightV
                 }
                 reloadList();
                 emitAllList();
-                count = countAllLight;
+                if (swbAllLight.isChecked()) {
+                    count = countAllLight;
+                } else {
+                    count = 0;
+                }
+
             }
         });
     }
@@ -93,15 +97,19 @@ public class ControlLightView extends AppCompatActivity implements ControlLightV
     public void loadAlldevices() {
         Map<String, String> params = new HashMap<>();
         params.put("position", Position.LIVINGROOM.name());
+        params.put("connect", "true");
         controlLightPresenter.loadDeviceProperty(params);
 
         params.put("position", Position.BEDROOM.name());
+        params.put("connect", "true");
         controlLightPresenter.loadDeviceProperty(params);
 
         params.put("position", Position.DININGROOM.name());
+        params.put("connect", "true");
         controlLightPresenter.loadDeviceProperty(params);
 
         params.put("position", Position.BATHROOM.name());
+        params.put("connect", "true");
         controlLightPresenter.loadDeviceProperty(params);
     }
 
@@ -157,6 +165,7 @@ public class ControlLightView extends AppCompatActivity implements ControlLightV
         }
         controlLightPresenter.listenState();
         countAllLight += devices.size();
+        System.out.println("countAllLight: " + countAllLight);
     }
 
     @Override

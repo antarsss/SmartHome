@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.n8plus.smarthome.Model.Device;
 import com.n8plus.smarthome.R;
 
 public class ControlCamera extends AppCompatActivity {
@@ -15,8 +16,8 @@ public class ControlCamera extends AppCompatActivity {
         setContentView(R.layout.activity_control_camera);
 
         Intent intent = getIntent();
-
-        setTitle("Control "+intent.getStringExtra("nameCamera"));
+        Device camera = (Device) intent.getSerializableExtra("Camera");
+        setTitle("Control "+camera.getDeviceName());
 
     }
 }
