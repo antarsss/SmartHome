@@ -1,6 +1,6 @@
 var Device = require("../models/device.model");
 
-exports.create = function(req, res) {
+exports.createDevice = function(req, res) {
    // Create and Save a new Note
    if (!req.body.deviceName || !req.body.deviceType) {
       return res.status(400).send({
@@ -28,9 +28,8 @@ exports.create = function(req, res) {
    });
 };
 
-exports.getDevices = function(req, res) {
-   // Retrieve and return all devices from the database.
-   Device.find({}, null, {
+exports.getDevicesProperty = function(req, res) {
+   Device.find(req.body, null, {
       sort: {
          deviceName: 1
       }
@@ -40,124 +39,9 @@ exports.getDevices = function(req, res) {
             message: "Some error occurred while retrieving devices."
          });
       } else {
-         res.send(devices);
-      }
-   });
-};
-
-exports.getLights = function(req, res) {
-   // Retrieve and return all devices from the database.
-   Device.find({
-      deviceType: "LIGHT"
-   }, null, {
-      sort: {
-         deviceName: 1
-      }
-   }, function(err, devices) {
-      if (err) {
-         res.status(500).send({
-            message: "Some error occurred while retrieving devices."
-         });
-      } else {
-         res.send(devices);
-      }
-   });
-};
-
-exports.getDoors = function(req, res) {
-   // Retrieve and return all devices from the database.
-   Device.find({
-      deviceType: "DOOR"
-   }, null, {
-      sort: {
-         deviceName: 1
-      }
-   }, function(err, devices) {
-      if (err) {
-         res.status(500).send({
-            message: "Some error occurred while retrieving devices."
-         });
-      } else {
-         res.send(devices);
-      }
-   });
-};
-
-exports.getCameras = function(req, res) {
-   // Retrieve and return all devices from the database.
-   Device.find({
-      deviceType: "CAMERA"
-   }, null, {
-      sort: {
-         deviceName: 1
-      }
-   }, function(err, devices) {
-      if (err) {
-         res.status(500).send({
-            message: "Some error occurred while retrieving devices."
-         });
-      } else {
-         res.send(devices);
-      }
-   });
-};
-
-exports.getLightByPosition = function(req, res) {
-   // Retrieve and return all devices from the database.
-   Device.find({
-      deviceType: "LIGHT",
-      position: req.params.position
-   }, null, {
-      sort: {
-         deviceName: 1
-      }
-   }, function(err, devices) {
-      if (err) {
-         res.status(500).send({
-            message: "Some error occurred while retrieving devices."
-         });
-      } else {
-         res.send(devices);
-      }
-   });
-};
-
-exports.getDoorByPosition = function(req, res) {
-   // Retrieve and return all devices from the database.
-   Device.find({
-      deviceType: "DOOR",
-      position: req.params.position
-   }, null, {
-      sort: {
-         deviceName: 1
-      }
-   }, function(err, devices) {
-      if (err) {
-         res.status(500).send({
-            message: "Some error occurred while retrieving devices."
-         });
-      } else {
-         res.send(devices);
-      }
-   });
-};
-
-exports.getCameraByPosition = function(req, res) {
-   // Retrieve and return all devices from the database.
-   Device.find({
-      deviceType: "CAMERA",
-      position: req.params.position
-   }, null, {
-      sort: {
-         deviceName: 1
-      }
-   }, function(err, devices) {
-      if (err) {
-         res.status(500).send({
-            message: "Some error occurred while retrieving devices."
-         });
-      } else {
-         res.send(devices);
+         var result = {};
+         result.devices = devices;
+         res.send(result);
       }
    });
 };

@@ -29,7 +29,7 @@ exports.login = function(req, res) {
    });
 };
 
-exports.create = function(req, res) {
+exports.createUser = function(req, res) {
    // Create and Save a new Note
    if (!req.body.password) {
       return res.status(400).send({
@@ -55,43 +55,23 @@ exports.create = function(req, res) {
    });
 };
 
-exports.findAll = function(req, res) {
+exports.getUserByProperty = function(req, res) {
    // Retrieve and return all users from the database.
-   User.find(function(err, users) {
+   User.find(req.body, null, {
+      sort: {
+         username: 1
+      }
+   }, function(err, users) {
       if (err) {
          console.log(err);
          res.status(500).send({
             message: "Some error occurred while retrieving users."
          });
       } else {
-         res.send(users);
+         var result = {};
+         result.users = users;
+         res.send(result);
       }
-   });
-
-};
-
-exports.findOne = function(req, res) {
-   // Find a single user with a username
-   User.findById(req.params.userId, function(err, user) {
-      if (err) {
-         console.log(err);
-         if (err.kind === 'ObjectId') {
-            return res.status(404).send({
-               message: "Note not found with id " + req.params.username
-            });
-         }
-         return res.status(500).send({
-            message: "Error retrieving user with id " + req.params.username
-         });
-      }
-
-      if (!user) {
-         return res.status(404).send({
-            message: "Note not found with id " + req.params.username
-         });
-      }
-
-      res.send(user);
    });
 
 };

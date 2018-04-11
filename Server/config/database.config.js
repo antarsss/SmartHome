@@ -1,3 +1,3 @@
 module.exports = {
-   url: 'mongodb://localhost/smarthome'
+   url: 'mongodb://rpi-chuna.strangled.net/smarthome'
 }

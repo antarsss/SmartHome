@@ -1,19 +1,13 @@
 module.exports = function(app) {
    var users = require('../controllers/user.controller');
-   // Create a new Note
+   // Login
    app.post('/login', users.login);
-
-   app.post('/users', users.create);
-
-   // Retrieve all Notes
-   app.get('/users', users.findAll);
-
-   // Retrieve a single Note with userId
-   app.get('/users/:userId', users.findOne);
-
-   // Update a Note with userId
+   // Create a new User
+   app.post('/signup', users.createUser);
+   // Retrieve all Users
+   app.post('/users', users.getUserByProperty);
+   // Update a User with userId
    app.put('/users/:userId', users.update);
-
-   // Delete a Note with userId
+   // Delete a User with userId
    app.delete('/users/:userId', users.delete);
 }

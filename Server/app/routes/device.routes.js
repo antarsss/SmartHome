@@ -1,23 +1,12 @@
 module.exports = function(app) {
    var devices = require('../controllers/device.controller');
-   // Create a new Note
-   app.post('/create', devices.create);
-
-   // Retrieve all Notes
-   app.get('/devices', devices.getDevices);
-
-   app.get('/device/lights', devices.getLights);
-   app.get('/device/doors', devices.getDoors);
-   app.get('/device/cameras', devices.getCameras);
-
-   app.get('/device/light/:position', devices.getLightByPosition);
-   app.get('/device/door/:position', devices.getDoorByPosition);
-   app.get('/device/camera/:position', devices.getCameraByPosition);
-
-   // Update a Note with userId
-   app.put('/devices/:deviceId', devices.updateDeviceById);
-   app.put('/devices/:deviceName', devices.updateDeviceByName);
-
-   // Delete a Note with userId
-   app.delete('/devices/:deviceId', devices.deleteDeviceById);
+   // Create a new Device
+   app.post('/create', devices.createDevice);
+   // Retrieve all Devices
+   app.post('/devices/', devices.getDevicesProperty);
+   // Update a Device with userId
+   app.put('/device/:deviceId', devices.updateDeviceById);
+   app.put('/device/:deviceName', devices.updateDeviceByName);
+   // Delete a Device with userId
+   app.delete('/device/:deviceId', devices.deleteDeviceById);
 }
