@@ -1,20 +1,12 @@
 var express = require("express");
 var app = express();
-var server = require("http")
-var io = require("socket.io")(server);
+var http = require("http").Server(app);
 var colors = require("colors");
 var port = process.env.PORT || 3000;
 var bodyParser = require("body-parser");
-// var fs = require('fs');
-// var options = {
-//    key: fs.readFileSync('ssl/server.key'),
-//    cert: fs.readFileSync('ssl/server.pem'),
-//    ca: [fs.readFileSync('ssl/fake_ca.pem')], // Line added
-//    requestCert: true,
-//    rejectUnauthorized: false,
-// };
+var io = require("socket.io")(http);
 
-server.createServer(app).listen(port, function() {
+http.listen(port, function() {
    console.log("Server listening at port %d".blue, port);
 });
 
