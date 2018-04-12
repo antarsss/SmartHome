@@ -1,23 +1,8 @@
-function loadDoor(position, container) {
-   $.ajax({
-      url: url_home + "/device/door/" + position,
-      dataType: 'json',
-      async: true,
-      data: "",
-   }).done(function(doors) {
-      console.log(doors);
-      setDoorData(doors, container);
-      sendDoorData(doors);
-      onDoorData(doors);
-   });
-}
-
 function setDoorData(doors, container) {
-   console.log(container);
    if (doors.length == 0) {
-      $('.' + container).html('<h3>No Door</h3>');
+      $(container).html('<h3>No Door</h3>');
    } else {
-      $('.' + container).html('');
+      $(container).html('');
       doors.forEach(function(data) {
          var checked = data.state ? "checked" : "";
          var door = '<div class="khung col-xs-6 col-sm-4 col-md-3 col-lg-2">' +
@@ -31,14 +16,15 @@ function setDoorData(doors, container) {
             '</label>' +
             '</div>' +
             '</div>';
-         $('.' + container).append(door);
+         $(container).append(door);
       });
    }
 };
 
-function sendDoorData(doors) {
+function emitDoorData(doors) {
    $('.door-control').click(function() {
       var value = $(this).val();
+      var state = $(this).prop("checked") ? true : false;
       doors.forEach(function(e) {
          if (e._id == value) {
             delete e.createdAt;
@@ -46,19 +32,31 @@ function sendDoorData(doors) {
             delete e.__v;
             e.state = state;
             console.log(e);
-            socket.emit("c2s-ledchange", e);
+            socket.emit("c2s-change", e);
          }
       })
    });
 }
 
 function onDoorData(doors) {
-   socket.on("s2c-ledchange", function(rs) {
+   socket.on("s2c-change", function(rs) {
       console.log(rs);
       $("#" + rs._id).prop("checked", rs.state);
    });
 }
 
-loadDoor("LIVINGROOM", "door-container-living");
-
-loadDoor("BEDROOM", "door-container-bed");
+function setupDoors(container, property) {
+   loadDevicesProperty(container, property, function(deviceArr) {
+      setDoorData(deviceArr, container)
+      emitDoorData(deviceArr);
+      onDoorData(deviceArr);
+   });
+}
+setupDoors('.door-container-living', {
+   deviceType: "DOOR",
+   position: "LIVINGROOM"
+});
+setupDoors('.door-container-bed', {
+   deviceType: "DOOR",
+   position: "BEDROOM"
+});

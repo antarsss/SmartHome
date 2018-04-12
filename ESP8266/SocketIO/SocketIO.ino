@@ -13,7 +13,6 @@ int red = D6;
 
 int LEDs[] = {D8, D7, D6, D5, D4, D3, D2, D1, D0};
 
-//char host[] = "192.168.1.200"; 
 char host[] = "rpi-chuna.strangled.net";   
 int port = 3000;                  
 
@@ -60,7 +59,6 @@ void changeState(int pin, boolean st)
         Serial.println("Light off !");
     }
     client.send("d2s-change",Rfull);
-    
 }
 
 void Light(String device, String position, boolean st)
@@ -125,7 +123,7 @@ void Filter(JsonObject& obj)
 
 void listenSocketIO()
 {
-    if (RID != "")
+    if (RID == "s2d-change")
     {        
         StaticJsonBuffer<512> jsonBuffer;
         JsonObject& obj = jsonBuffer.parseObject(Rfull);

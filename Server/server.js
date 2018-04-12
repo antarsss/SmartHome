@@ -5,9 +5,10 @@ var colors = require("colors");
 var port = process.env.PORT || 3000;
 var bodyParser = require("body-parser");
 var io = require("socket.io")(http);
+var logger = require('./helpers/logger');
 
 http.listen(port, function() {
-   console.log("Server listening at port %d".blue, port);
+   logger.info("Server listening at port: %s", port);
 });
 
 app.use(function(req, res, next) {
@@ -33,6 +34,7 @@ require("./app/routes/user.routes")(app);
 require("./app/routes/device.routes")(app);
 //configuring the client
 var deviceSocket = require("./app/socket.io/device.socket");
+var streamSocket = require("./app/socket.io/stream.socket.io");
 
 // Configuring the database
 var dbConfig = require("./config/database.config.js");
@@ -45,22 +47,23 @@ mongoose.Promise = global.Promise;
 mongoose.connect(dbConfig.url);
 
 mongoose.connection.on("error", function() {
-   console.log("Could not connect to the database. Exiting now...".red);
+   logger.error("Could not connect to the database. Exiting now...");
    process.exit();
 });
-
 mongoose.connection.once("open", function() {
-   console.log("Successfully connected to the database".green);
+   logger.info("Successfully connected to the database");
    io.on("connection", function(socket) {
       sockets[socket.id] = socket;
-      console.log("New client connected: %s", socket.id.magenta);
+      logger.info("New client connected: %s", socket.id.magenta);
       console.log("Total clients connected: ", Object.keys(sockets).length);
+      //video listen
+      streamSocket(socket);
       //call listen
       deviceSocket(socket);
       //when client disconnect
       socket.on("disconnect", function() {
          delete sockets[socket.id];
-         console.log("Client disconnected:  %s.".gray, socket.id.magenta);
+         logger.warn("Client disconnected:  %s.", socket.id.magenta);
          console.log("Total clients connected : ".grey, Object.keys(sockets).length);
       });
    });

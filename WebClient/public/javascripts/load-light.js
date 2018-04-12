@@ -1,20 +1,9 @@
-$.ajax({
-   url: url_home + "/device/lights",
-   dataType: 'json',
-   async: true,
-   data: "",
-}).done(function(lights) {
-   setLightData(lights);
-   sendLightData(lights);
-   onLightData(lights);
-});
-
-function setLightData(lights) {
-   if (lights.length == 0) {
-      $('.light-container').html('<h3>No Device</h3>');
+function setLightData(listDevice, container) {
+   if (listDevice.length == 0) {
+      $(container).html('<h3>No Device</h3>');
    } else {
-      $('.light-container').html('');
-      lights.forEach(function(data) {
+      $(container).html('');
+      listDevice.forEach(function(data) {
          var checked = data.state ? "checked" : "";
          var light = '<div class="khung col-xs-6 col-sm-4 col-md-3 col-lg-2">' +
             '<div class="child-khung">' +
@@ -27,31 +16,42 @@ function setLightData(lights) {
             '</label>' +
             '</div>' +
             '</div>';
-         $('.light-container').append(light);
+         $(container).append(light);
       });
    }
-
 };
 
-function sendLightData(lights) {
+function emitLightData(data) {
    $('.light-control').click(function() {
       var value = $(this).val();
       var state = $(this).prop("checked") ? true : false;
-      lights.forEach(function(e) {
+      data.forEach(function(e) {
          if (e._id == value) {
             delete e.createdAt;
             delete e.updatedAt;
             delete e.__v;
             e.state = state;
             console.log(e);
-            socket.emit("c2s-ledchange", e);
+            socket.emit("c2s-change", e);
          }
       })
    });
 }
 
-function onLightData(lights) {
-   socket.on("s2c-ledchange", function(rs) {
+function onLightData(data) {
+   socket.on("s2c-change", function(rs) {
       $("#" + rs._id).prop("checked", rs.state);
    });
 }
+
+function setupLights(container, property) {
+   loadDevicesProperty(container, property, function(deviceArr) {
+      setLightData(deviceArr, container)
+      emitLightData(deviceArr);
+      onLightData(deviceArr);
+   });
+}
+
+setupLights('.light-container', {
+   deviceType: "LIGHT"
+});
