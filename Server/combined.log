@@ -1,0 +1,396 @@
+{"level":"info","message":"\u001b[34mServer listening at port %d\u001b[39m","splat":[3000]}
+{"level":"info","message":"Server listening at port %s","splat":[3000]}
+{"level":"info","message":"Server listening at port %s","splat":[3000]}
+{"level":"info","message":"Server listening at port: %s","splat":[3000]}
+{"level":"info","message":"Server listening at port: %s","splat":[3000]}
+{"level":"info","message":"Server listening at port: %s","splat":[3000]}
+{"message":"Successfully connected to the database","level":"info"}
+{"message":{"Server listening at port:":3000},"level":"info"}
+{"message":"Successfully connected to the database","level":"info"}
+{"level":"info","message":"Server listening at port: %s","splat":[3000]}
+{"message":"Successfully connected to the database","level":"info"}
+{"level":"info","message":"Server listening at port: %s","splat":[3000]}
+{"message":"Successfully connected to the database","level":"info"}
+{"level":"info","message":"Server listening at port: %s","splat":[3000]}
+{"message":"Successfully connected to the database","level":"info"}
+{"level":"info","message":"Server listening at port: %s","splat":[3000]}
+{"message":"Successfully connected to the database","level":"info"}
+{"level":"info","message":"Server listening at port: %s","splat":[3000]}
+{"message":"Successfully connected to the database","level":"info"}
+{"level":"info","message":"Server listening at port: %s","splat":[3000]}
+{"message":"Could not connect to the database. Exiting now...","level":"error"}
+{"level":"info","message":"Server listening at port: %s","splat":[3000]}
+{"message":"Could not connect to the database. Exiting now...","level":"error"}
+{"level":"info","message":"Server listening at port: %s","splat":[3000]}
+{"message":"Successfully connected to the database","level":"info"}
+{"level":"info","message":"Server listening at port: %s","splat":[3000]}
+{"message":"Successfully connected to the database","level":"info"}
+{"level":"info","message":"Server listening at port: %s","splat":[3000]}
+{"message":"Successfully connected to the database","level":"info"}
+{"level":"info","message":"Server listening at port: %s","splat":[3000]}
+{"message":"Successfully connected to the database","level":"info"}
+{"level":"warn","message":"\u001b[90mClient disconnected:  %s.\u001b[39m","splat":["\u001b[35mz7yUVyOa99WVFwcuAAAA\u001b[39m"]}
+{"level":"info","message":"Server listening at port: %s","splat":[3000]}
+{"message":"Successfully connected to the database","level":"info"}
+{"level":"warn","message":"\u001b[90mClient disconnected:  %s.\u001b[39m","splat":["\u001b[35mKTj6JXcqjJ5ZyfByAAAA\u001b[39m"]}
+{"level":"warn","message":"\u001b[90mClient disconnected:  %s.\u001b[39m","splat":["\u001b[35mS-0_tfu5xD-X6QH4AAAB\u001b[39m"]}
+{"level":"warn","message":"\u001b[90mClient disconnected:  %s.\u001b[39m","splat":["\u001b[35mymOAWdoZ-NLrQIeyAAAC\u001b[39m"]}
+{"level":"warn","message":"\u001b[90mClient disconnected:  %s.\u001b[39m","splat":["\u001b[35mu-He-1-3INvOQPCdAAAD\u001b[39m"]}
+{"level":"warn","message":"\u001b[90mClient disconnected:  %s.\u001b[39m","splat":["\u001b[35maxuU6eEBJe-wcGYcAAAE\u001b[39m"]}
+{"level":"warn","message":"\u001b[90mClient disconnected:  %s.\u001b[39m","splat":["\u001b[35mCLwn2pG8z22GFOxIAAAG\u001b[39m"]}
+{"level":"warn","message":"\u001b[90mClient disconnected:  %s.\u001b[39m","splat":["\u001b[35mXHmLbAf6mY9rAQ3IAAAH\u001b[39m"]}
+{"level":"warn","message":"\u001b[90mClient disconnected:  %s.\u001b[39m","splat":["\u001b[35mzwJC7xcFaND3kPtGAAAI\u001b[39m"]}
+{"level":"warn","message":"\u001b[90mClient disconnected:  %s.\u001b[39m","splat":["\u001b[35me5NDNKkxE65WNErZAAAJ\u001b[39m"]}
+{"level":"warn","message":"\u001b[90mClient disconnected:  %s.\u001b[39m","splat":["\u001b[35mXMDTGIymvdZhhfv7AAAK\u001b[39m"]}
+{"level":"warn","message":"\u001b[90mClient disconnected:  %s.\u001b[39m","splat":["\u001b[35mG0p8a0dTkbH9uv6FAAAL\u001b[39m"]}
+{"level":"warn","message":"\u001b[90mClient disconnected:  %s.\u001b[39m","splat":["\u001b[35mCt0E2dy97f7SY5SFAAAM\u001b[39m"]}
+{"level":"warn","message":"\u001b[90mClient disconnected:  %s.\u001b[39m","splat":["\u001b[35mS4UWWUP9qejFBC17AAAN\u001b[39m"]}
+{"level":"warn","message":"\u001b[90mClient disconnected:  %s.\u001b[39m","splat":["\u001b[35mNW7eXYrzOHTcuY3hAAAO\u001b[39m"]}
+{"level":"warn","message":"\u001b[90mClient disconnected:  %s.\u001b[39m","splat":["\u001b[35mWrMGcWPUyE04J0qeAAAP\u001b[39m"]}
+{"level":"warn","message":"\u001b[90mClient disconnected:  %s.\u001b[39m","splat":["\u001b[35mOej6IqoN2_2g9oeRAAAQ\u001b[39m"]}
+{"level":"warn","message":"\u001b[90mClient disconnected:  %s.\u001b[39m","splat":["\u001b[35mSdN6WCmphLfy5vfRAAAR\u001b[39m"]}
+{"level":"warn","message":"\u001b[90mClient disconnected:  %s.\u001b[39m","splat":["\u001b[35mKlJVxy0eHAE6yLjXAAAF\u001b[39m"]}
+{"level":"warn","message":"\u001b[90mClient disconnected:  %s.\u001b[39m","splat":["\u001b[35mgC4lfJY3o14tiK-DAAAS\u001b[39m"]}
+{"level":"warn","message":"\u001b[90mClient disconnected:  %s.\u001b[39m","splat":["\u001b[35m-vG7zh5BaAJluirgAAAU\u001b[39m"]}
+{"level":"warn","message":"\u001b[90mClient disconnected:  %s.\u001b[39m","splat":["\u001b[35mdnihHgpkaCMobNN0AAAV\u001b[39m"]}
+{"level":"warn","message":"\u001b[90mClient disconnected:  %s.\u001b[39m","splat":["\u001b[35mOqqTc4JHn9f4TQ4YAAAW\u001b[39m"]}
+{"level":"warn","message":"\u001b[90mClient disconnected:  %s.\u001b[39m","splat":["\u001b[35m2M233eQyq1n7Vp6tAAAX\u001b[39m"]}
+{"level":"warn","message":"\u001b[90mClient disconnected:  %s.\u001b[39m","splat":["\u001b[35m_QQD_FE6lPe7qAzMAAAY\u001b[39m"]}
+{"level":"warn","message":"\u001b[90mClient disconnected:  %s.\u001b[39m","splat":["\u001b[35m0rsAtFo3Zn6Lbtx3AAAZ\u001b[39m"]}
+{"level":"warn","message":"\u001b[90mClient disconnected:  %s.\u001b[39m","splat":["\u001b[35ma3tpfB3rb_e3Ap1BAAAT\u001b[39m"]}
+{"level":"info","message":"Server listening at port: %s","splat":[3000]}
+{"level":"info","message":"Server listening at port: %s","splat":[3000]}
+{"message":"Could not connect to the database. Exiting now...","level":"error"}
+{"level":"info","message":"Server listening at port: %s","splat":[3000]}
+{"message":"Successfully connected to the database","level":"info"}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mETs2lYkWSf5mXgs_AAAA\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35m-KixFI9C4UvpJcPzAAAB\u001b[39m"]}
+{"level":"info","message":"Server listening at port: %s","splat":[3000]}
+{"message":"Successfully connected to the database","level":"info"}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35m90GLUU7vB3lbUUZOAAAA\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35m90GLUU7vB3lbUUZOAAAA\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35muq5ccEo85m6-FfgEAAAB\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mVlUPZwhhld3XqhWyAAAC\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mVlUPZwhhld3XqhWyAAAC\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35muq5ccEo85m6-FfgEAAAB\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mLDnwf3lHwgxp4fjwAAAD\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mpawTIz1D7cIr-bBwAAAE\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mc-umgEsaftPn_BNoAAAF\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mpawTIz1D7cIr-bBwAAAE\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mLDnwf3lHwgxp4fjwAAAD\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mc-umgEsaftPn_BNoAAAF\u001b[39m"]}
+{"level":"info","message":"Server listening at port: %s","splat":[3000]}
+{"message":"Could not connect to the database. Exiting now...","level":"error"}
+{"level":"info","message":"Server listening at port: %s","splat":[3000]}
+{"message":"Successfully connected to the database","level":"info"}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mtoe2R71YmcmZ_9S3AAAA\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mtoe2R71YmcmZ_9S3AAAA\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35ma9nmax7K3dKmp_9pAAAB\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35ma9nmax7K3dKmp_9pAAAB\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35m6Glyw4eqTZ3EpxKvAAAC\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mTE7Z_taDXXZbzGf2AAAD\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mTE7Z_taDXXZbzGf2AAAD\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mDXFzRRlNxrYNVJQ0AAAE\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35m6Glyw4eqTZ3EpxKvAAAC\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mhs9gt-xCT5xV6KjIAAAF\u001b[39m"]}
+{"level":"info","message":"Server listening at port: %s","splat":[3000]}
+{"message":"Successfully connected to the database","level":"info"}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mr4ZjMmEQPDpFgmUEAAAA\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mliXta9i05SnxKLk6AAAB\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mliXta9i05SnxKLk6AAAB\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mr4ZjMmEQPDpFgmUEAAAA\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mUx5AD_y3R-oIg5XlAAAC\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35m6ApVhWAhO0Qw8Jb9AAAD\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35m6ApVhWAhO0Qw8Jb9AAAD\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mUx5AD_y3R-oIg5XlAAAC\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35miMTP2HqeoPMfJW6HAAAE\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mwFJSutDDnQLKSi1EAAAF\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35miMTP2HqeoPMfJW6HAAAE\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mwFJSutDDnQLKSi1EAAAF\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mhxFMckq6XuQcK4cGAAAG\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mS1EzLT0SbrirMisNAAAH\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mqI6Ia7xZ924kdvRjAAAI\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mYrPIpk3HhNngtNj_AAAJ\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mS1EzLT0SbrirMisNAAAH\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mhxFMckq6XuQcK4cGAAAG\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35m3i8e_rt4_AV25EaYAAAK\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mGAZpb40dBZMkg7hhAAAL\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mGAZpb40dBZMkg7hhAAAL\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35m3i8e_rt4_AV25EaYAAAK\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mf3Ce1oY2CLCTFkRAAAAM\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mNPLlbFdaZgnWxxFOAAAN\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mNPLlbFdaZgnWxxFOAAAN\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mf3Ce1oY2CLCTFkRAAAAM\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mqcNMDAShHgNHtyaTAAAO\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mn6RyWUPGvqKFaBREAAAP\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mqI6Ia7xZ924kdvRjAAAI\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mYrPIpk3HhNngtNj_AAAJ\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mh_99RSoHqQU74IrzAAAQ\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mD2GiFT9V-Jllrj1BAAAR\u001b[39m"]}
+{"level":"info","message":"Server listening at port: %s","splat":[3000]}
+{"message":"Successfully connected to the database","level":"info"}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mMUD1ihFeE_RiwV-YAAAC\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mcflzGieCwMCVoSHlAAAD\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35m_6sK1b9A9ANlNnQAAAAE\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35muM0bqQbsHrwsZc3LAAAF\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mMUD1ihFeE_RiwV-YAAAC\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mcflzGieCwMCVoSHlAAAD\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35m3TyaLg3zpM3yU9ISAAAG\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mcdXHzr_80MX6f9nyAAAH\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35m3TyaLg3zpM3yU9ISAAAG\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mcdXHzr_80MX6f9nyAAAH\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35ma0rjmk7TI5woWDynAAAI\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35muhKhhNQEpTkMBdaEAAAJ\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35ma0rjmk7TI5woWDynAAAI\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35muhKhhNQEpTkMBdaEAAAJ\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mdI45scVgh-ow5RB_AAAK\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35m-hBywtCRnzU44VwkAAAL\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mdI45scVgh-ow5RB_AAAK\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35m-hBywtCRnzU44VwkAAAL\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35m9J-IuUMx-rAjeId-AAAM\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mPdgBb1a3QStcLtzfAAAN\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35m_6sK1b9A9ANlNnQAAAAE\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35muM0bqQbsHrwsZc3LAAAF\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mGMmAroxaHdbA5ekXAAAO\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35m8fBPJM27CaNIb0XxAAAP\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mPdgBb1a3QStcLtzfAAAN\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35m9J-IuUMx-rAjeId-AAAM\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35miyqpFtSQbjtZ_zV3AAAQ\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mmNUMmwU7XEenzKWnAAAR\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35miyqpFtSQbjtZ_zV3AAAQ\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mmNUMmwU7XEenzKWnAAAR\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mTSMeMO3f-AvlqPCdAAAS\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mZk61HENPpyKipfLzAAAT\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mTSMeMO3f-AvlqPCdAAAS\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mZk61HENPpyKipfLzAAAT\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mQxH-hFRX02Gzqb5lAAAU\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mrC-bUeLZgVe90lJcAAAV\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mGMmAroxaHdbA5ekXAAAO\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35m8fBPJM27CaNIb0XxAAAP\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35maZk4vR103WdiOkAbAAAW\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mvTpGACi_BYw1dXGYAAAX\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mrC-bUeLZgVe90lJcAAAV\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mQxH-hFRX02Gzqb5lAAAU\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35m-lsQytFuIUhmtncuAAAY\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mg--TevtX2F1wGQotAAAZ\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35maZk4vR103WdiOkAbAAAW\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mvTpGACi_BYw1dXGYAAAX\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mf7bHTrOJbQSCWoJNAAAa\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mJbfjxdlQj_HAZoTKAAAb\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mf7bHTrOJbQSCWoJNAAAa\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mJbfjxdlQj_HAZoTKAAAb\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mrxcJ_DYL5Y9YUVZzAAAc\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mbNGxAxr6WO6c7yj_AAAd\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mbNGxAxr6WO6c7yj_AAAd\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mrxcJ_DYL5Y9YUVZzAAAc\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mh_V8tHSwmN5f5O5_AAAe\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mXxBiWPrUBhpoAzAcAAAf\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mh_V8tHSwmN5f5O5_AAAe\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mXxBiWPrUBhpoAzAcAAAf\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mvrIdTEfXD0CZj8yAAAAg\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mmtmk4eMsG6jXmbYCAAAh\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mg--TevtX2F1wGQotAAAZ\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35m-lsQytFuIUhmtncuAAAY\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35myYk4__coxhXnnZcwAAAi\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mTc07fVaocWcTyquIAAAj\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mTc07fVaocWcTyquIAAAj\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35myYk4__coxhXnnZcwAAAi\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mvRGqg4vMnn09zsvEAAAk\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mBfp6J3P1z1ErZMfVAAAl\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mBfp6J3P1z1ErZMfVAAAl\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mvRGqg4vMnn09zsvEAAAk\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mpA3SAXcuOfb9eKOjAAAm\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mXfR7SKSZl9cirodUAAAn\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mvrIdTEfXD0CZj8yAAAAg\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mmtmk4eMsG6jXmbYCAAAh\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mXfR7SKSZl9cirodUAAAn\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mpA3SAXcuOfb9eKOjAAAm\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mH7LLENCqylRHmZQIAAAo\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mlnf1TSnxgSSR2XfiAAAp\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35muQcKMJzfWiKiC4F4AAAq\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35milPY6ezcZ4KSoZw4AAAr\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35milPY6ezcZ4KSoZw4AAAr\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35muQcKMJzfWiKiC4F4AAAq\u001b[39m"]}
+{"level":"info","message":"Server listening at port: %s","splat":[3000]}
+{"message":"Successfully connected to the database","level":"info"}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mqTg5HSiDnocnaYhnAAAC\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mQ6uZ86zs5IqVGn6tAAAD\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35m6MDgIs_-qgt8_6dfAAAE\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35m05k9gnHhMPxYKio_AAAF\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mQ6uZ86zs5IqVGn6tAAAD\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mqTg5HSiDnocnaYhnAAAC\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mWB1DAgWKaXwm4JhMAAAG\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mDDEh51WccxGoBzYjAAAH\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35m05k9gnHhMPxYKio_AAAF\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35m6MDgIs_-qgt8_6dfAAAE\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mFy_4dMb4tAFPrSMvAAAI\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mXmKYZ2jQkpG5h0wmAAAJ\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mDDEh51WccxGoBzYjAAAH\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mWB1DAgWKaXwm4JhMAAAG\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mFy_4dMb4tAFPrSMvAAAI\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mXmKYZ2jQkpG5h0wmAAAJ\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35m9lOUpGO1kaOHXNFQAAAK\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35m1Xfg7l5NzyytOQvUAAAL\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mt80mat0patZTlPmpAAAM\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mjlynmasAvvoNViVtAAAN\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mjlynmasAvvoNViVtAAAN\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mt80mat0patZTlPmpAAAM\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35m1Xfg7l5NzyytOQvUAAAL\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35m9lOUpGO1kaOHXNFQAAAK\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mfVvKBcwtw_8_mMXrAAAO\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mSVDbmsRqyCiwwQvrAAAP\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mkv9g4IcBWoXvNxWMAAAQ\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mSCwWt45N76OS5jtFAAAR\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mkv9g4IcBWoXvNxWMAAAQ\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mSCwWt45N76OS5jtFAAAR\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mfVvKBcwtw_8_mMXrAAAO\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mSVDbmsRqyCiwwQvrAAAP\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35m8oUVyUS0hJ0irlaBAAAS\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mknI5JvY1pMkH7yeDAAAT\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mZswxT2cAOVSviHMPAAAU\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mYrj4WPA_fsGeFv_mAAAV\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mZswxT2cAOVSviHMPAAAU\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mYrj4WPA_fsGeFv_mAAAV\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mFEJjtJ7vA4cLRAtFAAAW\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mXRiF7bDH2xhqb6v_AAAX\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mFEJjtJ7vA4cLRAtFAAAW\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mXRiF7bDH2xhqb6v_AAAX\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mBLCJJXxWbk1_2C5kAAAY\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mL8-ULHJgUZo6BRoyAAAZ\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mL8-ULHJgUZo6BRoyAAAZ\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mBLCJJXxWbk1_2C5kAAAY\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35m-P3ShQ6AuFHNNTv7AAAa\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mqF3g2GNU4YdcnV4eAAAb\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35m-P3ShQ6AuFHNNTv7AAAa\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mqF3g2GNU4YdcnV4eAAAb\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mXI74lYXRNXu9d7RBAAAc\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mCaDCabXZZbkLGaWsAAAd\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mXI74lYXRNXu9d7RBAAAc\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mCaDCabXZZbkLGaWsAAAd\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35m7b3rOX9ee6UrSGsoAAAe\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mcZdwZimBUq79ZMOnAAAf\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35m7b3rOX9ee6UrSGsoAAAe\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mcZdwZimBUq79ZMOnAAAf\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mPLkogAiDNo0mhjFIAAAg\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35meLjDBTrAyOJWGC9BAAAh\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mknI5JvY1pMkH7yeDAAAT\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35m8oUVyUS0hJ0irlaBAAAS\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mmQB4DbEioC8khSd3AAAi\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mj2P66YZjhzkqzoV_AAAj\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35meLjDBTrAyOJWGC9BAAAh\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mPLkogAiDNo0mhjFIAAAg\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35miksX9IO_W4HMp7oHAAAk\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mtJMYD_dWFDdvShLjAAAl\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mmQB4DbEioC8khSd3AAAi\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mj2P66YZjhzkqzoV_AAAj\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mKqngaTMCZAMnvjwlAAAm\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mttUQpcFJqT0ZR4fhAAAn\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mttUQpcFJqT0ZR4fhAAAn\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mKqngaTMCZAMnvjwlAAAm\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mLLaQZqkcJJr4GPkiAAAo\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mQRWgZ-nUpxOIaugFAAAp\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35miksX9IO_W4HMp7oHAAAk\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mtJMYD_dWFDdvShLjAAAl\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mqx-cUnkiDcyREhrgAAAq\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mSr8UzX1AV_OlviHkAAAr\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mSr8UzX1AV_OlviHkAAAr\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mqx-cUnkiDcyREhrgAAAq\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mv90WD2HHuIouWJ56AAAs\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mJEPvekxNfbCkYYTNAAAt\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mv90WD2HHuIouWJ56AAAs\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mJEPvekxNfbCkYYTNAAAt\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35my3Sep9lU1nqQs7hSAAAu\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mf66QJysN9EpHXzkqAAAv\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mf66QJysN9EpHXzkqAAAv\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35my3Sep9lU1nqQs7hSAAAu\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mA4p9pzfwF0EtkzAPAAAw\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35m9behUyESrG8dtPV0AAAx\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mA4p9pzfwF0EtkzAPAAAw\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35m9behUyESrG8dtPV0AAAx\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mmymGmJMbjodLwGRxAAAy\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mu0eOWYK1ofBCRLKuAAAz\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mcgrQf4x-_gLhVQjgAAA0\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mqq5BslMlwwBdV7aTAAA1\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mLLaQZqkcJJr4GPkiAAAo\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mQRWgZ-nUpxOIaugFAAAp\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mQobVzHfy-8JY-VNFAAA2\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mm9OF8e_TqQkzqUB5AAA3\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35m8DhveUkyM_MXQwYvAAA4\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mczb3KXkTO9LMULowAAA5\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mmymGmJMbjodLwGRxAAAy\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mu0eOWYK1ofBCRLKuAAAz\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mqq5BslMlwwBdV7aTAAA1\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mcgrQf4x-_gLhVQjgAAA0\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35m8DhveUkyM_MXQwYvAAA4\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mczb3KXkTO9LMULowAAA5\u001b[39m"]}
+{"level":"info","message":"Server listening at port: %s","splat":[3000]}
+{"message":"Successfully connected to the database","level":"info"}
+{"level":"info","message":"Server listening at port: %s","splat":[3000]}
+{"message":"Successfully connected to the database","level":"info"}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35m-TwO8OFYZCcRC1vvAAAA\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mFDHRq3ev-dtwqQWNAAAB\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mFDHRq3ev-dtwqQWNAAAB\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35m6yV7gZjwKCTp_4K0AAAC\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mMh7EWIlGFt-5x8VbAAAD\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mMh7EWIlGFt-5x8VbAAAD\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35m6yV7gZjwKCTp_4K0AAAC\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35m-TwO8OFYZCcRC1vvAAAA\u001b[39m"]}
+{"level":"info","message":"Server listening at port: %s","splat":[3000]}
+{"message":"Successfully connected to the database","level":"info"}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mqhzIXHn4M7VtBbugAAAA\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mdQgBpe4m-d-QqZPWAAAB\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mdQgBpe4m-d-QqZPWAAAB\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mdsxAEGZCF5Bn0K8QAAAC\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mdsxAEGZCF5Bn0K8QAAAC\u001b[39m"]}
+{"level":"info","message":"Server listening at port: %s","splat":[3000]}
+{"message":"Could not connect to the database. Exiting now...","level":"error"}
+{"level":"info","message":"Server listening at port: %s","splat":[3000]}
+{"message":"Could not connect to the database. Exiting now...","level":"error"}
+{"level":"info","message":"Server listening at port: %s","splat":[3000]}
+{"message":"Could not connect to the database. Exiting now...","level":"error"}
+{"level":"info","message":"Server listening at port: %s","splat":[3000]}
+{"message":"Successfully connected to the database","level":"info"}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mevojko7Bd6XB9349AAAB\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mevojko7Bd6XB9349AAAB\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mknHuRF2PjB232QqmAAAC\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mxQfBmkBY0crt_ZguAAAD\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mxQfBmkBY0crt_ZguAAAD\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mknHuRF2PjB232QqmAAAC\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mF9ATNUtPwTZIveoIAAAE\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mhl9IzW39fZdie_tRAAAF\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mhl9IzW39fZdie_tRAAAF\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mSlHJH5DW-IDMH8eYAAAG\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mZdZUpOkm4mX0iBtXAAAH\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mF9ATNUtPwTZIveoIAAAE\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mSlHJH5DW-IDMH8eYAAAG\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mmCuXx1i5CmuFBWgVAAAI\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mmCuXx1i5CmuFBWgVAAAI\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35m-rWsmYkkfa9If0pnAAAJ\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mYAeyLMBUQFdWT4KAAAAK\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mYAeyLMBUQFdWT4KAAAAK\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mZdZUpOkm4mX0iBtXAAAH\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35m-rWsmYkkfa9If0pnAAAJ\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35msd7yGAkXieDMgNs-AAAL\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35m9lq80zkJ9AfC9N32AAAM\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mbwOz__mvFUH_OGqDAAAN\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35msd7yGAkXieDMgNs-AAAL\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mblGWA2RBvL0lBOz0AAAO\u001b[39m"]}
+{"level":"info","message":"Server listening at port: %s","splat":[3000]}
+{"message":"Successfully connected to the database","level":"info"}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mLY35eDcse7rXO_MyAAAA\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mk0Xf3Cj2MSigAHHzAAAB\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mhsaVkihJKFqYSk7MAAAC\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mVViDAeuKaqU52mfNAAAD\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mLY35eDcse7rXO_MyAAAA\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mk0Xf3Cj2MSigAHHzAAAB\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mhP3Mnw0LrYJmOD73AAAE\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mq2pabR64I4yNalhuAAAF\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mhP3Mnw0LrYJmOD73AAAE\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mq2pabR64I4yNalhuAAAF\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mXNVPe7n5tvurAhwUAAAG\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mE3JZRLnIDvp5F_uaAAAH\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mVViDAeuKaqU52mfNAAAD\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mhsaVkihJKFqYSk7MAAAC\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mUv9lQbdcWEhsJPt8AAAI\u001b[39m"]}
+{"level":"warn","message":"Client disconnected:  %s.","splat":["\u001b[35mUv9lQbdcWEhsJPt8AAAI\u001b[39m"]}
+{"level":"info","message":"New client connected: %s","splat":["\u001b[35mOsIrxpCd9kZqeAUQAAAJ\u001b[39m"]}
