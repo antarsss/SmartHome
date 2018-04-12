@@ -48,7 +48,7 @@ public class DeviceAdapter extends BaseAdapter {
     }
 
     private class ViewHolder{
-        TextView txtName, txtState;
+        TextView txtName, txtState, txtPosition;
         ImageView imgIcon;
     }
 
@@ -66,6 +66,7 @@ public class DeviceAdapter extends BaseAdapter {
 
             viewHolder.txtName = (TextView) view.findViewById(R.id.txtName);
             viewHolder.txtState = (TextView) view.findViewById(R.id.txtState);
+            viewHolder.txtPosition = (TextView) view.findViewById(R.id.txtPosition);
             viewHolder.imgIcon = (ImageView) view.findViewById(R.id.imgIcon);
 
             view.setTag(viewHolder);
@@ -101,6 +102,8 @@ public class DeviceAdapter extends BaseAdapter {
             viewHolder.txtState.setText("Disconnected");
             viewHolder.txtState.setTextColor(Color.parseColor("#ffff4444"));
         }
+
+        viewHolder.txtPosition.setText(device.getPosition().name());
 
         return view;
     }

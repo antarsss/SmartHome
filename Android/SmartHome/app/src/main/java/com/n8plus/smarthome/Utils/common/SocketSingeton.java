@@ -23,13 +23,8 @@ public class SocketSingeton {
 
     public void emit(final String event, final Object... objects) {
         synchronized (connect) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    connect.emit(event, objects);
-                    Log.e("COUNT EMIT", "" + countEmit++);
-                }
-            }).start();
+            connect.emit(event, objects);
+            Log.e("COUNT EMIT", "" + countEmit++);
         }
     }
 

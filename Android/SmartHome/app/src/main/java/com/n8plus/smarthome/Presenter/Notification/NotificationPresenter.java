@@ -8,6 +8,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.n8plus.smarthome.Model.Enum.DeviceType;
 import com.n8plus.smarthome.Model.Enum.NotificationType;
 import com.n8plus.smarthome.Model.Notification;
 import com.n8plus.smarthome.Utils.common.Constant;
@@ -20,7 +21,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class NotificationPresenter implements NotificationPresenterImpl {
     HomeActivityViewImpl notificationView;
@@ -35,10 +38,12 @@ public class NotificationPresenter implements NotificationPresenterImpl {
     @Override
     public void loadNotification() {
         final String URI = Constant.URL + "/devices";
+        final Map<String, String> params = new HashMap<String, String>();
+        params.put("deviceType", DeviceType.DOOR.name());
         ((AppCompatActivity) notificationView).runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                JsonObjectRequest jreq = new JsonObjectRequest(Request.Method.POST, URI, null,
+                JsonObjectRequest jreq = new JsonObjectRequest(Request.Method.POST, URI, new JSONObject(params),
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
