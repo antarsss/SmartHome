@@ -3,7 +3,7 @@ function setLightData(listDevice, container) {
       $(container).html('<h3>No Device</h3>');
    } else {
       $(container).html('');
-      listDevice.forEach(function(data) {
+      listDevice.forEach(function (data) {
          var checked = data.state ? "checked" : "";
          var light = '<div class="khung col-xs-6 col-sm-4 col-md-3 col-lg-2">' +
             '<div class="child-khung">' +
@@ -22,36 +22,36 @@ function setLightData(listDevice, container) {
 };
 
 function emitLightData(data) {
-   $('.light-control').click(function() {
+   $('.light-control').click(function () {
       var value = $(this).val();
       var state = $(this).prop("checked") ? true : false;
-      data.forEach(function(e) {
+      data.forEach(function (e) {
          if (e._id == value) {
-            delete e.createdAt;
-            delete e.updatedAt;
-            delete e.__v;
-            e.state = state;
+            var module = e.module;
+            module.forEach(m => {
+               m.state = state;
+            })
             console.log(e);
-            socket.emit("c2s-change", e);
+            socket.emit("c2s-change", module);
          }
       })
    });
 }
 
 function onLightData(data) {
-   socket.on("s2c-change", function(rs) {
+   socket.on("s2c-change", function (rs) {
       $("#" + rs._id).prop("checked", rs.state);
    });
 }
 
 function setupLights(container, property) {
-   loadDevicesProperty(container, property, function(deviceArr) {
+   loadDevicesProperty(container, property, function (deviceArr) {
       setLightData(deviceArr, container)
       emitLightData(deviceArr);
       onLightData(deviceArr);
    });
 }
-
-setupLights('.light-container', {
-   deviceType: "LIGHT"
-});
+var device = {
+   deviceType: 'LIGHT'
+};
+setupLights('.light-container', device);

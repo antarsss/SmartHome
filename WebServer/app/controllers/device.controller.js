@@ -1,6 +1,6 @@
 var Device = require("../models/device.model");
 
-exports.createDevice = function(req, res) {
+exports.createDevice = function (req, res) {
    // Create and Save a new Note
    if (!req.body.deviceName || !req.body.deviceType) {
       return res.status(400).send({
@@ -16,7 +16,7 @@ exports.createDevice = function(req, res) {
       state: req.body.state || false,
       connect: req.body.connect || false
    });
-   device.save(function(err, data) {
+   device.save(function (err, data) {
       if (err) {
          console.log(err);
          res.status(500).send({
@@ -28,12 +28,13 @@ exports.createDevice = function(req, res) {
    });
 };
 
-exports.getDevicesProperty = function(req, res) {
+exports.getDevicesProperty = function (req, res) {
+   var value = req.body;
    Device.find(req.body, null, {
       sort: {
          deviceName: 1
       }
-   }, function(err, devices) {
+   }, function (err, devices) {
       if (err) {
          res.status(500).send({
             message: "Some error occurred while retrieving devices."
@@ -46,11 +47,11 @@ exports.getDevicesProperty = function(req, res) {
    });
 };
 
-exports.updateDeviceById = function(req, res) {
+exports.updateDeviceById = function (req, res) {
    // Update a device identified by the devicename in the request
    Device.findByIdAndUpdate(req.params.deviceId, {
       $set: req.body
-   }, function(err, device) {
+   }, function (err, device) {
       if (err) {
          if (err.kind === "ObjectId") {
             return res.status(404).send({
@@ -72,11 +73,11 @@ exports.updateDeviceById = function(req, res) {
    });
 };
 
-exports.updateDeviceByName = function(req, res) {
+exports.updateDeviceByName = function (req, res) {
    // Update a device identified by the devicename in the request
    Device.findOneAndUpdate(req.params.deviceName, {
       $set: req.body
-   }, function(err, device) {
+   }, function (err, device) {
       if (err) {
          if (err.kind === "ObjectId") {
             return res.status(404).send({
@@ -99,9 +100,9 @@ exports.updateDeviceByName = function(req, res) {
    });
 };
 
-exports.deleteDeviceById = function(req, res) {
+exports.deleteDeviceById = function (req, res) {
    // Delete a device with the specified deviceId in the request
-   Device.findByIdAndRemove(req.params.deviceId, function(err, device) {
+   Device.findByIdAndRemove(req.params.deviceId, function (err, device) {
       if (err) {
          console.log(err);
          if (err.kind === "ObjectId") {

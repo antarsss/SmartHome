@@ -44,22 +44,6 @@ void setState(int pin, boolean state){
     sendtoESP(data);
 }
 
-void changeState(String device, String pos, int pin, boolean st)
-{
-    if (st) 
-    {
-        digitalWrite(pin, HIGH);
-        Serial.println(device + " - " + pos + " - ON");
-    } 
-    else 
-    {
-        digitalWrite(pin, LOW);
-        Serial.println(device + " - " + pos + " - OFF");
-    }
-    // send to ESP
-    sendtoESP(data);
-}
-
 // pos là position
 // st là state
 
@@ -92,8 +76,11 @@ void Filter(JsonObject& obj)
     int pin = obj["pin"]; 
     boolean state = obj["state"];
     
-    if (type == "LED")
-        Light(pin, state);
+    if (type == "LED"){
+      Light(pin, state);
+      Serial.println(state);
+    }
+        
 //    if (type == "SERVO")
 ////        Door(deviceName, pos, state);
 //    if (type == "SENSOR")
@@ -129,38 +116,24 @@ void pinSetup()
 void readfromESP ()
 {
     data = sCmd.next(); //Chỉ cần một dòng này để đọc tham số nhận đươc
-    Serial.println(data);
+    Serial.println("READ: " + data);
     parseJsonObject(data);
 }
 void createJsonObject(String type, int pin, boolean state)
 {
-      StaticJsonBuffer<512> buff;
+      DynamicJsonBuffer buff;
+      JsonArray& arr = buff.createArray();
       JsonObject& data = buff.createObject();
       data["type"] = type;
       data["pin"] = pin;
       data["state"] = state;
-      
+      arr.add(data);
       // send
       mySerial.print("A2ESP");
       mySerial.print('\r');
-      data.printTo(mySerial);
+      arr.printTo(mySerial);
       mySerial.print('\r');              
 }
-//void createJsonObject(String deviceName, String deviceType, String pos, boolean state)
-//{
-//      StaticJsonBuffer<512> buff;
-//      JsonObject& data = buff.createObject();
-//      data["deviceName"] = deviceName;
-//      data["deviceType"] = deviceType;
-//      data["position"] = pos;
-//      data["state"] = state;
-//      
-//      // send
-//      mySerial.print("A2ESP");
-//      mySerial.print('\r');
-//      data.printTo(mySerial);
-//      mySerial.print('\r');              
-//}
 
 int r, r1, r2, r3, r4;
 

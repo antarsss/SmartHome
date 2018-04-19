@@ -8,7 +8,7 @@
 SocketIOClient client;
 ESP8266WiFiMulti wifimulti;
 HTTPClient httpClient;
-
+#define ARRAY_SIZE 10
 const byte rx = D1;
 const byte tx = D2;
  
@@ -67,19 +67,25 @@ void parseJsonArray(String s)
     DynamicJsonBuffer bufferred(512);
     JsonObject& object = bufferred.parseObject(s);
     JsonArray& arr = object["devices"];
-    if (arr.success())
+    if (arr.success()){
         for (int i = 0; i < arr.size(); i++)
         {
-            JsonObject& device = arr[i];
             mySerial.print("ESP2A");
-            mySerial.print('\r');
-            device["Module"].printTo(mySerial);
+            mySerial.print('\r');  
+            JsonObject& device = arr[i];
+            JsonArray& data = device["module"];
+            data.printTo(mySerial);
             mySerial.print('\r');    
             delay(100);
         }
+    }
     else Serial.println("parsing failed!!!");
 }
- 
+
+void initDevicePin(JsonArray& arr){
+   
+}
+
 void loadDevices()  
 { 
     String serverAdd = host;
@@ -87,16 +93,13 @@ void loadDevices()
     httpClient.begin("http://" + serverAdd + ":3000/devices/");
     
     httpClient.addHeader("Content-Type", "application/json");
-//
     String query = "{}";
-//    Serial.println("With query " + query);   
-     
     int httpCode = httpClient.POST(query);
     
     if(httpCode == 200)
     {
         String payload = httpClient.getString();
-        Serial.println(payload);
+//        Serial.println(payload);
         parseJsonArray(payload); 
     }
     httpClient.end();

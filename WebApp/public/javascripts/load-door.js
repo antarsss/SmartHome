@@ -3,7 +3,7 @@ function setDoorData(doors, container) {
       $(container).html('<h3>No Door</h3>');
    } else {
       $(container).html('');
-      doors.forEach(function(data) {
+      doors.forEach(function (data) {
          var checked = data.state ? "checked" : "";
          var door = '<div class="khung col-xs-6 col-sm-4 col-md-3 col-lg-2">' +
             '<div class="child-khung">' +
@@ -22,41 +22,43 @@ function setDoorData(doors, container) {
 };
 
 function emitDoorData(doors) {
-   $('.door-control').click(function() {
+   $('.door-control').click(function () {
       var value = $(this).val();
       var state = $(this).prop("checked") ? true : false;
-      doors.forEach(function(e) {
+      doors.forEach(function (e) {
          if (e._id == value) {
-            delete e.createdAt;
-            delete e.updatedAt;
-            delete e.__v;
-            e.state = state;
+            var module = e.module;
+            module.forEach(m => {
+               m.state = state;
+            })
             console.log(e);
-            socket.emit("c2s-change", e);
+            socket.emit("c2s-change", module);
          }
       })
    });
 }
 
 function onDoorData(doors) {
-   socket.on("s2c-change", function(rs) {
+   socket.on("s2c-change", function (rs) {
       console.log(rs);
       $("#" + rs._id).prop("checked", rs.state);
    });
 }
 
 function setupDoors(container, property) {
-   loadDevicesProperty(container, property, function(deviceArr) {
+   loadDevicesProperty(container, property, function (deviceArr) {
       setDoorData(deviceArr, container)
       emitDoorData(deviceArr);
       onDoorData(deviceArr);
    });
 }
-setupDoors('.door-container-living', {
-   deviceType: "DOOR",
-   position: "LIVINGROOM"
-});
-setupDoors('.door-container-bed', {
-   deviceType: "DOOR",
-   position: "BEDROOM"
-});
+var device1 = {
+   deviceType: 'DOOR',
+   position: 'LIVINGROOM'
+};
+var device2 = {
+   deviceType: 'DOOR',
+   position: 'BEDROOM'
+};
+setupDoors('.door-container-living', device1);
+setupDoors('.door-container-bed', device2);
