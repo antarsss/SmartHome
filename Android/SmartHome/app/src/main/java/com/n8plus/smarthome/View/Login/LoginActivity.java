@@ -13,9 +13,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.n8plus.smarthome.View.ForgotPassword.ForgotPassword;
 import com.n8plus.smarthome.View.HomePage.HomeActivity;
 import com.n8plus.smarthome.Presenter.Login.LoginPresenter;
 import com.n8plus.smarthome.R;
+import com.n8plus.smarthome.View.Register.Register;
 
 public class LoginActivity extends AppCompatActivity implements LoginViewImpl {
 
@@ -68,6 +70,20 @@ public class LoginActivity extends AppCompatActivity implements LoginViewImpl {
                     editor.putBoolean("remember", b);
                     editor.commit();
                 }
+            }
+        });
+
+        txtforgotPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, ForgotPassword.class));
+            }
+        });
+
+        txtSignup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, Register.class));
             }
         });
     }
