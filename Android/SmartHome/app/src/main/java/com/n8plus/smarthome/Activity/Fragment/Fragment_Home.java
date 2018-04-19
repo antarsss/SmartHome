@@ -49,21 +49,21 @@ public class Fragment_Home extends Fragment {
         controlDoor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), DetectionDoor.class));
+                startActivity(new Intent(getActivity(), DetectionDoor.class));
             }
         });
 
         controlCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), SelectCamera.class));
+                startActivity(new Intent(getActivity(), SelectCamera.class));
             }
         });
 
         controlLight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), ControlLightView.class));
+                startActivity(new Intent(getActivity(), ControlLightView.class));
             }
         });
 
