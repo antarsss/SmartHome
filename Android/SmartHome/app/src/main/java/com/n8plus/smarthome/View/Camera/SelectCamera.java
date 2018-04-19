@@ -10,7 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.n8plus.smarthome.Activity.ControlCamera;
+import com.n8plus.smarthome.View.ControlCamera.ControlCamera;
 import com.n8plus.smarthome.Adapter.DeviceAdapter;
 import com.n8plus.smarthome.Model.Device;
 import com.n8plus.smarthome.Model.Enum.Position;

@@ -23,7 +23,7 @@
         <activity android:name=".Activity.DetectionUnknow" />
         <activity android:name=".Activity.NotificationDetail" />
         <activity android:name=".View.ControlDoor.ControlMainDoor" />
-        <activity android:name=".Activity.ControlCamera" />
+        <activity android:name=".View.ControlCamera.ControlCamera" />
         <activity android:name=".View.ControlLight.ControlLightView" />
         <activity android:name=".Activity.ChangeInformation" />
         <activity android:name=".Activity.ChangePassword" />
