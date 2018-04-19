@@ -30,6 +30,20 @@ void sendtoESP(String data)
     mySerial.print('\r');
 }
 
+void setState(int pin, boolean state){
+    if (state) 
+    {
+        digitalWrite(pin, HIGH);
+        Serial.println(pin + " - ON");
+    } 
+    else 
+    {
+        digitalWrite(pin, LOW);
+        Serial.println(pin + " - OFF");
+    }
+    sendtoESP(data);
+}
+
 void changeState(String device, String pos, int pin, boolean st)
 {
     if (st) 
@@ -49,36 +63,9 @@ void changeState(String device, String pos, int pin, boolean st)
 // pos là position
 // st là state
 
-void Light(String deviceName, String pos, boolean st)
+void Light(int pin, boolean st)
 { 
-    if(pos == "LIVINGROOM")
-    {
-        if (deviceName == "Light 1")
-            changeState(deviceName, pos, digitalPin[0], st);
-        else if (deviceName == "Light 2")
-            changeState(deviceName, pos, digitalPin[1], st);
-    }
-    else if(pos == "BEDROOM")  
-    {
-        if (deviceName == "Light 1")
-            changeState(deviceName, pos, digitalPin[2], st);
-        else if (deviceName == "Light 2")
-            changeState(deviceName, pos, digitalPin[3], st);
-    }
-    else if(pos == "DININGROOM") 
-    {
-        if (deviceName == "Door")
-            changeState(deviceName, pos, digitalPin[4], st);
-        else if (deviceName == "Light 2")
-            changeState(deviceName, pos, digitalPin[5], st);
-    }
-    else if(pos == "BATHROOM") 
-    {
-        if (deviceName == "Light")
-        {
-            changeState(deviceName, pos, digitalPin[6], st);
-        }
-    }
+    setState(pin, st);
 }
 
 void openDoor()   {  }
@@ -101,25 +88,31 @@ void Door(String deviceName, String pos, boolean st)
 
 void Filter(JsonObject& obj)
 {
-    String deviceName = obj["deviceName"];
-    String deviceType = obj["deviceType"];
-    String pos = obj["position"];
+    String type = obj["type"];
+    int pin = obj["pin"]; 
     boolean state = obj["state"];
     
-    if (deviceType == "LIGHT")
-        Light(deviceName, pos, state);
-    if (deviceType == "DOOR")
-        Door(deviceName, pos, state);
+    if (type == "LED")
+        Light(pin, state);
+//    if (type == "SERVO")
+////        Door(deviceName, pos, state);
+//    if (type == "SENSOR")
+////        Door(deviceName, pos, state);
 }
 
 void parseJsonObject(String s)
 {
     StaticJsonBuffer<512> jsonBuffer;
-    JsonObject& obj = jsonBuffer.parseObject(s);
-    
-    if (obj.success())
-        Filter(obj);    
-    else Serial.println("Parsing failed!!!");
+    JsonArray& arr = jsonBuffer.parseArray(s);
+    if (arr.success())
+    {
+        for (int i = 0; i < arr.size(); i++)
+        {
+            JsonObject& obj = arr[i];
+            Filter(obj);    
+        }
+    }
+    else Serial.println("parsing failed!!!");
 }
 
 void pinSetup()
@@ -139,14 +132,12 @@ void readfromESP ()
     Serial.println(data);
     parseJsonObject(data);
 }
-
-void createJsonObject(String deviceName, String deviceType, String pos, boolean state)
+void createJsonObject(String type, int pin, boolean state)
 {
       StaticJsonBuffer<512> buff;
       JsonObject& data = buff.createObject();
-      data["deviceName"] = deviceName;
-      data["deviceType"] = deviceType;
-      data["position"] = pos;
+      data["type"] = type;
+      data["pin"] = pin;
       data["state"] = state;
       
       // send
@@ -155,6 +146,21 @@ void createJsonObject(String deviceName, String deviceType, String pos, boolean 
       data.printTo(mySerial);
       mySerial.print('\r');              
 }
+//void createJsonObject(String deviceName, String deviceType, String pos, boolean state)
+//{
+//      StaticJsonBuffer<512> buff;
+//      JsonObject& data = buff.createObject();
+//      data["deviceName"] = deviceName;
+//      data["deviceType"] = deviceType;
+//      data["position"] = pos;
+//      data["state"] = state;
+//      
+//      // send
+//      mySerial.print("A2ESP");
+//      mySerial.print('\r');
+//      data.printTo(mySerial);
+//      mySerial.print('\r');              
+//}
 
 int r, r1, r2, r3, r4;
 
@@ -195,25 +201,7 @@ void checkDoor()
     {
         if (lastState[i] != firstState[i])
         {    
-            // create json object and send to ESP
-            switch(i)
-            {
-                case 0:
-                    createJsonObject("Main Door", "DOOR", "LIVINGROOM", firstState[i]);
-                    break;
-                case 1:
-                    createJsonObject("Window 1", "DOOR", "LIVINGROOM", firstState[i]);
-                    break;
-                case 2:
-                    createJsonObject("Window 1", "DOOR", "DININGROOM", firstState[i]);
-                    break;
-                case 3:
-                    createJsonObject("WINDOW 1", "DOOR", "BEDROOM", firstState[i]);
-                    break;
-                case 4:
-                    createJsonObject("PIR", "SENSOR", "LIVINGROOM", firstState[i]);
-                    break;
-            }
+            createJsonObject("SENSOR", i, firstState[i]);
         }
         lastState[i] = firstState[i];
     }

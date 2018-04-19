@@ -1,15 +1,19 @@
 var express = require("express");
 var app = express();
+var path = require('path');
 var http = require("http").Server(app);
 var colors = require("colors");
 var port = process.env.PORT || 3000;
 var bodyParser = require("body-parser");
+var adminRoute = require('./routes/admin');
 var io = require("socket.io")(http);
 var logger = require('./helpers/logger');
 
 http.listen(port, function() {
    logger.info("Server listening at port: %s", port);
 });
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
 app.use(function(req, res, next) {
    res.header("Access-Control-Allow-Origin", "*");
@@ -23,7 +27,7 @@ app.use(bodyParser.urlencoded({
 
 // parse application/json
 app.use(bodyParser.json());
-
+app.use('/admin', adminRoute);
 app.get("/", function(req, res) {
    res.json({
       message: "Vô làm gì."
@@ -52,19 +56,20 @@ mongoose.connection.on("error", function() {
 });
 mongoose.connection.once("open", function() {
    logger.info("Successfully connected to the database");
+
    io.on("connection", function(socket) {
       sockets[socket.id] = socket;
-      logger.info("New client connected: %s", socket.id.magenta);
+      logger.info("New client connected: %s", socket.id);
       console.log("Total clients connected: ", Object.keys(sockets).length);
-      //video listen
-      streamSocket(socket);
       //call listen
       deviceSocket(socket);
       //when client disconnect
       socket.on("disconnect", function() {
          delete sockets[socket.id];
-         logger.warn("Client disconnected:  %s.", socket.id.magenta);
+         logger.warn("Client disconnected:  %s.", socket.id);
          console.log("Total clients connected : ".grey, Object.keys(sockets).length);
       });
    });
+
+
 });

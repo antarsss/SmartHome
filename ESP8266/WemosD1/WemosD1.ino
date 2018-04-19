@@ -15,7 +15,8 @@ const byte tx = D2;
 SoftwareSerial mySerial(rx, tx, false, 256);
 SerialCommand sCmd(mySerial);
 
-char host[] = "172.16.199.170";   
+//char host[] = "172.16.199.170";   
+char host[] = "192.168.1.4"; 
 int port = 3000;                  
 
 extern String RID; // tên sự kiện
@@ -67,28 +68,28 @@ void parseJsonArray(String s)
     JsonObject& object = bufferred.parseObject(s);
     JsonArray& arr = object["devices"];
     if (arr.success())
-      for (int i = 0; i < arr.size(); i++)
-      {
-          JsonObject& device = arr[i];
-          mySerial.print("ESP2A");
-          mySerial.print('\r');
-          device.printTo(mySerial);
-          mySerial.print('\r');
-          delay(100);
-      }
+        for (int i = 0; i < arr.size(); i++)
+        {
+            JsonObject& device = arr[i];
+            mySerial.print("ESP2A");
+            mySerial.print('\r');
+            device["Module"].printTo(mySerial);
+            mySerial.print('\r');    
+            delay(100);
+        }
     else Serial.println("parsing failed!!!");
 }
-
-void loadDeviceByType(String deviceType)  
+ 
+void loadDevices()  
 { 
     String serverAdd = host;
     Serial.println("Get POST from http://" + serverAdd + ":3000/devices/"); 
     httpClient.begin("http://" + serverAdd + ":3000/devices/");
     
     httpClient.addHeader("Content-Type", "application/json");
-
-    String query = "{\"deviceType\":\"" + deviceType + "\"}";
-    Serial.println("With query " + query);   
+//
+    String query = "{}";
+//    Serial.println("With query " + query);   
      
     int httpCode = httpClient.POST(query);
     
@@ -115,8 +116,7 @@ void setup()
     setupNetwork();
     client.connect(host, port);
     Serial.println("connected to server!");
-    loadDeviceByType("DOOR");
-    loadDeviceByType("LIGHT");
+    loadDevices(); 
     sCmd.addCommand("A2ESP", readfromArduino);
 }
 

@@ -1,18 +1,43 @@
+use smarthome
+db.devices.remove({})
 db.devices.insert([
-	{deviceName: "Light 1", deviceType: "LIGHT", description: "None", position: "LIVINGROOM", state: false, connect: true},
-	{deviceName: "Light 2", deviceType: "LIGHT", description: "None", position: "LIVINGROOM", state: false, connect: true},
-	{deviceName: "Light 1", deviceType: "LIGHT", description: "None", position: "BEDROOM", state: false, connect: true},
-	{deviceName: "Light 2", deviceType: "LIGHT", description: "None", position: "BEDROOM", state: false, connect: true},
-	{deviceName: "Light 1", deviceType: "LIGHT", description: "None", position: "DININGROOM", state: false, connect: true},
-	{deviceName: "Light 2", deviceType: "LIGHT", description: "None", position: "DININGROOM", state: false, connect: true},
-	{deviceName: "Light 1", deviceType: "LIGHT", description: "None", position: "BATHROOM", state: false, connect: true},
-	{deviceName: "Main Door", deviceType: "DOOR", description: "MAINDOOR", position: "LIVINGROOM", state: true, connect: true},
-	{deviceName: "Window 1", deviceType: "DOOR", description: "WINDOWS", position: "LIVINGROOM", state: true, connect: true},
-	{deviceName: "Window 2", deviceType: "DOOR", description: "WINDOWS", position: "LIVINGROOM", state: false, connect: true},
-	{deviceName: "Door", deviceType: "DOOR", description: "MAINDOOR", position: "BEDROOM", state: false, connect: true},
-	{deviceName: "Window 1", deviceType: "DOOR", description: "WINDOWS", position: "BEDROOM", state: false, connect: true},
-	{deviceName: "Door", deviceType: "DOOR", description: "MAINDOOR", position: "DININGROOM", state: true, connect: true},
-	{deviceName: "Window 1", deviceType: "DOOR", description: "WINDOWS", position: "DININGROOM", state: true, connect: true},
-	{deviceName: "Door", deviceType: "DOOR", description: "MAINDOOR", position: "BATHROOM", state: true, connect: true},
-	{deviceName: "Camera 1", deviceType: "CAMERA", description: "None", position: "LIVINGROOM", state: true, connect: true}
+	{deviceName: "Light 1", deviceType: "LIGHTS", position: "LIVINGROOM" , Module:[{type: "LED", pin:5, state: false}], connect: true},
+	{deviceName: "Light 2", deviceType: "LIGHTS", position: "LIVINGROOM", Module:[{type: "LED", pin:6, state: false}], connect: true},
+	{deviceName: "Light 3", deviceType: "LIGHTS", position: "BEDROOM", Module:[{type: "LED", pin:7, state: false}], connect: true},
+	{deviceName: "Light 4", deviceType: "LAMP", position: "BEDROOM", Module:[{type: "LED", pin:8, state: false}], connect: true},
+	{deviceName: "Light 5", deviceType: "LIGHTS", position: "DININGROOM", Module:[{type: "LED", pin:9, state: false}], connect: true},
+	{deviceName: "Light 6", deviceType: "LIGHTS", position: "DININGROOM", Module:[{type: "LED", pin:10, state: false}], connect: true},
+	{deviceName: "Light 7", deviceType: "LIGHTS", position: "BATHROOM", Module:[{type: "LED", pin:11, state: false}], connect: true},
+	{deviceName: "Doors", deviceType: "DOORS", position: "LIVINGROOM", Module:[
+			{type: "SERVO", pin:11, state: false},
+			{type: "SENSOR", pin:0, state: false}
+			],
+			connect: true
+	},
+	{deviceName: "Door 1", deviceType: "DOOR", position: "BEDROOM", Module:[
+			{type: "SERVO", pin:13, state: false},
+			{type: "SENSOR", pin:1, state: false}
+			],
+			connect: true
+	},
+	{deviceName: "Door 2", deviceType: "DOOR", position: "BEDROOM", Module:[
+			{type: "SERVO", pin:15, state: false},
+			{type: "SENSOR", pin:2, state: false}
+			],
+			connect: true
+	},
+	{deviceName: "Windows 1", deviceType: "WINDOWS", position: "DININGROOM", Module:[
+			{type: "SERVO", pin:17, state: false},
+			{type: "SENSOR", pin:3, state: false}
+			],
+			connect: true
+	},
+	{deviceName: "Windows 2", deviceType: "WINDOWS", position: "DININGROOM", Module:[
+			{type: "SERVO", pin:19, state: false},
+			{type: "SENSOR", pin:4, state: false}
+		],
+		connect: true
+	},
+	{deviceName: "Camera 1", deviceType: "CAMERA", position: "FRONT DOORS", Module:[], connect: true},
+	{deviceName: "Camera 2", deviceType: "CAMERA", position: "BACK HOUSE", Module:[], connect: true}
 ])
