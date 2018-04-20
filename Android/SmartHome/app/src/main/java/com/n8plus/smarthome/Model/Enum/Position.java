@@ -5,10 +5,10 @@ package com.n8plus.smarthome.Model.Enum;
  */
 
 public enum Position {
-    GATEWAY, LIVINGROOM, BEDROOM, DININGROOM, BATHROOM, KITCHENROOM;
+    GATEWAY, LIVINGROOM, BEDROOM, DININGROOM, BATHROOM, KITCHENROOM, FRONTDOORS, BACKHOUSE;
 
-    public static Position getPos(String s){
-        switch (s){
+    public static Position getPos(String s) {
+        switch (s) {
             case "GATEWAY":
                 return GATEWAY;
             case "LIVINGROOM":
@@ -21,6 +21,10 @@ public enum Position {
                 return BATHROOM;
             case "KITCHENROOM":
                 return KITCHENROOM;
+            case "FRONTDOORS":
+                return FRONTDOORS;
+            case "BACKHOUSE":
+                return BACKHOUSE;
         }
         return null;
     }

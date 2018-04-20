@@ -8,11 +8,14 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.n8plus.smarthome.Model.Device;
 import com.n8plus.smarthome.Model.Enum.DeviceType;
 import com.n8plus.smarthome.Model.Enum.NotificationType;
+import com.n8plus.smarthome.Model.Enum.Type;
 import com.n8plus.smarthome.Model.Notification;
 import com.n8plus.smarthome.Utils.common.Constant;
 import com.n8plus.smarthome.Utils.common.VolleySingleton;
+import com.n8plus.smarthome.View.HomePage.HomeActivity;
 import com.n8plus.smarthome.View.HomePage.HomeActivityViewImpl;
 
 import org.json.JSONArray;
@@ -52,7 +55,8 @@ public class NotificationPresenter implements NotificationPresenterImpl {
                                     JSONArray array = response.getJSONArray("devices");
                                     for (int i = 0; i < array.length(); i++) {
                                         JSONObject object = array.getJSONObject(i);
-                                        if (object.getBoolean("state")) {
+                                        Device door = HomeActivity.deviceConvert.jsonToDeviceFromDatabase(object);
+                                        if (door.getStateByType(Type.SERVO)) {
                                             Date date = new Date(System.currentTimeMillis());
                                             Notification notification = new Notification(i, object.getString("deviceName")
                                                     + " in " + object.getString("position") + " is opened!", date, true, NotificationType.DOOR);

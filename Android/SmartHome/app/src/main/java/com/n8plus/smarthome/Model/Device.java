@@ -4,6 +4,8 @@ import com.n8plus.smarthome.Model.Enum.DeviceType;
 import com.n8plus.smarthome.Model.Enum.Position;
 import com.n8plus.smarthome.Model.Enum.Type;
 
+import org.json.JSONArray;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -83,6 +85,11 @@ public class Device implements Serializable {
 
     public void setConnect(boolean connect) {
         this.connect = connect;
+    }
+
+    @Override
+    public String toString() {
+        return "{" + _id + "," + deviceName + "," + deviceType + "," + description + "," + position + ", " + new JSONArray(getModules()) + "," + connect + "}";
     }
 
     public Boolean[] getAllStates() {

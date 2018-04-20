@@ -63,7 +63,7 @@ public class DoorAdapter extends RecyclerView.Adapter<DoorAdapter.ViewHolder> {
         if (state) {
             holder.txtStateDoor.setText("Opened");
             holder.txtStateDoor.setTextColor(Color.parseColor("#ffff4444"));
-            if (devices.get(position).getDescription().contains("MAINDOOR")) {
+            if (devices.get(position).getDescription().contains("Door")) {
                 holder.imgDoor.setImageResource(R.drawable.door);
             } else {
                 holder.imgDoor.setImageResource(R.drawable.open_window);
@@ -71,7 +71,7 @@ public class DoorAdapter extends RecyclerView.Adapter<DoorAdapter.ViewHolder> {
         } else {
             holder.txtStateDoor.setTextColor(Color.parseColor("#00a0dc"));
             holder.txtStateDoor.setText("Closed");
-            if (devices.get(position).getDescription().contains("MAINDOOR")) {
+            if (devices.get(position).getDescription().contains("Door")) {
                 holder.imgDoor.setImageResource(R.drawable.close_door);
             } else {
                 holder.imgDoor.setImageResource(R.drawable.window);
@@ -110,7 +110,7 @@ public class DoorAdapter extends RecyclerView.Adapter<DoorAdapter.ViewHolder> {
         @Override
         public void onClick(View view) {
             Device mainDoor = devices.get(getAdapterPosition());
-            if (mainDoor.getDescription().equals("MAINDOOR")) {
+            if (mainDoor.getDescription().contains("Door")) {
                 Intent intent = new Intent(view.getContext(), ControlMainDoor.class);
                 intent.putExtra("door", mainDoor);
                 context.startActivityForResult(intent, 1);

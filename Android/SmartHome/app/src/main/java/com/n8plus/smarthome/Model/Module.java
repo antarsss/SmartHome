@@ -41,4 +41,9 @@ public class Module implements Serializable {
     public void setState(boolean state) {
         this.state = state;
     }
+
+    @Override
+    public String toString() {
+        return "{" + type + ", " + pin + ", " + state + ", " + "}";
+    }
 }

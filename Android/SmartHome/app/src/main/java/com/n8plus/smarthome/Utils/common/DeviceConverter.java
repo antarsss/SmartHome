@@ -1,6 +1,8 @@
 package com.n8plus.smarthome.Utils.common;
 
 import com.n8plus.smarthome.Model.Device;
+import com.n8plus.smarthome.Model.Enum.DeviceType;
+import com.n8plus.smarthome.Model.Enum.Position;
 import com.n8plus.smarthome.Model.Enum.Type;
 import com.n8plus.smarthome.Model.Module;
 
@@ -28,10 +30,31 @@ public class DeviceConverter {
         return null;
     }
 
-    public Device json2ObjectByGSon(JSONObject jsonObject, ArrayList<Device> devices) {
+    public Device jsonToDeviceFromDatabase(JSONObject jsonObject) {
+        try {
+            ArrayList<Module> modules = json2ModuleArrays(jsonObject.getJSONArray("module"));
+
+            Device device = new Device.Builder()
+                    .set_id(jsonObject.getString("_id"))
+                    .setDeviceName(jsonObject.getString("deviceName"))
+                    .setDeviceType(DeviceType.getType(jsonObject.getString("deviceType")))
+                    .setDescription(jsonObject.getString("description"))
+                    .setPosition(Position.getPos(jsonObject.getString("position")))
+                    .setModules(modules)
+                    .setConnect(jsonObject.getBoolean("connect"))
+                    .build();
+            return device;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Device jsonToDeviceFromSocketIO(JSONObject jsonObject, ArrayList<Device> devices) {
         try {
             for (Device device : devices) {
-                if (device.get_id().equals(jsonObject.getString("_id"))) {
+                boolean equals = device.get_id().equals(jsonObject.getString("_id"));
+                if (equals) {
                     device.setModules(json2ModuleArrays(jsonObject.getJSONArray("module")));
                     return device;
                 }

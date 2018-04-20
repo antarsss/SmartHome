@@ -1,9 +1,8 @@
 package com.n8plus.smarthome.View.ControlLight;
 
 import android.annotation.SuppressLint;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -13,31 +12,25 @@ import android.widget.Toast;
 import com.kyleduo.switchbutton.SwitchButton;
 import com.n8plus.smarthome.Adapter.LightAdapter;
 import com.n8plus.smarthome.Model.Device;
-import com.n8plus.smarthome.Model.Enum.DeviceType;
 import com.n8plus.smarthome.Model.Enum.Position;
 import com.n8plus.smarthome.Model.Enum.Type;
 import com.n8plus.smarthome.Presenter.ControlLight.ControlLightPresenter;
 import com.n8plus.smarthome.R;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 public class ControlLightView extends AppCompatActivity implements ControlLightViewImpl {
 
+    public int count = 0;
     RecyclerView listLivingRoom, listBedRoom, listDiningRoom, listBathRoom;
     SwitchButton swbAllLight;
     Map<String, Device> lightLivingRoom, lightBedRoom, lightDiningRoom, lightBathRoom;
     LightAdapter livingRoomAdapter, bedRoomAdapter, diningRoomAdapter, bathRoomAdapter;
     ControlLightPresenter controlLightPresenter;
     int countAllLight = 0;
-    public int count = 0;
 
     @SuppressLint("RestrictedApi")
     @Override
@@ -137,7 +130,7 @@ public class ControlLightView extends AppCompatActivity implements ControlLightV
     }
 
     @Override
-    public void loadDevicesSuccess(List<Device> devices) {
+    public void loadDevicesSuccess(ArrayList<Device> devices) {
         switch (devices.get(0).getPosition()) {
             case LIVINGROOM:
                 initView(listLivingRoom);
@@ -175,7 +168,7 @@ public class ControlLightView extends AppCompatActivity implements ControlLightV
     }
 
     @Override
-    public void checkResponse(List<Device> devices) {
+    public void checkResponse(ArrayList<Device> devices) {
         for (Device light : devices) {
             lightLivingRoom.get(light.get_id()).setState(light.getStateByType(Type.LED));
         }

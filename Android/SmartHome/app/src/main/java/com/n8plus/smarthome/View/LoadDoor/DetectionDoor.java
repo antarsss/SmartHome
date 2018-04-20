@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.n8plus.smarthome.Adapter.DoorAdapter;
 import com.n8plus.smarthome.Model.Device;
+import com.n8plus.smarthome.Model.Enum.DeviceType;
 import com.n8plus.smarthome.Model.Enum.Position;
 import com.n8plus.smarthome.Model.Enum.Type;
 import com.n8plus.smarthome.Presenter.LoadDoor.LoadDoorPresenter;
@@ -23,7 +24,6 @@ import com.n8plus.smarthome.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class DetectionDoor extends AppCompatActivity implements DetectionDoorViewImpl {
@@ -48,7 +48,6 @@ public class DetectionDoor extends AppCompatActivity implements DetectionDoorVie
         loadDoorPresenter = new LoadDoorPresenter(this);
         loadDoorPresenter.listenState();
         loadAllDoor();
-
         animRolate = AnimationUtils.loadAnimation(this, R.anim.anim_scan);
 
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
@@ -65,6 +64,7 @@ public class DetectionDoor extends AppCompatActivity implements DetectionDoorVie
     public void loadAllDoor() {
         Map<String, String> params = new HashMap<>();
         params.put("position", Position.LIVINGROOM.name());
+
         loadDoorPresenter.loadDeviceProperty(params);
 
         params.put("position", Position.BEDROOM.name());
@@ -77,7 +77,7 @@ public class DetectionDoor extends AppCompatActivity implements DetectionDoorVie
         loadDoorPresenter.loadDeviceProperty(params);
     }
 
-    public void initView(HashMap<String, Device> arrayList, List<Device> doors, RecyclerView recyclerView) {
+    public void initView(HashMap<String, Device> arrayList, ArrayList<Device> doors, RecyclerView recyclerView) {
         if (!doors.isEmpty()) {
             recyclerView.setVisibility(View.VISIBLE);
             ((LinearLayout) recyclerView.getParent().getParent()).setVisibility(View.VISIBLE);
@@ -122,7 +122,8 @@ public class DetectionDoor extends AppCompatActivity implements DetectionDoorVie
 
 
     @Override
-    public void loadDevicesSuccess(List<Device> devices) {
+    public void loadDevicesSuccess(ArrayList<Device> devices) {
+        System.out.println(devices.size() + " OK");
         switch (devices.get(0).getPosition()) {
             case LIVINGROOM:
                 initView(listLivingRoom, devices, doorLivingRoom);
@@ -147,7 +148,7 @@ public class DetectionDoor extends AppCompatActivity implements DetectionDoorVie
     }
 
     @Override
-    public void checkResponse(List<Device> doors) {
+    public void checkResponse(ArrayList<Device> doors) {
         for (Device door : doors) {
             listLivingRoom.get(door.get_id()).setState(door.getStateByType(Type.SERVO));
         }

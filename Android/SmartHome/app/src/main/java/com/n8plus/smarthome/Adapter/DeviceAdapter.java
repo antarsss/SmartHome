@@ -81,7 +81,7 @@ public class DeviceAdapter extends BaseAdapter {
             viewHolder.imgIcon.setImageResource(R.drawable.idea);
         }
         else if (device.getDeviceType()== DeviceType.DOOR){
-            if (device.getDescription().contains("MAINDOOR")){
+            if (device.getDescription().contains("Door")){
                 viewHolder.imgIcon.setImageResource(R.drawable.close_door);
             }
             else {

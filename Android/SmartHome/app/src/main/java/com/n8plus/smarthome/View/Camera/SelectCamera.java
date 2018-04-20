@@ -54,7 +54,7 @@ public class SelectCamera extends AppCompatActivity implements SelectCameraViewI
 
 
     @Override
-    public void loadDevicesSuccess(List<Device> devices) {
+    public void loadDevicesSuccess(ArrayList<Device> devices) {
         for (Device device: devices){
             arrayListCam.put(device.get_id(), device);
         }
@@ -70,7 +70,7 @@ public class SelectCamera extends AppCompatActivity implements SelectCameraViewI
     }
 
     @Override
-    public void checkResponse(List<Device> lights) {
+    public void checkResponse(ArrayList<Device> lights) {
 
     }
 

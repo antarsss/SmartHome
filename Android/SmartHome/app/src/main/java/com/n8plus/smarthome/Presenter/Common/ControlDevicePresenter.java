@@ -21,7 +21,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public class ControlDevicePresenter implements ControlDeviceImpl {
@@ -35,7 +34,7 @@ public class ControlDevicePresenter implements ControlDeviceImpl {
                 @Override
                 public void run() {
                     try {
-                        Device light = HomeActivity.deviceConvert.json2ObjectByGSon((JSONObject) args[0], deviceList);
+                        Device light = HomeActivity.deviceConvert.jsonToDeviceFromDatabase((JSONObject) args[0]);
                         deviceList.add(light);
                         Log.v("ON", args[0].toString());
                         controlDeviceView.checkResponse(deviceList);
@@ -67,17 +66,20 @@ public class ControlDevicePresenter implements ControlDeviceImpl {
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
-                                List<Device> devices = new ArrayList<>();
+                                ArrayList<Device> devices = new ArrayList<>();
                                 try {
                                     JSONArray array = response.getJSONArray("devices");
                                     for (int i = 0; i < array.length(); i++) {
                                         JSONObject object = array.getJSONObject(i);
+                                        Device device = HomeActivity.deviceConvert.jsonToDeviceFromDatabase(object);
 
-                                        Device device = HomeActivity.deviceConvert.json2ObjectByGSon(object, deviceList);
                                         devices.add(device);
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
+                                }
+                                for (Device device : devices) {
+                                    System.out.println(device.toString());
                                 }
                                 controlDeviceView.loadDevicesSuccess(devices);
                             }
