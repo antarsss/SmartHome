@@ -3,19 +3,20 @@ package com.n8plus.smarthome.View.ControlDoor;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.n8plus.smarthome.View.HomePage.HomeActivity;
 import com.n8plus.smarthome.Model.Device;
+import com.n8plus.smarthome.Model.Enum.Type;
 import com.n8plus.smarthome.R;
+import com.n8plus.smarthome.View.HomePage.HomeActivity;
 
-public class ControlMainDoor extends AppCompatActivity implements ControlMainDoorViewImpl{
+public class ControlMainDoor extends AppCompatActivity implements ControlMainDoorViewImpl {
 
     ImageView imgRoom, imgStateDoor;
     TextView state, titleRoom;
@@ -32,16 +33,15 @@ public class ControlMainDoor extends AppCompatActivity implements ControlMainDoo
         Mount();
 
         Intent intent = getIntent();
-        if (intent != null){
+        if (intent != null) {
             door = (Device) intent.getSerializableExtra("door");
             setNameRoom();
-            if (door.isState()){
+            if (door.getStateByType(Type.SERVO)) {
                 imgStateDoor.setImageResource(R.drawable.door);
                 state.setText("Opened");
                 state.setTextColor(Color.parseColor("#ffff4444"));
                 btnAction.setText("CLOSE NOW");
-            }
-            else {
+            } else {
                 imgStateDoor.setImageResource(R.drawable.close_door);
                 state.setText("Closed");
                 state.setTextColor(Color.parseColor("#00a0dc"));
@@ -52,16 +52,15 @@ public class ControlMainDoor extends AppCompatActivity implements ControlMainDoo
         btnAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (door.isState()){
+                if (door.getStateByType(Type.SENSOR)) {
                     door.setState(false);
-                    HomeActivity.mSocket.emit("c2s-doorchange", HomeActivity.doorConvert.object2Json(door));
+                    HomeActivity.mSocket.emit("c2s-change", HomeActivity.doorConvert.object2Json(door));
                     imgStateDoor.setImageResource(R.drawable.close_door);
                     state.setText("Closed");
                     state.setTextColor(Color.parseColor("#00a0dc"));
                     btnAction.setText("OPEN NOW");
                     Toast.makeText(ControlMainDoor.this, "Door Closed!", Toast.LENGTH_SHORT).show();
-                }
-                else {
+                } else {
                     door.setState(true);
                     HomeActivity.mSocket.emit("c2s-doorchange", HomeActivity.doorConvert.object2Json(door));
                     imgStateDoor.setImageResource(R.drawable.door);
@@ -84,7 +83,7 @@ public class ControlMainDoor extends AppCompatActivity implements ControlMainDoo
         super.onBackPressed();
     }
 
-    private void Mount(){
+    private void Mount() {
         imgStateDoor = (ImageView) findViewById(R.id.imgStateDoor);
         state = (TextView) findViewById(R.id.state);
         titleRoom = (TextView) findViewById(R.id.titleRoom);
@@ -92,8 +91,8 @@ public class ControlMainDoor extends AppCompatActivity implements ControlMainDoo
         imgRoom = (ImageView) findViewById(R.id.imgRoom);
     }
 
-    private void setNameRoom(){
-        switch (door.getPosition()){
+    private void setNameRoom() {
+        switch (door.getPosition()) {
             case BEDROOM:
                 titleRoom.setText("Bed Room");
                 imgRoom.setImageResource(R.drawable.bed);

@@ -11,7 +11,7 @@ SerialCommand sCmd(mySerial);
 
 int digitalPin[] = {4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
 int servo = digitalPin[7];
-Servo controlDoor;
+//Servo controlDoor;
 
 // sử dụng cho cảm biến hồng ngoại A0 -> A3
 int analogPin[] = {A0, A1, A2, A3, A4, A5};
@@ -21,6 +21,11 @@ boolean firstState[] = {false , false, false, false, false};
 boolean lastState[] = {false , false, false, false, false};
 
 String data = "";
+
+StaticJsonBuffer<200> jsonBuffer;
+JsonArray& sensors = jsonBuffer.createArray();
+JsonArray& servos = jsonBuffer.createArray();
+JsonArray& leds = jsonBuffer.createArray();
 
 void sendtoESP(String data)
 {
@@ -51,7 +56,7 @@ void Light(int pin, boolean st)
 { 
     setState(pin, st);
 }
-
+ 
 void openDoor()   {  }
 
 void closeDoor()  {  }
@@ -78,13 +83,15 @@ void Filter(JsonObject& obj)
     
     if (type == "LED"){
       Light(pin, state);
-      Serial.println(state);
     }
-        
-//    if (type == "SERVO")
-////        Door(deviceName, pos, state);
-//    if (type == "SENSOR")
-////        Door(deviceName, pos, state);
+  
+    if (type == "SENSOR"){
+      sensors.add(obj);
+    }
+    
+    if (type == "SERVO"){
+//      servos.add(obj);
+    }
 }
 
 void parseJsonObject(String s)
@@ -119,11 +126,12 @@ void readfromESP ()
     Serial.println("READ: " + data);
     parseJsonObject(data);
 }
-void createJsonObject(String type, int pin, boolean state)
+void createJsonObject(String _id, String type, int pin, boolean state)
 {
       DynamicJsonBuffer buff;
       JsonArray& arr = buff.createArray();
       JsonObject& data = buff.createObject();
+      data["_id"] = _id;
       data["type"] = type;
       data["pin"] = pin;
       data["state"] = state;
@@ -141,6 +149,7 @@ void checkDoor()
 {
     // main door
     r = analogRead(analogPin[0]);
+    Serial.println(r);
     // window in livingroom
     r1 = analogRead(analogPin[1]);
     // window in diningroom
@@ -170,11 +179,12 @@ void checkDoor()
       firstState[4] = false;
     else firstState[4] = true;
     
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < sensors.size(); i++)
     {
+        JsonObject& object = sensors[i];
         if (lastState[i] != firstState[i])
         {    
-            createJsonObject("SENSOR", i, firstState[i]);
+            createJsonObject(object["_id"], "SENSOR", object["pin"], firstState[i]);
         }
         lastState[i] = firstState[i];
     }

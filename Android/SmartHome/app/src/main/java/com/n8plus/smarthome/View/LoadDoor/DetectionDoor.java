@@ -16,14 +16,10 @@ import android.widget.Toast;
 
 import com.n8plus.smarthome.Adapter.DoorAdapter;
 import com.n8plus.smarthome.Model.Device;
-import com.n8plus.smarthome.Model.Enum.DeviceType;
 import com.n8plus.smarthome.Model.Enum.Position;
+import com.n8plus.smarthome.Model.Enum.Type;
 import com.n8plus.smarthome.Presenter.LoadDoor.LoadDoorPresenter;
 import com.n8plus.smarthome.R;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -153,16 +149,16 @@ public class DetectionDoor extends AppCompatActivity implements DetectionDoorVie
     @Override
     public void checkResponse(List<Device> doors) {
         for (Device door : doors) {
-            listLivingRoom.get(door.get_id()).setState(door.isState());
+            listLivingRoom.get(door.get_id()).setState(door.getStateByType(Type.SERVO));
         }
         for (Device door : doors) {
-            listBedRoom.get(door.get_id()).setState(door.isState());
+            listBedRoom.get(door.get_id()).setState(door.getStateByType(Type.SERVO));
         }
         for (Device door : doors) {
-            listDiningRoom.get(door.get_id()).setState(door.isState());
+            listDiningRoom.get(door.get_id()).setState(door.getStateByType(Type.SERVO));
         }
         for (Device door : doors) {
-            listBathRoom.get(door.get_id()).setState(door.isState());
+            listBathRoom.get(door.get_id()).setState(door.getStateByType(Type.SERVO));
         }
     }
 

@@ -11,10 +11,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kyleduo.switchbutton.SwitchButton;
-import com.n8plus.smarthome.View.HomePage.HomeActivity;
 import com.n8plus.smarthome.Model.Device;
+import com.n8plus.smarthome.Model.Enum.Type;
 import com.n8plus.smarthome.R;
 import com.n8plus.smarthome.View.ControlLight.ControlLightView;
+import com.n8plus.smarthome.View.HomePage.HomeActivity;
 
 import java.util.ArrayList;
 
@@ -26,6 +27,7 @@ public class LightAdapter extends RecyclerView.Adapter<LightAdapter.ViewHolder> 
 
     ArrayList<Device> devices;
     Context context;
+    LightAdapter.ViewHolder holder;
 
     public LightAdapter(ArrayList<Device> devices, Context context) {
         this.devices = devices;
@@ -39,23 +41,21 @@ public class LightAdapter extends RecyclerView.Adapter<LightAdapter.ViewHolder> 
         return new ViewHolder(itemView);
     }
 
-    LightAdapter.ViewHolder holder;
-
     @Override
     public void onBindViewHolder(final LightAdapter.ViewHolder holder, final int position) {
         this.holder = holder;
         final Device device = devices.get(position);
 
-        if (device.isState()) {
+        if (device.getStateByType(Type.LED)) {
             holder.imgLight.setImageResource(R.drawable.light_on);
         } else {
             holder.imgLight.setImageResource(R.drawable.light_off);
         }
         holder.txtNameLight.setText(device.getDeviceName());
-        holder.swtState.setChecked(device.isState());
+        holder.swtState.setChecked(device.getStateByType(Type.LED));
 
         holder.swtState.setTintColor(Color.parseColor("#00a0dc"));
-        final boolean current = device.isState();
+        final boolean current = device.getStateByType(Type.LED);
         holder.swtState.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,7 +77,7 @@ public class LightAdapter extends RecyclerView.Adapter<LightAdapter.ViewHolder> 
 
 
     public boolean isAllItemSelected(Device device) {
-        if (device.isState()) {
+        if (device.getStateByType(Type.LED)) {
             ((ControlLightView) context).count++;
 
         } else {
@@ -87,6 +87,12 @@ public class LightAdapter extends RecyclerView.Adapter<LightAdapter.ViewHolder> 
         }
         System.out.println("count: " + ((ControlLightView) context).count + " | " + ((ControlLightView) context).getCountAllLight());
         return ((ControlLightView) context).count == ((ControlLightView) context).getCountAllLight();
+    }
+
+    public void emitAll() {
+        for (Device device : devices) {
+            HomeActivity.mSocket.emit("c2s-change", HomeActivity.deviceConvert.object2Json(device));
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -100,12 +106,6 @@ public class LightAdapter extends RecyclerView.Adapter<LightAdapter.ViewHolder> 
             imgLight = (ImageView) itemView.findViewById(R.id.imgLight);
             txtNameLight = (TextView) itemView.findViewById(R.id.txtNameLight);
             swtState = (SwitchButton) itemView.findViewById(R.id.swtState);
-        }
-    }
-
-    public void emitAll() {
-        for (Device device : devices) {
-            HomeActivity.mSocket.emit("c2s-change", HomeActivity.deviceConvert.object2Json(device));
         }
     }
 

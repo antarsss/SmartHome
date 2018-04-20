@@ -10,11 +10,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.n8plus.smarthome.View.LoadDoor.DetectionDoor;
 import com.n8plus.smarthome.Interface.RecyclerViewClickListener;
 import com.n8plus.smarthome.Model.Device;
+import com.n8plus.smarthome.Model.Enum.Type;
+import com.n8plus.smarthome.Model.Module;
 import com.n8plus.smarthome.R;
 import com.n8plus.smarthome.View.ControlDoor.ControlMainDoor;
+import com.n8plus.smarthome.View.LoadDoor.DetectionDoor;
 
 import java.util.ArrayList;
 
@@ -24,20 +26,20 @@ import java.util.ArrayList;
 
 public class DoorAdapter extends RecyclerView.Adapter<DoorAdapter.ViewHolder> {
 
-    ArrayList<Device> arrayList;
+    ArrayList<Device> devices;
     DetectionDoor context;
-    private RecyclerViewClickListener clickListener;
     int position;
+    private RecyclerViewClickListener clickListener;
 
 
-    public DoorAdapter(ArrayList<Device> arrayList, DetectionDoor context) {
-        this.arrayList = arrayList;
+    public DoorAdapter(ArrayList<Device> devices, DetectionDoor context) {
+        this.devices = devices;
         this.context = context;
     }
 
-    public void updateData(ArrayList<Device> data){
-        arrayList.clear();
-        arrayList.addAll(data);
+    public void updateData(ArrayList<Device> data) {
+        devices.clear();
+        devices.addAll(data);
         notifyDataSetChanged();
     }
 
@@ -50,25 +52,28 @@ public class DoorAdapter extends RecyclerView.Adapter<DoorAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(DoorAdapter.ViewHolder holder, int position) {
-        holder.txtNameDoor.setText(arrayList.get(position).getDeviceName());
-        boolean state = arrayList.get(position).isState();
+        holder.txtNameDoor.setText(devices.get(position).getDeviceName());
+        ArrayList<Module> modules = devices.get(position).getModules();
+        boolean state = false;
+        for (Module module : modules) {
+            if (module.getType() == Type.SENSOR) {
+                state = module.isState();
+            }
+        }
         if (state) {
             holder.txtStateDoor.setText("Opened");
             holder.txtStateDoor.setTextColor(Color.parseColor("#ffff4444"));
-            if (arrayList.get(position).getDescription().contains("MAINDOOR")){
+            if (devices.get(position).getDescription().contains("MAINDOOR")) {
                 holder.imgDoor.setImageResource(R.drawable.door);
-            }
-            else {
+            } else {
                 holder.imgDoor.setImageResource(R.drawable.open_window);
             }
-        }
-        else {
+        } else {
             holder.txtStateDoor.setTextColor(Color.parseColor("#00a0dc"));
             holder.txtStateDoor.setText("Closed");
-            if (arrayList.get(position).getDescription().contains("MAINDOOR")){
+            if (devices.get(position).getDescription().contains("MAINDOOR")) {
                 holder.imgDoor.setImageResource(R.drawable.close_door);
-            }
-            else {
+            } else {
                 holder.imgDoor.setImageResource(R.drawable.window);
             }
         }
@@ -76,10 +81,14 @@ public class DoorAdapter extends RecyclerView.Adapter<DoorAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return arrayList.size();
+        return devices.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public int getItemPosition() {
+        return position;
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView imgDoor;
         TextView txtNameDoor, txtStateDoor;
@@ -100,19 +109,14 @@ public class DoorAdapter extends RecyclerView.Adapter<DoorAdapter.ViewHolder> {
 
         @Override
         public void onClick(View view) {
-            Device mainDoor = arrayList.get(getAdapterPosition());
-            if (mainDoor.getDescription().equals("MAINDOOR")){
+            Device mainDoor = devices.get(getAdapterPosition());
+            if (mainDoor.getDescription().equals("MAINDOOR")) {
                 Intent intent = new Intent(view.getContext(), ControlMainDoor.class);
                 intent.putExtra("door", mainDoor);
                 context.startActivityForResult(intent, 1);
-            }
-            else {
+            } else {
                 Toast.makeText(view.getContext(), "Windows can't be control !", Toast.LENGTH_SHORT).show();
             }
         }
-    }
-
-    public int getItemPosition(){
-        return position;
     }
 }

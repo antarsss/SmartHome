@@ -72,8 +72,8 @@ public class CameraAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.txtCameraPos.setText(deviceList.get(position).getPosition().name());
-        viewHolder.txtCameraState.setText(deviceList.get(position).isState() == true ? "Connected" : "Disconnected");
-        if (deviceList.get(position).isState()) {
+        viewHolder.txtCameraState.setText(deviceList.get(position).isConnect() == true ? "Connected" : "Disconnected");
+        if (deviceList.get(position).isConnect()) {
             viewHolder.lnrState.setBackgroundResource(R.drawable.linear_custom_blue);
         } else {
             viewHolder.lnrState.setBackgroundResource(R.drawable.linear_custom_red);

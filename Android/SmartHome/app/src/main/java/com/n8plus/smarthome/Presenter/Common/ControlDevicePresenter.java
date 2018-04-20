@@ -26,19 +26,8 @@ import java.util.Map;
 
 public class ControlDevicePresenter implements ControlDeviceImpl {
     ControlDeviceViewImpl controlDeviceView;
-    List<Device> deviceList;
+    ArrayList<Device> deviceList;
     String URI = Constant.URL + "/devices/";
-
-    public ControlDevicePresenter(ControlDeviceViewImpl controlLightView) {
-        this.controlDeviceView = controlLightView;
-        this.deviceList = new ArrayList<>();
-    }
-
-    @Override
-    public void listenState() {
-        HomeActivity.mSocket.on("s2c-change", loadStateLight);
-    }
-
     private Emitter.Listener loadStateLight = new Emitter.Listener() {
         @Override
         public void call(final Object... args) {
@@ -46,7 +35,7 @@ public class ControlDevicePresenter implements ControlDeviceImpl {
                 @Override
                 public void run() {
                     try {
-                        Device light = HomeActivity.deviceConvert.json2Object((JSONObject) args[0]);
+                        Device light = HomeActivity.deviceConvert.json2ObjectByGSon((JSONObject) args[0], deviceList);
                         deviceList.add(light);
                         Log.v("ON", args[0].toString());
                         controlDeviceView.checkResponse(deviceList);
@@ -58,6 +47,16 @@ public class ControlDevicePresenter implements ControlDeviceImpl {
             });
         }
     };
+
+    public ControlDevicePresenter(ControlDeviceViewImpl controlLightView) {
+        this.controlDeviceView = controlLightView;
+        this.deviceList = new ArrayList<>();
+    }
+
+    @Override
+    public void listenState() {
+        HomeActivity.mSocket.on("s2c-change", loadStateLight);
+    }
 
     @Override
     public void loadDeviceProperty(final Map<String, String> headers) {
@@ -73,10 +72,8 @@ public class ControlDevicePresenter implements ControlDeviceImpl {
                                     JSONArray array = response.getJSONArray("devices");
                                     for (int i = 0; i < array.length(); i++) {
                                         JSONObject object = array.getJSONObject(i);
-                                        object.remove("__v");
-                                        object.remove("createdAt");
-                                        object.remove("updatedAt");
-                                        Device device = HomeActivity.deviceConvert.json2ObjectByGSon(object);
+
+                                        Device device = HomeActivity.deviceConvert.json2ObjectByGSon(object, deviceList);
                                         devices.add(device);
                                     }
                                 } catch (JSONException e) {

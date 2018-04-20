@@ -15,6 +15,7 @@ import com.n8plus.smarthome.Adapter.LightAdapter;
 import com.n8plus.smarthome.Model.Device;
 import com.n8plus.smarthome.Model.Enum.DeviceType;
 import com.n8plus.smarthome.Model.Enum.Position;
+import com.n8plus.smarthome.Model.Enum.Type;
 import com.n8plus.smarthome.Presenter.ControlLight.ControlLightPresenter;
 import com.n8plus.smarthome.R;
 
@@ -55,19 +56,19 @@ public class ControlLightView extends AppCompatActivity implements ControlLightV
             public void onClick(View v) {
                 for (Device device : lightLivingRoom.values()) {
                     device.setState(swbAllLight.isChecked());
-                    lightLivingRoom.get(device.get_id()).setState(device.isState());
+                    lightLivingRoom.get(device.get_id()).setState(device.getStateByType(Type.LED));
                 }
                 for (Device device : lightBedRoom.values()) {
                     device.setState(swbAllLight.isChecked());
-                    lightBedRoom.get(device.get_id()).setState(device.isState());
+                    lightBedRoom.get(device.get_id()).setState(device.getStateByType(Type.LED));
                 }
                 for (Device device : lightDiningRoom.values()) {
                     device.setState(swbAllLight.isChecked());
-                    lightDiningRoom.get(device.get_id()).setState(device.isState());
+                    lightDiningRoom.get(device.get_id()).setState(device.getStateByType(Type.LED));
                 }
                 for (Device device : lightBathRoom.values()) {
                     device.setState(swbAllLight.isChecked());
-                    lightBathRoom.get(device.get_id()).setState(device.isState());
+                    lightBathRoom.get(device.get_id()).setState(device.getStateByType(Type.LED));
                 }
                 reloadList();
                 emitAllList();
@@ -176,16 +177,16 @@ public class ControlLightView extends AppCompatActivity implements ControlLightV
     @Override
     public void checkResponse(List<Device> devices) {
         for (Device light : devices) {
-            lightLivingRoom.get(light.get_id()).setState(light.isState());
+            lightLivingRoom.get(light.get_id()).setState(light.getStateByType(Type.LED));
         }
         for (Device light : devices) {
-            lightBedRoom.get(light.get_id()).setState(light.isState());
+            lightBedRoom.get(light.get_id()).setState(light.getStateByType(Type.LED));
         }
         for (Device light : devices) {
-            lightDiningRoom.get(light.get_id()).setState(light.isState());
+            lightDiningRoom.get(light.get_id()).setState(light.getStateByType(Type.LED));
         }
         for (Device light : devices) {
-            lightBathRoom.get(light.get_id()).setState(light.isState());
+            lightBathRoom.get(light.get_id()).setState(light.getStateByType(Type.LED));
         }
         reloadList();
     }

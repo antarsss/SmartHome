@@ -2,8 +2,10 @@ package com.n8plus.smarthome.Model;
 
 import com.n8plus.smarthome.Model.Enum.DeviceType;
 import com.n8plus.smarthome.Model.Enum.Position;
+import com.n8plus.smarthome.Model.Enum.Type;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created by Hiep_Nguyen on 2/1/2018.
@@ -14,6 +16,7 @@ public class Device implements Serializable {
     private String description;
     private DeviceType deviceType;
     private Position position;
+    private ArrayList<Module> modules;
     private boolean connect;
 
     private Device(Builder builder) {
@@ -22,7 +25,7 @@ public class Device implements Serializable {
         this.deviceType = builder.deviceType;
         this.description = builder.description;
         this.position = builder.position;
-        this.state = builder.state;
+        this.modules = builder.modules;
         this.connect = builder.connect;
     }
 
@@ -66,12 +69,12 @@ public class Device implements Serializable {
         this.position = position;
     }
 
-    public boolean isState() {
-        return state;
+    public ArrayList<Module> getModules() {
+        return modules;
     }
 
-    public void setState(boolean state) {
-        this.state = state;
+    public void setModules(ArrayList<Module> modules) {
+        this.modules = modules;
     }
 
     public boolean isConnect() {
@@ -82,6 +85,36 @@ public class Device implements Serializable {
         this.connect = connect;
     }
 
+    public Boolean[] getAllStates() {
+        Boolean[] booleans = new Boolean[modules.size()];
+        for (int i = 0; i < modules.size(); i++) {
+            booleans[i] = modules.get(i).isState();
+        }
+        return booleans;
+    }
+
+    public boolean getStateByType(Type type) {
+        boolean b = false;
+        for (Module module : modules) {
+            if (module.getType() == type) b = module.isState();
+        }
+        return b;
+    }
+
+    public void setStateByType(Type type, boolean state) {
+        for (Module module : modules) {
+            if (module.getType() == type) {
+                module.setState(state);
+            }
+        }
+    }
+
+    public void setState(boolean state) {
+        for (Module module : modules) {
+            module.setState(state);
+        }
+    }
+
     public static class Builder {
 
         private String _id;
@@ -89,7 +122,7 @@ public class Device implements Serializable {
         private String description;
         private DeviceType deviceType;
         private Position position;
-        private boolean state;
+        private ArrayList<Module> modules;
         private boolean connect;
 
         public Builder() {
@@ -124,8 +157,8 @@ public class Device implements Serializable {
             return this;
         }
 
-        public Builder setState(boolean state) {
-            this.state = state;
+        public Builder setModules(ArrayList<Module> modules) {
+            this.modules = modules;
             return this;
         }
 

@@ -7,11 +7,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.n8plus.smarthome.Model.Device;
-import com.n8plus.smarthome.Model.Enum.DeviceType;
-import com.n8plus.smarthome.Presenter.Common.ControlDevicePresenter;
 import com.n8plus.smarthome.Utils.common.Constant;
 import com.n8plus.smarthome.Utils.common.VolleySingleton;
-import com.n8plus.smarthome.View.Common.ControlDeviceViewImpl;
 import com.n8plus.smarthome.View.HomePage.HomeActivity;
 import com.n8plus.smarthome.View.SelectDeviceType.DeviceTypeViewImpl;
 
@@ -41,7 +38,7 @@ public class DeviceTypePresenter implements DeviceTypePresenterImpl {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        List<Device> devices = new ArrayList<>();
+                        ArrayList<Device> devices = new ArrayList<>();
                         try {
                             JSONArray array = response.getJSONArray("devices");
                             for (int i = 0; i < array.length(); i++) {
@@ -49,7 +46,7 @@ public class DeviceTypePresenter implements DeviceTypePresenterImpl {
                                 object.remove("__v");
                                 object.remove("createdAt");
                                 object.remove("updatedAt");
-                                Device device = HomeActivity.deviceConvert.json2ObjectByGSon(object);
+                                Device device = HomeActivity.deviceConvert.json2ObjectByGSon(object, devices);
                                 devices.add(device);
                             }
                         } catch (JSONException e) {

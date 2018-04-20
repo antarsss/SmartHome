@@ -15,8 +15,8 @@ const byte tx = D2;
 SoftwareSerial mySerial(rx, tx, false, 256);
 SerialCommand sCmd(mySerial);
 
-//char host[] = "172.16.199.170";   
-char host[] = "192.168.1.4"; 
+char host[] = "172.16.199.170";   
+//char host[] = "192.168.1.4"; 
 int port = 3000;                  
 
 extern String RID; // tên sự kiện
@@ -70,12 +70,10 @@ void parseJsonArray(String s)
     if (arr.success()){
         for (int i = 0; i < arr.size(); i++)
         {
-            mySerial.print("ESP2A");
-            mySerial.print('\r');  
             JsonObject& device = arr[i];
-            JsonArray& data = device["module"];
-            data.printTo(mySerial);
-            mySerial.print('\r');    
+            JsonArray& module = device["module"];
+            String id = device["_id"];
+            createJsonObject(id, module);
             delay(100);
         }
     }
@@ -85,7 +83,18 @@ void parseJsonArray(String s)
 void initDevicePin(JsonArray& arr){
    
 }
-
+void createJsonObject(String _id, JsonArray& module)
+{
+    DynamicJsonBuffer buff;
+    JsonObject& object = buff.createObject();
+    object["_id"] = _id;
+    object["module"] = module;
+  
+    mySerial.print("ESP2A");
+    mySerial.print('\r');  
+    object.printTo(mySerial);
+    mySerial.print('\r');    
+}
 void loadDevices()  
 { 
     String serverAdd = host;
