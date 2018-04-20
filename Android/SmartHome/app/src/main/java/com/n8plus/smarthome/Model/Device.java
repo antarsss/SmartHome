@@ -8,13 +8,12 @@ import java.io.Serializable;
 /**
  * Created by Hiep_Nguyen on 2/1/2018.
  */
-public class Device implements Serializable{
+public class Device implements Serializable {
     private String _id;
     private String deviceName;
     private String description;
     private DeviceType deviceType;
     private Position position;
-    private boolean state;
     private boolean connect;
 
     private Device(Builder builder) {

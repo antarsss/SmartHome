@@ -29,9 +29,14 @@ function emitDoorData(doors) {
          if (e._id == value) {
             var module = e.module;
             module.forEach(m => {
-               m.state = state;
+               if (m.type == "SERVO") {
+                  m.state = state;
+               }
             })
-            console.log(e);
+            var object = {};
+            object._id = e._id;
+            object.module = module;
+            console.log(object);
             socket.emit("c2s-change", module);
          }
       })
