@@ -37,6 +37,31 @@ public class LoginActivity extends AppCompatActivity implements LoginViewImpl {
         loginPresenter = new LoginPresenter(this);
         sharedPreferences = getSharedPreferences("account", MODE_PRIVATE);
 
+        Intent intent = getIntent();
+        if (intent != null) {
+            boolean isLogout = intent.getBooleanExtra("isLogout", false);
+            if (isLogout) {
+                login();
+            } else {
+                if (sharedPreferences.getBoolean("remember", cbxRemember.isChecked())) {
+                    loginPresenter.checkLogin(sharedPreferences.getString("username", null), sharedPreferences.getString("password", null));
+                } else {
+                    login();
+                }
+            }
+        }
+    }
+
+    private void Mount() {
+        edtUsername = (EditText) findViewById(R.id.edtUsername);
+        edtPassword = (EditText) findViewById(R.id.edtPassword);
+        btnSignin = (Button) findViewById(R.id.btnSignin);
+        txtforgotPass = (TextView) findViewById(R.id.txtforgotPass);
+        txtSignup = (TextView) findViewById(R.id.txtSignup);
+        cbxRemember = (CheckBox) findViewById(R.id.cbxRemember);
+    }
+
+    public void login() {
         cbxRemember.setChecked(sharedPreferences.getBoolean("remember", cbxRemember.isChecked()));
         edtUsername.setText(sharedPreferences.getString("username", null));
         edtPassword.setText(sharedPreferences.getString("password", null));
@@ -86,15 +111,6 @@ public class LoginActivity extends AppCompatActivity implements LoginViewImpl {
                 startActivity(new Intent(LoginActivity.this, Register.class));
             }
         });
-    }
-
-    private void Mount() {
-        edtUsername = (EditText) findViewById(R.id.edtUsername);
-        edtPassword = (EditText) findViewById(R.id.edtPassword);
-        btnSignin = (Button) findViewById(R.id.btnSignin);
-        txtforgotPass = (TextView) findViewById(R.id.txtforgotPass);
-        txtSignup = (TextView) findViewById(R.id.txtSignup);
-        cbxRemember = (CheckBox) findViewById(R.id.cbxRemember);
     }
 
     @Override

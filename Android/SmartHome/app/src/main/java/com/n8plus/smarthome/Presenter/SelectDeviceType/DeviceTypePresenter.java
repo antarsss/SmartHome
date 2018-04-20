@@ -46,7 +46,7 @@ public class DeviceTypePresenter implements DeviceTypePresenterImpl {
                                 object.remove("__v");
                                 object.remove("createdAt");
                                 object.remove("updatedAt");
-                                Device device = HomeActivity.deviceConvert.jsonToDeviceFromSocketIO(object, devices);
+                                Device device = HomeActivity.deviceConvert.jsonToDeviceFromDatabase(object);
                                 devices.add(device);
                             }
                         } catch (JSONException e) {

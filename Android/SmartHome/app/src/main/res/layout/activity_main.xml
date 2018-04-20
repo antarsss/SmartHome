@@ -41,7 +41,7 @@
     <CheckBox
         android:textSize="15sp"
         android:textColor="@color/txtColor1"
-        android:text="Remember me"
+        android:text="Remember login"
         android:layout_marginTop="10dp"
         android:id="@+id/cbxRemember"
         android:layout_width="match_parent"

@@ -27,7 +27,7 @@ public class Fragment_Profile extends Fragment {
     LinearLayout lnChangeInfo, lnChangePass, lnSetting, lnFAQ, lnFeedBack, lnAbout, lnLogout;
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
          view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         Mount();
@@ -77,7 +77,9 @@ public class Fragment_Profile extends Fragment {
         lnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                view.getContext().startActivity(new Intent(view.getContext().getApplicationContext(), LoginActivity.class));
+                Intent intent = new Intent(view.getContext().getApplicationContext(), LoginActivity.class);
+                intent.putExtra("isLogout", true);
+                view.getContext().startActivity(intent);
 
             }
         });

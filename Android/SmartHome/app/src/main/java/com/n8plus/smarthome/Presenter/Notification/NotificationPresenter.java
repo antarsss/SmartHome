@@ -40,7 +40,7 @@ public class NotificationPresenter implements NotificationPresenterImpl {
 
     @Override
     public void loadNotification() {
-        final String URI = Constant.URL + "/devices";
+        final String URI = Constant.URL + "/devices/";
         final Map<String, String> params = new HashMap<String, String>();
         params.put("deviceType", DeviceType.DOOR.name());
         ((AppCompatActivity) notificationView).runOnUiThread(new Runnable() {
@@ -53,6 +53,7 @@ public class NotificationPresenter implements NotificationPresenterImpl {
                                 List<Notification> notifications = new ArrayList<>();
                                 try {
                                     JSONArray array = response.getJSONArray("devices");
+                                    System.out.println("lenght: "+array.length());
                                     for (int i = 0; i < array.length(); i++) {
                                         JSONObject object = array.getJSONObject(i);
                                         Device door = HomeActivity.deviceConvert.jsonToDeviceFromDatabase(object);

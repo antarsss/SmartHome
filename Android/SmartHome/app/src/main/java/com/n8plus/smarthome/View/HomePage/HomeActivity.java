@@ -124,7 +124,12 @@ public class HomeActivity extends AppCompatActivity implements CountMarkedAsRead
                 countNoti++;
             }
         }
-        txtCount.setText("" + countNoti);
+        if (countNoti > 0) {
+            badge.setVisibility(View.VISIBLE);
+            txtCount.setText("" + countNoti);
+        } else {
+            badge.setVisibility(View.INVISIBLE);
+        }
     }
 
     @SuppressLint("RestrictedApi")
