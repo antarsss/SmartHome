@@ -46,7 +46,7 @@ public class DetectionDoor extends AppCompatActivity implements DetectionDoorVie
 
         Mount();
         loadDoorPresenter = new LoadDoorPresenter(this);
-        loadDoorPresenter.listenState();
+//        loadDoorPresenter.listenState();
         loadAllDoor();
         animRolate = AnimationUtils.loadAnimation(this, R.anim.anim_scan);
 

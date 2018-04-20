@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationItemView;
@@ -25,6 +26,7 @@ import com.n8plus.smarthome.Interface.CountMarkedAsRead;
 import com.n8plus.smarthome.Model.Notification;
 import com.n8plus.smarthome.Presenter.Notification.NotificationPresenter;
 import com.n8plus.smarthome.R;
+import com.n8plus.smarthome.Service.EmitListenerService;
 import com.n8plus.smarthome.Utils.common.DeviceConverter;
 import com.n8plus.smarthome.Utils.common.SocketSingeton;
 import com.n8plus.smarthome.View.SelectDeviceType.Fragment_Select_Device_Type;
@@ -116,6 +118,8 @@ public class HomeActivity extends AppCompatActivity implements CountMarkedAsRead
             MenuItem item = bottomNavigationView.getMenu().getItem(0);
             bottomNavigationView.setSelectedItemId(item.getItemId());
         }
+
+        startService(new Intent(HomeActivity.this, EmitListenerService.class));
     }
 
     public void countNotification() {

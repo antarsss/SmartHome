@@ -157,7 +157,7 @@ public class ControlLightView extends AppCompatActivity implements ControlLightV
                 listBathRoom.setAdapter(bathRoomAdapter);
                 break;
         }
-        controlLightPresenter.listenState();
+//        controlLightPresenter.listenState();
         countAllLight += devices.size();
         System.out.println("countAllLight: " + countAllLight);
     }

@@ -27,35 +27,34 @@ public class ControlDevicePresenter implements ControlDeviceImpl {
     ControlDeviceViewImpl controlDeviceView;
     ArrayList<Device> deviceList;
     String URI = Constant.URL + "/devices/";
-    private Emitter.Listener loadStateLight = new Emitter.Listener() {
-        @Override
-        public void call(final Object... args) {
-            ((AppCompatActivity) controlDeviceView).runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        Device light = HomeActivity.deviceConvert.jsonToDeviceFromDatabase((JSONObject) args[0]);
-                        deviceList.add(light);
-                        Log.v("ON", args[0].toString());
-                        controlDeviceView.checkResponse(deviceList);
-                        Thread.sleep(50);
-                    } catch (Exception e) {
-
-                    }
-                }
-            });
-        }
-    };
 
     public ControlDevicePresenter(ControlDeviceViewImpl controlLightView) {
         this.controlDeviceView = controlLightView;
         this.deviceList = new ArrayList<>();
     }
 
-    @Override
-    public void listenState() {
-        HomeActivity.mSocket.on("s2c-change", loadStateLight);
-    }
+//    @Override
+//    public void listenState() {
+//        HomeActivity.mSocket.on("s2c-change", new Emitter.Listener() {
+//            @Override
+//            public void call(final Object... args) {
+//                ((AppCompatActivity) controlDeviceView).runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        try {
+//                            Device device = HomeActivity.deviceConvert.jsonToDeviceFromDatabase((JSONObject) args[0]);
+//                            deviceList.add(device);
+//                            Log.v("ON", args[0].toString());
+//                            controlDeviceView.checkResponse(deviceList);
+//                            Thread.sleep(50);
+//                        } catch (Exception e) {
+//
+//                        }
+//                    }
+//                });
+//            }
+//        });
+//    }
 
     @Override
     public void loadDeviceProperty(final Map<String, String> headers) {

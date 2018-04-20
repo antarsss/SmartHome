@@ -35,6 +35,7 @@
         <activity android:name=".Activity.ActivityAbout" />
         <activity android:name=".View.ForgotPassword.ForgotPassword" android:parentActivityName=".View.Login.LoginActivity"/>
         <activity android:name=".View.Register.Register" android:parentActivityName=".View.Login.LoginActivity"/>
+        <service android:name=".Service.EmitListenerService" android:exported="false"/>
     </application>
 
 </manifest>
