@@ -62,7 +62,7 @@ public class ControlMainDoor extends AppCompatActivity implements ControlMainDoo
                     Toast.makeText(ControlMainDoor.this, "Door Closed!", Toast.LENGTH_SHORT).show();
                 } else {
                     door.setState(true);
-                    HomeActivity.mSocket.emit("c2s-doorchange", HomeActivity.doorConvert.object2Json(door));
+                    HomeActivity.mSocket.emit("c2s-change", HomeActivity.doorConvert.object2Json(door));
                     imgStateDoor.setImageResource(R.drawable.door);
                     state.setText("Opened");
                     state.setTextColor(Color.parseColor("#ffff4444"));

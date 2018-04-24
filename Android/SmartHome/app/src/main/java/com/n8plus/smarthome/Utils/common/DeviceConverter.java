@@ -31,6 +31,7 @@ public class DeviceConverter {
     }
 
     public Device jsonToDeviceFromDatabase(JSONObject jsonObject) {
+
         try {
             ArrayList<Module> modules = json2ModuleArrays(jsonObject.getJSONArray("module"));
 

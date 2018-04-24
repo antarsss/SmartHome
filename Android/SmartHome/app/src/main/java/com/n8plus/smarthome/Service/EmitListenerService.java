@@ -42,15 +42,15 @@ public class EmitListenerService extends Service {
                 runnable = new Runnable() {
                     @Override
                     public void run() {
-                        try {
-                            Device device = HomeActivity.deviceConvert.jsonToDeviceFromDatabase((JSONObject) args[0]);
-                            deviceList.add(device);
-                            Log.v("ON", args[0].toString());
-                            controlDeviceView.checkResponse(deviceList);
-
-                        } catch (Exception e) {
-                            Log.v("ERROR", "Error emit");
-                        }
+//                        try {
+//                            Device device = HomeActivity.deviceConvert.jsonToDeviceFromDatabase((JSONObject) args[0]);
+//                            deviceList.add(device);
+//                            Log.v("ON", args[0].toString());
+//                            controlDeviceView.checkResponse(deviceList);
+//
+//                        } catch (Exception e) {
+//                            Log.v("ERROR", "Error emit");
+//                        }
                     }
                 };
                 handler.postDelayed(runnable, 1000);

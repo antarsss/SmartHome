@@ -34,8 +34,8 @@ db.devices.insert([
 			"connect": true
 	},
 	{"deviceName": "Windows 2", "deviceType":"DOOR", "description": "Windows", "position": "LIVINGROOM", "module":[
-			{"type": "SERVO", "pin":19, "state": false},
-			{"type": "SENSOR", "pin":4, "state": false}
+			{"type": "SERVO", "pin":19, "state": true},
+			{"type": "SENSOR", "pin":4, "state": true}
 		],
 		"connect": true
 	},

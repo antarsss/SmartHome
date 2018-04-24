@@ -70,6 +70,7 @@ public class ControlDevicePresenter implements ControlDeviceImpl {
                                     JSONArray array = response.getJSONArray("devices");
                                     for (int i = 0; i < array.length(); i++) {
                                         JSONObject object = array.getJSONObject(i);
+                                        System.out.println("object: "+object.toString());
                                         Device device = HomeActivity.deviceConvert.jsonToDeviceFromDatabase(object);
 
                                         devices.add(device);
