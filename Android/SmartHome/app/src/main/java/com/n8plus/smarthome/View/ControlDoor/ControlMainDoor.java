@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.n8plus.smarthome.Model.Device;
 import com.n8plus.smarthome.Model.Enum.Type;
+import com.n8plus.smarthome.Model.Module;
 import com.n8plus.smarthome.Presenter.ControlDoor.ControlDoorPresenter;
 import com.n8plus.smarthome.R;
 import com.n8plus.smarthome.View.HomePage.HomeActivity;
@@ -33,6 +34,9 @@ public class ControlMainDoor extends AppCompatActivity implements ControlMainDoo
         setContentView(R.layout.activity_control_maindoor);
         setTitle("Main Door Control");
         Mount();
+        ControlDoorPresenter controlDoorPresenter = new ControlDoorPresenter(this);
+        controlDoorPresenter.listenState();
+
         Intent intent = getIntent();
         if (intent != null) {
             door = (Device) intent.getSerializableExtra("door");
@@ -130,8 +134,9 @@ public class ControlMainDoor extends AppCompatActivity implements ControlMainDoo
 
     @Override
     public void checkResponse(ArrayList<Device> devices) {
-        for (Device door:devices){
-            if (!door.getStateByType(Type.SENSOR)) {
+        for (Device door : devices) {
+            boolean check = door.getStateByType(Type.SERVO);
+            if (!check) {
                 imgStateDoor.setImageResource(R.drawable.close_door);
                 state.setText("Closed");
                 state.setTextColor(Color.parseColor("#00a0dc"));

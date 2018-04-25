@@ -89,7 +89,7 @@ public class Device implements Serializable {
 
     @Override
     public String toString() {
-        return "{" + _id + "," + deviceName + "," + deviceType + "," + description + "," + position + ", " + new JSONArray(getModules()) + "," + connect + "}";
+        return "{" + _id + "," + deviceName + "," + deviceType + "," + description + "," + position + ", " + getModules().toString() + "," + connect + "}";
     }
 
     public Boolean[] getAllStates() {

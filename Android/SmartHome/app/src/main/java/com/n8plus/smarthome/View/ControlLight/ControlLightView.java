@@ -42,6 +42,7 @@ public class ControlLightView extends AppCompatActivity implements ControlLightV
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
 
         controlLightPresenter = new ControlLightPresenter(this);
+        controlLightPresenter.listenState();
         loadAlldevices();
 
         swbAllLight.setOnClickListener(new View.OnClickListener() {

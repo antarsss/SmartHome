@@ -22,8 +22,9 @@ public class EmitListenerService extends Service {
     public Context context = this;
     public Handler handler = null;
     public static Runnable runnable = null;
-    ArrayList<Device> deviceList;
+    ArrayList<Device> deviceList = new ArrayList<>();
     ControlDeviceViewImpl controlDeviceView;
+
 
     @Nullable
     @Override
@@ -34,28 +35,24 @@ public class EmitListenerService extends Service {
     @Override
     public void onCreate() {
         Toast.makeText(this, "Service created!", Toast.LENGTH_LONG).show();
-        handler = new Handler();
-        HomeActivity.mSocket.on("s2c-change", new Emitter.Listener() {
-            @Override
-            public void call(final Object... args) {
-                deviceList = new ArrayList<>();
-                runnable = new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Log.v("ON", args[0].toString());
-                            Device device = HomeActivity.deviceConvert.jsonToDeviceFromDatabase((JSONObject) args[0]);
-                            deviceList.add(device);
-                            System.out.println("Device: "+device.toString());
-                            controlDeviceView.checkResponse(deviceList);
-                        } catch (Exception e) {
-                            Log.v("ERROR", "Error emit");
-                        }
-                    }
-                };
-            }
-        });
-        handler.postDelayed(runnable, 200);
+//        handler = new Handler();
+//        HomeActivity.mSocket.on("s2c-change", new Emitter.Listener() {
+//            @Override
+//            public void call(final Object... args) {
+//                runnable = new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        Log.v("ON", args[0].toString());
+//                        Device device = HomeActivity.deviceConvert.jsonToDeviceFromDatabase((JSONObject) args[0]);
+//                        deviceList.add(device);
+//                        System.out.println("Device: " + deviceList.size());
+//                        controlDeviceView.checkResponse(deviceList);
+//                    }
+//                };
+//                handler.postDelayed(runnable, 200);
+//            }
+//        });
+
     }
 
     @Override

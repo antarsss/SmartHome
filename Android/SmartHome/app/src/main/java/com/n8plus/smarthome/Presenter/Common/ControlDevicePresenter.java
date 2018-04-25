@@ -14,6 +14,7 @@ import com.n8plus.smarthome.Model.Device;
 import com.n8plus.smarthome.Utils.common.Constant;
 import com.n8plus.smarthome.Utils.common.VolleySingleton;
 import com.n8plus.smarthome.View.Common.ControlDeviceViewImpl;
+import com.n8plus.smarthome.View.ControlDoor.ControlMainDoor;
 import com.n8plus.smarthome.View.HomePage.HomeActivity;
 
 import org.json.JSONArray;
@@ -22,15 +23,40 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.logging.Handler;
 
 public class ControlDevicePresenter implements ControlDeviceImpl {
     ControlDeviceViewImpl controlDeviceView;
     ArrayList<Device> deviceList;
     String URI = Constant.URL + "/devices/";
+    android.os.Handler handler;
 
     public ControlDevicePresenter(ControlDeviceViewImpl controlLightView) {
         this.controlDeviceView = controlLightView;
         this.deviceList = new ArrayList<>();
+        handler =new android.os.Handler(((Context)controlLightView).getMainLooper());
+    }
+
+
+    @Override
+    public void listenState() {
+        HomeActivity.mSocket.on("s2c-change", new Emitter.Listener() {
+            @Override
+            public void call(final Object... args) {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        deviceList.clear();
+                        Log.v("ON", args[0].toString());
+                        Device device = HomeActivity.deviceConvert.jsonToDeviceFromDatabase((JSONObject) args[0]);
+                        deviceList.add(device);
+                        System.out.println("Device: " + deviceList.size());
+                        controlDeviceView.checkResponse(deviceList);
+                    }
+                });
+
+            }
+        });
     }
 
     @Override

@@ -11,7 +11,7 @@ import java.util.Map;
 
 public interface ControlDeviceImpl {
 
-//    void listenState();
+    void listenState();
 
     void loadDeviceProperty(Map<String, String> headers);
 }

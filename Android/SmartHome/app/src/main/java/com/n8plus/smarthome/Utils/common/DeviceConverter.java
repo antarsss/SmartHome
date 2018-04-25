@@ -31,7 +31,21 @@ public class DeviceConverter {
 
     public Device jsonToDeviceFromDatabase(JSONObject jsonObject) {
         Gson gson = new Gson();
+//        ArrayList<Module> arrayList = new ArrayList<>();
+//        try {
+//            JSONArray modules = (JSONArray) jsonObject.get("modules");
+//            for (int i =0; i<modules.length(); i++){
+//                JSONObject jsonObject1 = (JSONObject) modules.get(i);
+//                Module module = gson.fromJson(jsonObject1.toString(), Module.class);
+//                System.out.println("Module: "+module.toString());
+//                arrayList.add(module);
+//            }
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
         Device m = gson.fromJson(jsonObject.toString(), Device.class);
+//        System.out.println("Size array: "+arrayList.size());
+//        m.setModules(arrayList);
         return m;
     }
 }
