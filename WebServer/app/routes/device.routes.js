@@ -1,7 +1,7 @@
-module.exports = function(app) {
+module.exports = function (app) {
    var devices = require('../controllers/device.controller');
    // Create a new Device
-   app.post('/create', devices.createDevice);
+   app.post('/device/create', devices.createDevice);
    // Retrieve all Devices
    app.post('/devices/', devices.getDevicesProperty);
    // Update a Device with userId
@@ -9,4 +9,5 @@ module.exports = function(app) {
    app.put('/device/:deviceName', devices.updateDeviceByName);
    // Delete a Device with userId
    app.delete('/device/:deviceId', devices.deleteDeviceById);
+   app.delete('/devices', devices.deleteDevices);
 }

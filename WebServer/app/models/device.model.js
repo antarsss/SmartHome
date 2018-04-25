@@ -1,13 +1,19 @@
 var mongoose = require("mongoose");
 
+var Module = mongoose.Schema({
+   type: String,
+   pin: Number,
+   state: Boolean
+})
+
 var DeviceSchema = mongoose.Schema({
    deviceName: String,
    deviceType: String,
    description: String,
    position: String,
-   state: Boolean,
+   modules: [Module],
    connect: Boolean
 }, {
-   timestamps: true
+   versionKey: false
 });
 module.exports = mongoose.model("Device", DeviceSchema);

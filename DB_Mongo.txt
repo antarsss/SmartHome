@@ -1,44 +1,43 @@
 use smarthome
 db.devices.remove({})
 db.devices.insert([
-	{"deviceName": "Light 1", "deviceType":"LIGHT", "description": "LIGHTS", "position": "LIVINGROOM",  "module":[{"type": "LED", "pin":5, "state": false}], "connect": true},
-	{"deviceName": "Light 2", "deviceType":"LIGHT", "description": "LIGHTS", "position": "LIVINGROOM", "module":[{"type": "LED", "pin":4, "state": false}], "connect": true},
-	{"deviceName": "Light 3", "deviceType":"LIGHT", "description": "LAMP", "position": "BEDROOM", "module":[{"type": "LED", "pin":6, "state": false}], "connect": true},
-	{"deviceName": "Light 4", "deviceType":"LIGHT", "description": "LIGHTS", "position": "BEDROOM", "module":[{"type": "LED", "pin":7, "state": false}], "connect": true},
-	{"deviceName": "Light 5", "deviceType":"LIGHT", "description": "LIGHTS", "position": "DININGROOM", "module":[{"type": "LED", "pin":9, "state": false}], "connect": true},
-	{"deviceName": "Light 6", "deviceType":"LIGHT", "description": "LIGHTS", "position": "DININGROOM", "module":[{"type": "LED", "pin":8, "state": false}], "connect": true},
-	{"deviceName": "Light 7", "deviceType":"LIGHT", "description": "LIGHTS", "position": "BATHROOM", "module":[{"type": "LED", "pin":10, "state": false}], "connect": true},
-
-	{"deviceName": "Doors", "deviceType":"DOOR", "description": "Doors", "position": "LIVINGROOM", "module":[
-			{"type": "SERVO", "pin":11, "state": false},
-			{"type": "SENSOR", "pin":0, "state": false}
+	{deviceName: "Doors", deviceType:"DOOR", description: "Doors", position: "LIVINGROOM", modules:[
+			{type: "SERVO", pin:11, state: false},
+			{type: "SENSOR", pin:0, state: false}
 			],
-			"connect": true
+			connect: true
 	},
-	{"deviceName": "Door 1", "deviceType":"DOOR", "description": "Door", "position": "BEDROOM", "module":[
-			{"type": "SERVO", "pin":13, "state": false},
-			{"type": "SENSOR", "pin":1, "state": false}
+	{deviceName: "Door 1", deviceType:"DOOR", description: "Door", position: "BEDROOM", modules:[
+			{type: "SERVO", pin:13, state: false},
+			{type: "SENSOR", pin:1, state: false}
 			],
-			"connect": true
+			connect: true
 	},
-	{"deviceName": "Door 1", "deviceType":"DOOR", "description": "Door", "position": "BATHROOM", "module":[
-			{"type": "SERVO", "pin":13, "state": false},
-			{"type": "SENSOR", "pin":1, "state": false}
+	{deviceName: "Door", deviceType:"DOOR", description: "Door", position: "BATHROOM", modules:[
+			{type: "SERVO", pin:12, state: false},
+			{type: "SENSOR", pin:2, state: false}
 			],
-			"connect": true
+			connect: true
 	},
-	{"deviceName": "Windows 1", "deviceType":"DOOR", "description": "Windows", "position": "DININGROOM", "module":[
-				{"type": "SERVO", "pin":17, "state": false},
-				{"type": "SENSOR", "pin":3, "state": false}
+	{deviceName: "Windows 1", deviceType:"DOOR", description: "Windows", position: "DININGROOM", modules:[
+				{type: "SERVO", pin:14, state: false},
+				{type: "SENSOR", pin:3, state: false}
 			],
-			"connect": true
+			connect: true
 	},
-	{"deviceName": "Windows 2", "deviceType":"DOOR", "description": "Windows", "position": "LIVINGROOM", "module":[
-			{"type": "SERVO", "pin":19, "state": true},
-			{"type": "SENSOR", "pin":4, "state": true}
+	{deviceName: "Windows 2", deviceType:"DOOR", description: "Windows", position: "LIVINGROOM", modules:[
+			{type: "SERVO", pin:15, state: false},
+			{type: "SENSOR", pin:4, state: false}
 		],
-		"connect": true
+		connect: true
 	},
-	{"deviceName": "Camera 1", "deviceType":"CAMERA", "description": "", "position": "FRONTDOORS", "module":[], "connect": true},
-	{"deviceName": "Camera 2", "deviceType":"CAMERA", "description": "", "position": "BACKHOUSE", "module":[], "connect": true}
+	{deviceName: "Light 1", deviceType:"LIGHT", description: "LIGHTS", position: "LIVINGROOM",  modules:[{type: "LIGHT", pin:5, state: false}], connect: true},
+	{deviceName: "Light 2", deviceType:"LIGHT", description: "LIGHTS", position: "LIVINGROOM", modules:[{type: "LIGHT", pin:4, state: false}], connect: true},
+	{deviceName: "Light 3", deviceType:"LIGHT", description: "LAMP", position: "BEDROOM", modules:[{type: "LIGHT", pin:9, state: false}], connect: true},
+	{deviceName: "Light 4", deviceType:"LIGHT", description: "LIGHTS", position: "BEDROOM", modules:[{type: "LIGHT", pin:10, state: false}], connect: true},
+	{deviceName: "Light 5", deviceType:"LIGHT", description: "LIGHTS", position: "DININGROOM", modules:[{type: "LIGHT", pin:6, state: false}], connect: true},
+	{deviceName: "Light 6", deviceType:"LIGHT", description: "LIGHTS", position: "DININGROOM", modules:[{type: "LIGHT", pin:7, state: false}], connect: true},
+	{deviceName: "Light 7", deviceType:"LIGHT", description: "LIGHTS", position: "BATHROOM", modules:[{type: "LIGHT", pin:8, state: false}], connect: true},
+ 	{deviceName: "Camera 1", deviceType:"CAMERA", description: "", position: "FRONTDOORS", modules:[], connect: true},
+	{deviceName: "Camera 2", deviceType:"CAMERA", description: "", position: "BACKHOUSE", modules:[], connect: true}
 ])

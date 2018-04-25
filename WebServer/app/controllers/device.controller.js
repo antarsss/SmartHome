@@ -13,7 +13,7 @@ exports.createDevice = function (req, res) {
       deviceType: req.body.deviceType,
       description: req.body.description || "No description",
       position: req.body.position,
-      state: req.body.state || false,
+      modules: req.body.modules || [],
       connect: req.body.connect || false
    });
    device.save(function (err, data) {
@@ -29,7 +29,6 @@ exports.createDevice = function (req, res) {
 };
 
 exports.getDevicesProperty = function (req, res) {
-   var value = req.body;
    Device.find(req.body, null, {
       sort: {
          deviceName: 1
@@ -121,6 +120,20 @@ exports.deleteDeviceById = function (req, res) {
          });
       }
 
+      res.send({
+         delete: "ok"
+      });
+   });
+};
+
+exports.deleteDevices = function (req, res) {
+   // Delete a device with the specified deviceId in the request
+   Device.remove({}, function (err) {
+      if (err) {
+         return res.status(500).send({
+            message: "Could not delete device with id " + req.params.devicename
+         });
+      }
       res.send({
          delete: "ok"
       });

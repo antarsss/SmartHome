@@ -2,7 +2,7 @@ db.devices.remove({})
 db.users.remove({})
 db.devices.insert(
 	[
-		{deviceName: "Light 1", deviceType: "LIGHT", description: "None", position: "LIVINGROOM", state: false, connect: true},
+		{deviceName: "Light 1", deviceType: "LIGHT", description: "None", position: "LIVINGROOM", modu: false, connect: true},
 		{deviceName: "Light 2", deviceType: "LIGHT", description: "None", position: "LIVINGROOM", state: false, connect: true},
 		{deviceName: "Light 1", deviceType: "LIGHT", description: "None", position: "BEDROOM", state: false, connect: true},
 		{deviceName: "Light 2", deviceType: "LIGHT", description: "None", position: "BEDROOM", state: false, connect: true},
