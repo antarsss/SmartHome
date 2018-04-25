@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingBottom="24dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:id="@+id/titleAlert"
+        android:text="Title"
+        android:textColor="@color/txtConnect"
+        android:textSize="16sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:padding="10dp"
+        android:background="@drawable/box_shadow"
+        android:id="@+id/edtNewText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:textColor="@android:color/white"
+            android:id="@+id/alertCancel"
+            android:text="Cancel"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/btn_custom"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:textColor="@android:color/white"
+            android:id="@+id/alertConfirm"
+            android:text="Confirm"
+            android:layout_marginLeft="8dp"
+            android:background="@drawable/btn_custom"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>
