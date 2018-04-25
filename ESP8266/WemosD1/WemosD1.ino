@@ -15,8 +15,8 @@ const byte tx = D2;
 SoftwareSerial mySerial(rx, tx, false, 256);
 SerialCommand sCmd(mySerial);
 
-char host[] = "172.16.199.170";
-//char host[] = "192.168.1.3";
+//char host[] = "172.16.199.170";
+char host[] = "192.168.1.5";
 int port = 3000;
 
 extern String RID; // tên sự kiện
@@ -31,10 +31,10 @@ void setupNetwork()
 
   // access to a wifi
   WiFi.mode(WIFI_STA);
-  //  wifimulti.addAP("FPT Telecom", "dongthap");
-  //  wifimulti.addAP("AnhTraiMua", "meochonhe");
+    wifimulti.addAP("FPT Telecom", "dongthap");
+  wifimulti.addAP("AnhTraiMua", "meochonhe");
   wifimulti.addAP("HoangPhat_Pro", "20052010");
-  //  wifimulti.addAP("ANDY", "01666988779");
+  wifimulti.addAP("ANDY", "01666988779");
 
   // connecting
   uint8_t i = 0;
@@ -159,7 +159,7 @@ void listenSensorArduino()
 {
   char* json = sCmd.next();
   String s = json;
-//  Serial.println("Sensor send: " + s);
+  //  Serial.println("Sensor send: " + s);
   DynamicJsonBuffer bufferred(512);
   JsonObject& object = bufferred.parseObject(s);
   if (object.success())
@@ -168,11 +168,11 @@ void listenSensorArduino()
     int pin = object["pin"];
     boolean state = object["state"];
     client.send("d2s-sensor", createJsonString(type, pin, state));
-//    delay(1000);
+    //    delay(1000);
   }
   sCmd.clearBuffer();
 }
-void connectArduino(){
+void connectArduino() {
   char* json = sCmd.next();
   String s = json;
   Serial.println("Connet Arduino: " + s);

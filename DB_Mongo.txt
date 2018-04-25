@@ -20,13 +20,11 @@ db.devices.insert([
 			connect: true
 	},
 	{deviceName: "Windows 1", deviceType:"DOOR", description: "Windows", position: "DININGROOM", modules:[
-				{type: "SERVO", pin:14, state: false},
 				{type: "SENSOR", pin:3, state: false}
 			],
 			connect: true
 	},
 	{deviceName: "Windows 2", deviceType:"DOOR", description: "Windows", position: "LIVINGROOM", modules:[
-			{type: "SERVO", pin:15, state: false},
 			{type: "SENSOR", pin:4, state: false}
 		],
 		connect: true

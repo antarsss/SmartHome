@@ -10,8 +10,8 @@ SoftwareSerial mySerial(rx, tx);
 SerialCommand sCmd(mySerial);
 
 int digitalPin[] = {4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
-int servo = digitalPin[7];
-//Servo controlDoor;
+int servoPin = digitalPin[7];
+Servo servo;
 
 // sử dụng cho cảm biến hồng ngoại A0 -> A3
 int analogPin[] = {A0, A1, A2, A3, A4, A5};
@@ -42,9 +42,15 @@ void Light(int pin, boolean st)
   sendJson("A2E", "LIGHT", pin, st);
 }
 
-void openDoor()   {  }
+void openDoor()   {
+  servo.write(105);
+  delay(5);
+}
 
-void closeDoor()  {  }
+void closeDoor()  {
+  servo.write(0);
+  delay(5);
+}
 
 void Door(int pin, boolean st)
 {
@@ -105,7 +111,7 @@ void readfromSocket ()
   data = sCmd.next();
   Serial.println("Receive: " + data);
   parseJsonObject(data);
-//  sCmd.clearBuffer();
+  //  sCmd.clearBuffer();
 }
 
 void sendJson(String event, String type, int pin, boolean state)
@@ -150,6 +156,7 @@ void setup() {
   sCmd.addCommand("E2A", readfromESP);
   sCmd.addCommand("E2A-S", readfromSocket);
   Serial.println("Ready...");
+  servo.attach(servoPin);
 }
 
 void loop()
