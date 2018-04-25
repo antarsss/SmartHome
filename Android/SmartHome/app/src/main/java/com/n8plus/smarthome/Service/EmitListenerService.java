@@ -43,38 +43,28 @@ public class EmitListenerService extends Service {
                     @Override
                     public void run() {
                         try {
+                            Log.v("ON", args[0].toString());
                             Device device = HomeActivity.deviceConvert.jsonToDeviceFromDatabase((JSONObject) args[0]);
                             deviceList.add(device);
-                            Log.v("ON", args[0].toString());
+                            System.out.println("Device: "+device.toString());
                             controlDeviceView.checkResponse(deviceList);
-
                         } catch (Exception e) {
                             Log.v("ERROR", "Error emit");
                         }
                     }
                 };
-                handler.postDelayed(runnable, 200);
             }
         });
-
-//        handler = new Handler();
-//        runnable = new Runnable() {
-//            public void run() {
-//                Toast.makeText(context, "Service is still running", Toast.LENGTH_LONG).show();
-//                handler.postDelayed(runnable, 10000);
-//            }
-//        };
-//
-//        handler.postDelayed(runnable, 15000);
+        handler.postDelayed(runnable, 200);
     }
 
     @Override
     public void onDestroy() {
-        Toast.makeText(this, "Service stopped", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Service stopped", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onStart(Intent intent, int startId) {
-        Toast.makeText(this, "Service started!", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Service started!", Toast.LENGTH_SHORT).show();
     }
 }

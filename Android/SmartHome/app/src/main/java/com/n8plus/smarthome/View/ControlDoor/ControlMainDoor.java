@@ -13,15 +13,17 @@ import android.widget.Toast;
 
 import com.n8plus.smarthome.Model.Device;
 import com.n8plus.smarthome.Model.Enum.Type;
+import com.n8plus.smarthome.Presenter.ControlDoor.ControlDoorPresenter;
 import com.n8plus.smarthome.R;
 import com.n8plus.smarthome.View.HomePage.HomeActivity;
+
+import java.util.ArrayList;
 
 public class ControlMainDoor extends AppCompatActivity implements ControlMainDoorViewImpl {
 
     ImageView imgRoom, imgStateDoor;
     TextView state, titleRoom;
     Button btnAction;
-
     Device door;
 
     @SuppressLint("RestrictedApi")
@@ -31,7 +33,6 @@ public class ControlMainDoor extends AppCompatActivity implements ControlMainDoo
         setContentView(R.layout.activity_control_maindoor);
         setTitle("Main Door Control");
         Mount();
-
         Intent intent = getIntent();
         if (intent != null) {
             door = (Device) intent.getSerializableExtra("door");
@@ -74,8 +75,6 @@ public class ControlMainDoor extends AppCompatActivity implements ControlMainDoo
     }
 
     @Override
-
-
     public void onBackPressed() {
         Intent intent = new Intent();
         intent.putExtra("stateDoor", door);
@@ -116,6 +115,33 @@ public class ControlMainDoor extends AppCompatActivity implements ControlMainDoo
             case BATHROOM:
                 titleRoom.setText("Bath Room");
                 imgRoom.setImageResource(R.drawable.bathroom);
+        }
+    }
+
+    @Override
+    public void loadDevicesSuccess(ArrayList<Device> devices) {
+
+    }
+
+    @Override
+    public void loadDeviceFailure() {
+
+    }
+
+    @Override
+    public void checkResponse(ArrayList<Device> devices) {
+        for (Device door:devices){
+            if (!door.getStateByType(Type.SENSOR)) {
+                imgStateDoor.setImageResource(R.drawable.close_door);
+                state.setText("Closed");
+                state.setTextColor(Color.parseColor("#00a0dc"));
+                btnAction.setText("OPEN NOW");
+            } else {
+                imgStateDoor.setImageResource(R.drawable.door);
+                state.setText("Opened");
+                state.setTextColor(Color.parseColor("#ffff4444"));
+                btnAction.setText("CLOSE NOW");
+            }
         }
     }
 }
