@@ -123,7 +123,6 @@ public class Device implements Serializable {
     }
 
     public static class Builder {
-
         private String _id;
         private String deviceName;
         private String description;

@@ -26,11 +26,11 @@ public class SocketSingeton {
             connect.emit(event, objects);
             Log.e(event, objects[0].toString());
             Log.e("COUNT EMIT", "" + countEmit++);
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                Thread.sleep(300);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
         }
     }
 

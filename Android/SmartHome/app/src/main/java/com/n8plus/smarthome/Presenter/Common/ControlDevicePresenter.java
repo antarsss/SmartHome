@@ -37,7 +37,6 @@ public class ControlDevicePresenter implements ControlDeviceImpl {
         handler =new android.os.Handler(((Context)controlLightView).getMainLooper());
     }
 
-
     @Override
     public void listenState() {
         HomeActivity.mSocket.on("s2c-change", new Emitter.Listener() {

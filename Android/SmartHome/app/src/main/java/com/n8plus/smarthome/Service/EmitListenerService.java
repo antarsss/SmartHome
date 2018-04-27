@@ -53,6 +53,24 @@ public class EmitListenerService extends Service {
 //            }
 //        });
 
+//        handler = new Handler();
+//        HomeActivity.mSocket.on("s2c-sensor", new Emitter.Listener() {
+//            @Override
+//            public void call(final Object... args) {
+//                runnable = new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        Log.v("Sensor-ON", args[0].toString());
+//                        Device device = HomeActivity.deviceConvert.jsonToDeviceFromDatabase((JSONObject) args[0]);
+//                        deviceList.add(device);
+//                        System.out.println("Device: " + deviceList.size());
+//                        controlDeviceView.checkResponse(deviceList);
+//                    }
+//                };
+//                handler.postDelayed(runnable, 1000);
+//            }
+//        });
+
     }
 
     @Override

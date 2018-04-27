@@ -2,21 +2,28 @@ package com.n8plus.smarthome.Activity.Fragment;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.n8plus.smarthome.Activity.ActivityAbout;
 import com.n8plus.smarthome.Activity.ActivityFAQ;
 import com.n8plus.smarthome.Activity.ActivityFeedback;
-import com.n8plus.smarthome.Activity.ChangeInformation;
+import com.n8plus.smarthome.Model.User;
+import com.n8plus.smarthome.View.ChangeInformation.ChangeInformation;
 import com.n8plus.smarthome.Activity.ChangePassword;
 import com.n8plus.smarthome.View.Login.LoginActivity;
 import com.n8plus.smarthome.Activity.Setting;
 import com.n8plus.smarthome.R;
+
+import java.io.ByteArrayOutputStream;
 
 /**
  * Created by Hiep_Nguyen on 2/1/2018.
@@ -25,6 +32,9 @@ import com.n8plus.smarthome.R;
 public class Fragment_Profile extends Fragment {
     View view;
     LinearLayout lnChangeInfo, lnChangePass, lnSetting, lnFAQ, lnFeedBack, lnAbout, lnLogout;
+    ImageView imgProfile;
+    TextView idProfile;
+    User user;
     @Nullable
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -32,10 +42,24 @@ public class Fragment_Profile extends Fragment {
 
         Mount();
 
+        Bitmap bmp = BitmapFactory.decodeResource(this.getResources(), R.drawable.anonymous);
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] avatar = stream.toByteArray();
+        bmp.recycle();
+
+        user = new User("admin", "admin", "0123456789", "admin@smarthome.com", "VietNam", avatar);
+        idProfile.setText("ID: "+user.getUsername());
+        byte[] bitmapdata = user.getAvatar();
+        Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapdata, 0, bitmapdata.length);
+        imgProfile.setImageBitmap(bitmap);
+
         lnChangeInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(view.getContext(), ChangeInformation.class));
+                Intent intent = new Intent(view.getContext(), ChangeInformation.class);
+                intent.putExtra("user", user);
+                startActivity(intent);
             }
         });
 
@@ -95,5 +119,7 @@ public class Fragment_Profile extends Fragment {
         lnFeedBack = (LinearLayout) view.findViewById(R.id.lnFeedBack);
         lnAbout = (LinearLayout) view.findViewById(R.id.lnAbout);
         lnLogout = (LinearLayout) view.findViewById(R.id.lnLogout);
+        imgProfile = (ImageView) view.findViewById(R.id.imgProfile);
+        idProfile = (TextView) view.findViewById(R.id.idProfile);
     }
 }
