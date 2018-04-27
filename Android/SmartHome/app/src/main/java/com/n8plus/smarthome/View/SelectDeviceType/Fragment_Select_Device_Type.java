@@ -16,15 +16,13 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.n8plus.smarthome.Activity.DetailsListDevice;
+import com.n8plus.smarthome.View.DeviceConnectChange.ConnectChange;
 import com.n8plus.smarthome.Adapter.DeviceTypeAdapter;
 import com.n8plus.smarthome.Model.Device;
 import com.n8plus.smarthome.Model.DeviceViewType;
 import com.n8plus.smarthome.Model.Enum.DeviceType;
-import com.n8plus.smarthome.Model.Enum.Position;
 import com.n8plus.smarthome.Presenter.SelectDeviceType.DeviceTypePresenter;
 import com.n8plus.smarthome.R;
-import com.n8plus.smarthome.View.Common.ControlDeviceViewImpl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -59,7 +57,7 @@ public class Fragment_Select_Device_Type extends Fragment implements DeviceTypeV
         lstDeviceType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intentDeviceList = new Intent(view.getContext(), DetailsListDevice.class);
+                Intent intentDeviceList = new Intent(view.getContext(), ConnectChange.class);
                 intentDeviceList.putExtra("deviceList", arrayList.get(i).getDeviceList());
                 startActivity(intentDeviceList);
             }
@@ -99,6 +97,11 @@ public class Fragment_Select_Device_Type extends Fragment implements DeviceTypeV
         deviceTypePresenter.loadDeviceType(params);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadAllDeviceType();
+    }
 
     @Override
     public void loadDeviceTypeSuccess(List<Device> devices) {

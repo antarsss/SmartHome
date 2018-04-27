@@ -1,4 +1,4 @@
-package com.n8plus.smarthome.Activity;
+package com.n8plus.smarthome.View.DeviceConnectChange;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -10,17 +10,21 @@ import android.widget.Toast;
 
 import com.n8plus.smarthome.Adapter.DeviceAdapter;
 import com.n8plus.smarthome.Model.Device;
-import com.n8plus.smarthome.Model.Enum.DeviceType;
+import com.n8plus.smarthome.Presenter.DeviceConnectChange.ConnectChangePresenter;
+import com.n8plus.smarthome.Presenter.DeviceConnectChange.ConnectChangePresenterImpl;
 import com.n8plus.smarthome.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-public class DetailsListDevice extends AppCompatActivity {
+public class ConnectChange extends AppCompatActivity implements ConnectChangeViewImpl {
 
     ListView lvDeviceAvailable;
     ArrayList<Device> deviceArrayList;
     DeviceAdapter deviceAdapter;
     View view;
+    ConnectChangePresenter connectChangePresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +38,7 @@ public class DetailsListDevice extends AppCompatActivity {
         deviceArrayList = new ArrayList<>();
 
         Intent intent = getIntent();
+        connectChangePresenter = new ConnectChangePresenter(this);
 
         deviceArrayList = (ArrayList<Device>) intent.getSerializableExtra("deviceList");
 
@@ -43,18 +48,41 @@ public class DetailsListDevice extends AppCompatActivity {
         lvDeviceAvailable.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (deviceArrayList.get(i).isConnect()) {
-                    Toast.makeText(DetailsListDevice.this, "Disconnecting...", Toast.LENGTH_SHORT).show();
+                Device device = deviceArrayList.get(i);
+                if (device.isConnect()) {
+                    Toast.makeText(ConnectChange.this, "Disconnecting...", Toast.LENGTH_SHORT).show();
                     deviceArrayList.get(i).setConnect(false);
+                    Map<String,String> header = new HashMap<>();
+                    header.put("connect", ""+device.isConnect());
+                    connectChangePresenter.connectChange(device.get_id(), header);
                     deviceAdapter.notifyDataSetChanged();
                 } else {
-                    Toast.makeText(DetailsListDevice.this, "Connecting...", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ConnectChange.this, "Connecting...", Toast.LENGTH_SHORT).show();
                     deviceArrayList.get(i).setConnect(true);
+                    Map<String,String> header = new HashMap<>();
+                    header.put("connect", ""+device.isConnect());
+                    connectChangePresenter.connectChange(device.get_id(), header);
                     deviceAdapter.notifyDataSetChanged();
                 }
 
             }
         });
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
+    @Override
+    public void connectChangeSuccess() {
+        Toast.makeText(ConnectChange.this,"Success",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void connectChangeFailue() {
+        Toast.makeText(ConnectChange.this,"Failue",Toast.LENGTH_SHORT).show();
 
     }
 }

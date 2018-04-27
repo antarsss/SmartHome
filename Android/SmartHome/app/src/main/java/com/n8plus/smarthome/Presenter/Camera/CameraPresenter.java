@@ -19,6 +19,7 @@ public class CameraPresenter extends ControlDevicePresenter {
     @Override
     public void loadDeviceProperty(Map<String, String> headers) {
         headers.put("deviceType", DeviceType.CAMERA.name());
+        headers.put("connect", "true");
         super.loadDeviceProperty(headers);
     }
 }

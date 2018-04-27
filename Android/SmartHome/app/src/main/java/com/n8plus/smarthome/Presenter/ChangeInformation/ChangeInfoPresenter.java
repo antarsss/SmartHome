@@ -77,7 +77,7 @@ public class ChangeInfoPresenter implements ChangeInfoPresenterImpl {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d("error", response.toString());
+                        Log.d("response", response.toString());
                     }
                 },
                 new Response.ErrorListener() {
@@ -85,13 +85,7 @@ public class ChangeInfoPresenter implements ChangeInfoPresenterImpl {
                     public void onErrorResponse(VolleyError error) {
                         Log.d("error", String.valueOf(error));
                     }
-                }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = headers;
-                return params;
-            }
-        };
+                });
         VolleySingleton.getInstance((Context) changeInfoView).addToRequestQueue(jsonObjectRequest);
     }
 }

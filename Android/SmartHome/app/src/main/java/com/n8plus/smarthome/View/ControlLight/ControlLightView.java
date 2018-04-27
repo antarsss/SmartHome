@@ -45,6 +45,8 @@ public class ControlLightView extends AppCompatActivity implements ControlLightV
         controlLightPresenter.listenState();
         loadAlldevices();
 
+        swbAllLight.setChecked(count == countAllLight ? true : false);
+
         swbAllLight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -158,6 +160,11 @@ public class ControlLightView extends AppCompatActivity implements ControlLightV
                 bathRoomAdapter = new LightAdapter(new ArrayList<Device>(lightBathRoom.values()), this);
                 listBathRoom.setAdapter(bathRoomAdapter);
                 break;
+        }
+        for (Device device : devices) {
+            if (device.getStateByType(Type.SENSOR)) {
+                count++;
+            }
         }
 //        controlLightPresenter.listenState();
         countAllLight += devices.size();

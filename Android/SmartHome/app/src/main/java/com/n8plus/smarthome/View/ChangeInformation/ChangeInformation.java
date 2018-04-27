@@ -175,7 +175,6 @@ public class ChangeInformation extends AppCompatActivity implements ChangeInfoVi
                             Bitmap bitmap = BitmapFactory.decodeFile(picturePath);
                             imgPicture.setImageBitmap(bitmap);
                             String avatar = getStringImage(bitmap);
-                            System.out.println("String avatar: "+avatar);
                             Map<String, String> params = new HashMap<>();
                             params.put("avatar", avatar);
                             changeInfoPresenter.changeAvatar(user.getUsername(), params);
