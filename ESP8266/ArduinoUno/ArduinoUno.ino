@@ -2,26 +2,21 @@
 #include <SerialCommand.h>
 #include <ArduinoJson.h>
 #include <Servo.h>
-
-
 const byte rx = 3, tx = 2;
 
 SoftwareSerial mySerial(rx, tx);
 SerialCommand sCmd(mySerial);
-
-int digitalPin[] = {4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
-int servoPin = digitalPin[7];
 Servo servo;
+int digitalPin[] = {4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
+int servoPin = digitalPin[8];
+
 
 // sử dụng cho cảm biến hồng ngoại A0 -> A3
 int analogPin[] = {A0, A1, A2, A3, A4, A5};
 
 // 0: mở, 1: đóng
-boolean firstState[] = {false , false, false, false, false};
-boolean lastState[] = {false , false, false, false, false};
-
-String data = "";
-boolean readData = false;
+boolean firstState[] = {false , false, false, false};
+boolean lastState[] = {false , false, false, false};
 
 void setState(int pin, boolean state) {
   if (state)
@@ -42,22 +37,9 @@ void Light(int pin, boolean st)
   sendJson("A2E", "LIGHT", pin, st);
 }
 
-void openDoor()   {
-  servo.write(105);
-  delay(5);
-}
-
-void closeDoor()  {
-  servo.write(0);
-  delay(5);
-}
-
 void Door(int pin, boolean st)
 {
-  if (st == true)
-    openDoor();
-  else
-    closeDoor();
+  servo.write(st ? 90 : 0);
   sendJson("A2E", "SERVO", pin, st);
 }
 
@@ -83,7 +65,6 @@ void parseJsonObject(String data)
   if (object.success())
   {
     classify(object);
-    readData = true;
   }
   else Serial.println("parsing failed!!!");
 }
@@ -94,12 +75,12 @@ void pinSetup()
   {
     pinMode(digitalPin[i], OUTPUT);
   }
-  //    servo.attach(controlDoor);
+
 }
 
 void readfromESP ()
 {
-  data = sCmd.next();
+  String data = sCmd.next();
   Serial.println("Receive: " + data);
   parseJsonObject(data);
   delay(200);
@@ -108,10 +89,10 @@ void readfromESP ()
 
 void readfromSocket ()
 {
-  data = sCmd.next();
+  String data = sCmd.next();
   Serial.println("Receive: " + data);
   parseJsonObject(data);
-  //  sCmd.clearBuffer();
+  sCmd.clearBuffer();
 }
 
 void sendJson(String event, String type, int pin, boolean state)
@@ -126,24 +107,33 @@ void sendJson(String event, String type, int pin, boolean state)
   data.printTo(mySerial);
   mySerial.print('\r');
 }
-
 void checkDoor()
 {
-  //  if (readData) {
-  for (int i = 0; i < 6; i++)
+  // main door
+  int D2 = analogRead(analogPin[1]);
+  // window in diningroom
+  int D3 = analogRead(analogPin[2]);
+  // maindoors
+  int D4 = analogRead(analogPin[3]);
+
+  int sensors[] = {D2, D3, D4};
+  int n = sizeof(sensors) / sizeof(int);
+
+  for (int i = 0; i < n ; i++)
   {
-    int r = analogRead(analogPin[i]);
-    firstState[i] = r < 200;
-  }
-  for (int pin = 0; pin < 6; pin++)
-  {
-    if (lastState[pin] != firstState[pin])
+    firstState[i] = sensors[i] > 30;
+    if (lastState[i] != firstState[i])
     {
-      sendJson("SEN-A2E", "SENSOR", pin, firstState[pin]);
+      sendJson("SEN-A2E", "SENSOR", i, firstState[i]);
+      Serial.print(i);
+      Serial.print(": ");
+      Serial.print(firstState[i]);
+      Serial.print("\n");
+      lastState[i] = firstState[i];
+      delay(300);
     }
-    lastState[pin] = firstState[pin];
+
   }
-  //  }
 }
 
 void setup() {
@@ -151,14 +141,14 @@ void setup() {
   mySerial.begin(19200);
   mySerial.print("connect");
   mySerial.print('\r');
-  mySerial.print("Begin");
+  mySerial.print("successfully");
   mySerial.print('\r');
   sCmd.addCommand("E2A", readfromESP);
   sCmd.addCommand("E2A-S", readfromSocket);
   Serial.println("Ready...");
   servo.attach(servoPin);
 }
-
+int ko = 0;
 void loop()
 {
   sCmd.readSerial();
