@@ -8,10 +8,12 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.gson.JsonObject;
 import com.n8plus.smarthome.Utils.common.Constant;
 import com.n8plus.smarthome.Utils.common.VolleySingleton;
 import com.n8plus.smarthome.View.DeviceConnectChange.ConnectChangeViewImpl;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,7 +29,7 @@ public class ConnectChangePresenter implements ConnectChangePresenterImpl {
     }
 
     @Override
-    public void connectChange(final String id, final Map<String, String> headers) {
+    public void connectChange(final String id, final Map<String, JSONArray> headers) {
         ((AppCompatActivity) connectChangeView).runOnUiThread(new Runnable() {
             @Override
             public void run() {

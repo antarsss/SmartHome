@@ -19,7 +19,6 @@ public class LoadDoorPresenter extends ControlDevicePresenter implements LoadDoo
     @Override
     public void loadDeviceProperty(Map<String, String> headers) {
         headers.put("deviceType", DeviceType.DOOR.name());
-        headers.put("connect", "true");
         super.loadDeviceProperty(headers);
     }
 

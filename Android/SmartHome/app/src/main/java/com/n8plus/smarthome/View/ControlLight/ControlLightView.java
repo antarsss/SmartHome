@@ -42,10 +42,8 @@ public class ControlLightView extends AppCompatActivity implements ControlLightV
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
 
         controlLightPresenter = new ControlLightPresenter(this);
-        controlLightPresenter.listenState();
         loadAlldevices();
-
-        swbAllLight.setChecked(count == countAllLight ? true : false);
+        controlLightPresenter.listenState();
 
         swbAllLight.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,19 +92,15 @@ public class ControlLightView extends AppCompatActivity implements ControlLightV
     public void loadAlldevices() {
         Map<String, String> params = new HashMap<>();
         params.put("position", Position.LIVINGROOM.name());
-        params.put("connect", "true");
         controlLightPresenter.loadDeviceProperty(params);
 
         params.put("position", Position.BEDROOM.name());
-        params.put("connect", "true");
         controlLightPresenter.loadDeviceProperty(params);
 
         params.put("position", Position.DININGROOM.name());
-        params.put("connect", "true");
         controlLightPresenter.loadDeviceProperty(params);
 
         params.put("position", Position.BATHROOM.name());
-        params.put("connect", "true");
         controlLightPresenter.loadDeviceProperty(params);
     }
 
@@ -162,13 +156,14 @@ public class ControlLightView extends AppCompatActivity implements ControlLightV
                 break;
         }
         for (Device device : devices) {
-            if (device.getStateByType(Type.SENSOR)) {
+            if (device.getStateByType(Type.LIGHT)) {
                 count++;
             }
         }
-//        controlLightPresenter.listenState();
+        System.out.println("count nè: "+count);
         countAllLight += devices.size();
         System.out.println("countAllLight: " + countAllLight);
+        swbAllLight.setChecked(count == countAllLight? true : false);
     }
 
     @Override

@@ -28,7 +28,8 @@ public class ControlLightPresenter extends ControlDevicePresenter implements Con
     @Override
     public void loadDeviceProperty(Map<String, String> headers) {
         headers.put("deviceType", DeviceType.LIGHT.name());
-        headers.put("connect", "true");
+        headers.put("modules.type", "LIGHT");
+        headers.put("modules.connect", "true");
         super.loadDeviceProperty(headers);
     }
 

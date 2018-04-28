@@ -49,7 +49,7 @@ public class ControlDevicePresenter implements ControlDeviceImpl {
                         Log.v("ON", args[0].toString());
                         Device device = HomeActivity.deviceConvert.jsonToDeviceFromDatabase((JSONObject) args[0]);
                         deviceList.add(device);
-                        System.out.println("Device: " + deviceList.size());
+                        System.out.println("Devices count: " + deviceList.size());
                         controlDeviceView.checkResponse(deviceList);
                     }
                 });

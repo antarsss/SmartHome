@@ -171,6 +171,13 @@ public class HomeActivity extends AppCompatActivity implements CountMarkedAsRead
         Toast.makeText(this, "Load all notification failure!", Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void pushNotification(List<Notification> notifications) {
+        if (!notifications.isEmpty()){
+            notificationList.addAll(notifications);
+        }
+    }
+
 
     @Override
     public void updateList(ArrayList<Notification> list) {

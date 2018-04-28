@@ -4,4 +4,5 @@ import java.util.Map;
 
 public interface NotificationPresenterImpl {
     void loadNotification();
+    void listenState();
 }

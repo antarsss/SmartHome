@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.n8plus.smarthome.Model.Device;
+import com.n8plus.smarthome.Model.Enum.Type;
 import com.n8plus.smarthome.R;
 import com.n8plus.smarthome.View.Camera.SelectCamera;
 import com.n8plus.smarthome.View.ControlCamera.ControlCamera;
@@ -72,8 +73,8 @@ public class CameraAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.txtCameraPos.setText(deviceList.get(position).getPosition().name());
-        viewHolder.txtCameraState.setText(deviceList.get(position).isConnect() == true ? "Connected" : "Disconnected");
-        if (deviceList.get(position).isConnect()) {
+        viewHolder.txtCameraState.setText(deviceList.get(position).getConnectByType(Type.CAMERA) == true ? "Connected" : "Disconnected");
+        if (deviceList.get(position).getConnectByType(Type.CAMERA)) {
             viewHolder.lnrState.setBackgroundResource(R.drawable.linear_custom_blue);
         } else {
             viewHolder.lnrState.setBackgroundResource(R.drawable.linear_custom_red);
@@ -82,7 +83,7 @@ public class CameraAdapter extends BaseAdapter {
         viewHolder.lnr_play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (deviceList.get(position).isConnect()) {
+                if (deviceList.get(position).getConnectByType(Type.CAMERA)) {
                     Intent intent = new Intent((SelectCamera) context, ControlCamera.class);
                     intent.putExtra("Camera", deviceList.get(position));
                     ((SelectCamera) context).startActivity(intent);

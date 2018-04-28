@@ -8,11 +8,17 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.n8plus.smarthome.Adapter.DeviceAdapter;
 import com.n8plus.smarthome.Model.Device;
+import com.n8plus.smarthome.Model.Enum.DeviceType;
+import com.n8plus.smarthome.Model.Enum.Type;
 import com.n8plus.smarthome.Presenter.DeviceConnectChange.ConnectChangePresenter;
 import com.n8plus.smarthome.Presenter.DeviceConnectChange.ConnectChangePresenterImpl;
 import com.n8plus.smarthome.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,25 +55,43 @@ public class ConnectChange extends AppCompatActivity implements ConnectChangeVie
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Device device = deviceArrayList.get(i);
-                if (device.isConnect()) {
-                    Toast.makeText(ConnectChange.this, "Disconnecting...", Toast.LENGTH_SHORT).show();
-                    deviceArrayList.get(i).setConnect(false);
-                    Map<String,String> header = new HashMap<>();
-                    header.put("connect", ""+device.isConnect());
-                    connectChangePresenter.connectChange(device.get_id(), header);
-                    deviceAdapter.notifyDataSetChanged();
+                if (device.getDeviceType() == DeviceType.LIGHT) {
+                    connectChange(device, Type.LIGHT, i);
+                } else if (device.getDeviceType() == DeviceType.CAMERA) {
+                    connectChange(device, Type.CAMERA, i);
                 } else {
-                    Toast.makeText(ConnectChange.this, "Connecting...", Toast.LENGTH_SHORT).show();
-                    deviceArrayList.get(i).setConnect(true);
-                    Map<String,String> header = new HashMap<>();
-                    header.put("connect", ""+device.isConnect());
-                    connectChangePresenter.connectChange(device.get_id(), header);
-                    deviceAdapter.notifyDataSetChanged();
-                }
 
+                }
             }
         });
 
+    }
+
+    public void connectChange(Device device, Type type, int i) {
+        Gson gson = new Gson();
+        if (device.getConnectByType(type)) {
+            Toast.makeText(ConnectChange.this, "Disconnecting...", Toast.LENGTH_SHORT).show();
+            deviceArrayList.get(i).setConnectByType(type, false);
+            Map<String, JSONArray> header = new HashMap<>();
+            try {
+                header.put("modules", new JSONArray(gson.toJson(device.getModules())));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            connectChangePresenter.connectChange(device.get_id(), header);
+            deviceAdapter.notifyDataSetChanged();
+        } else {
+            Toast.makeText(ConnectChange.this, "Connecting...", Toast.LENGTH_SHORT).show();
+            deviceArrayList.get(i).setConnectByType(type, true);
+            Map<String, JSONArray> header = new HashMap<>();
+            try {
+                header.put("modules", new JSONArray(gson.toJson(device.getModules())));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            connectChangePresenter.connectChange(device.get_id(), header);
+            deviceAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -77,12 +101,12 @@ public class ConnectChange extends AppCompatActivity implements ConnectChangeVie
 
     @Override
     public void connectChangeSuccess() {
-        Toast.makeText(ConnectChange.this,"Success",Toast.LENGTH_SHORT).show();
+        Toast.makeText(ConnectChange.this, "Success", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void connectChangeFailue() {
-        Toast.makeText(ConnectChange.this,"Failue",Toast.LENGTH_SHORT).show();
+        Toast.makeText(ConnectChange.this, "Failue", Toast.LENGTH_SHORT).show();
 
     }
 }

@@ -46,7 +46,6 @@ public class SelectCamera extends AppCompatActivity implements SelectCameraViewI
 
     public void loadAlldevices() {
         Map<String, String> params = new HashMap<>();
-//        params.put("position", Position.LIVINGROOM.name());
         cameraPresenter.loadDeviceProperty(params);
 
     }

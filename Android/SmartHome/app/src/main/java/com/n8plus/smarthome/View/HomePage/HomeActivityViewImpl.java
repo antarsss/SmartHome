@@ -7,4 +7,5 @@ import java.util.List;
 public interface HomeActivityViewImpl {
     void loadNotificationSuccess(List<Notification> notifications);
     void loadNotificationFailure();
+    void pushNotification(List<Notification> notifications);
 }

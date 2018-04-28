@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.n8plus.smarthome.Model.Device;
 import com.n8plus.smarthome.Model.Enum.DeviceType;
+import com.n8plus.smarthome.Model.Enum.Type;
 import com.n8plus.smarthome.R;
 
 import java.util.List;
@@ -93,8 +94,21 @@ public class DeviceAdapter extends BaseAdapter {
         }
 
         viewHolder.txtName.setText(device.getDeviceName());
+        viewHolder.txtPosition.setText(device.getPosition().name());
 
-        if (device.isConnect()){
+        if (device.getDeviceType()==DeviceType.CAMERA){
+            setConnectByDeviceType(device, Type.CAMERA, viewHolder);
+        } else if (device.getDeviceType()==DeviceType.LIGHT){
+            setConnectByDeviceType(device, Type.LIGHT, viewHolder);
+        } else {
+            viewHolder.txtState.setText("");
+        }
+
+        return view;
+    }
+
+    public void setConnectByDeviceType(Device device, Type type, ViewHolder viewHolder){
+        if (device.getConnectByType(type)){
             viewHolder.txtState.setText("Connected");
             viewHolder.txtState.setTextColor(Color.parseColor("#00a0dc"));
         }
@@ -102,9 +116,5 @@ public class DeviceAdapter extends BaseAdapter {
             viewHolder.txtState.setText("Disconnected");
             viewHolder.txtState.setTextColor(Color.parseColor("#ffff4444"));
         }
-
-        viewHolder.txtPosition.setText(device.getPosition().name());
-
-        return view;
     }
 }

@@ -2,12 +2,14 @@ package com.n8plus.smarthome.Presenter.Notification;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.github.nkzawa.emitter.Emitter;
 import com.n8plus.smarthome.Model.Device;
 import com.n8plus.smarthome.Model.Enum.DeviceType;
 import com.n8plus.smarthome.Model.Enum.NotificationType;
@@ -31,12 +33,13 @@ import java.util.Map;
 public class NotificationPresenter implements NotificationPresenterImpl {
     HomeActivityViewImpl notificationView;
     List<Notification> notificationList;
+    android.os.Handler handler;
 
     public NotificationPresenter(HomeActivityViewImpl notificationView) {
         this.notificationView = notificationView;
         notificationList = new ArrayList<>();
+        handler =new android.os.Handler(((Context)notificationView).getMainLooper());
     }
-
 
     @Override
     public void loadNotification() {
@@ -83,6 +86,28 @@ public class NotificationPresenter implements NotificationPresenterImpl {
                         DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
                 VolleySingleton.getInstance((Context) notificationView).addToRequestQueue(jreq);
+            }
+        });
+    }
+
+    @Override
+    public void listenState() {
+        HomeActivity.mSocket.on("s2c-sensor", new Emitter.Listener() {
+            @Override
+            public void call(final Object... args) {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.v("ON", args[0].toString());
+                        Device device = HomeActivity.deviceConvert.jsonToDeviceFromDatabase((JSONObject) args[0]);
+                        Date date = new Date(System.currentTimeMillis());
+                        if (device.getStateByType(Type.SENSOR)){
+                            notificationList.add(new Notification(notificationList.size()+1, device.getDeviceName()
+                                    + " in " + device.getPosition().name() + " is opened!", date, true, NotificationType.DOOR));
+                        }
+                        notificationView.pushNotification(notificationList);
+                    }
+                });
             }
         });
     }

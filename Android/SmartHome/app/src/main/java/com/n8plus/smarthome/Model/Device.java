@@ -19,7 +19,6 @@ public class Device implements Serializable {
     private DeviceType deviceType;
     private Position position;
     private ArrayList<Module> modules;
-    private boolean connect;
 
     private Device(Builder builder) {
         this._id = builder._id;
@@ -28,7 +27,6 @@ public class Device implements Serializable {
         this.description = builder.description;
         this.position = builder.position;
         this.modules = builder.modules;
-        this.connect = builder.connect;
     }
 
     public String get_id() {
@@ -79,17 +77,10 @@ public class Device implements Serializable {
         this.modules = modules;
     }
 
-    public boolean isConnect() {
-        return connect;
-    }
-
-    public void setConnect(boolean connect) {
-        this.connect = connect;
-    }
 
     @Override
     public String toString() {
-        return "{" + _id + "," + deviceName + "," + deviceType + "," + description + "," + position + ", " + getModules().toString() + "," + connect + "}";
+        return "{" + _id + "," + deviceName + "," + deviceType + "," + description + "," + position + ", " + getModules().toString() + "}";
     }
 
     public Boolean[] getAllStates() {
@@ -122,6 +113,28 @@ public class Device implements Serializable {
         }
     }
 
+    public boolean getConnectByType(Type type) {
+        boolean b = false;
+        for (Module module : modules) {
+            if (module.getType() == type) b = module.isConnect();
+        }
+        return b;
+    }
+
+    public void setConnectByType(Type type, boolean state) {
+        for (Module module : modules) {
+            if (module.getType() == type) {
+                module.setConnect(state);
+            }
+        }
+    }
+
+    public void setConnect(boolean state) {
+        for (Module module : modules) {
+            module.setConnect(state);
+        }
+    }
+
     public static class Builder {
         private String _id;
         private String deviceName;
@@ -129,7 +142,6 @@ public class Device implements Serializable {
         private DeviceType deviceType;
         private Position position;
         private ArrayList<Module> modules;
-        private boolean connect;
 
         public Builder() {
         }
@@ -165,11 +177,6 @@ public class Device implements Serializable {
 
         public Builder setModules(ArrayList<Module> modules) {
             this.modules = modules;
-            return this;
-        }
-
-        public Builder setConnect(boolean connect) {
-            this.connect = connect;
             return this;
         }
     }
