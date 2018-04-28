@@ -6,7 +6,10 @@ var colors = require("colors");
 var port = process.env.PORT || 3000;
 var bodyParser = require("body-parser");
 
-var io = require("socket.io")(http);
+var io = require("socket.io", {
+   rememberTransport: false,
+   transports: ['WebSocket', 'Flash Socket', 'AJAX long-polling']
+})(http);
 var logger = require('./helpers/logger');
 
 http.listen(port, function () {

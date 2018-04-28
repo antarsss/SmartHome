@@ -5,10 +5,10 @@
 #include <ESP8266WiFiMulti.h>
 #include <ArduinoJson.h>
 
-SocketIOClient client;
 ESP8266WiFiMulti wifimulti;
+SocketIOClient socketClient;
 HTTPClient httpClient;
-#define ARRAY_SIZE 10
+
 const byte rx = D1;
 const byte tx = D2;
 
@@ -22,16 +22,12 @@ int port = 3000;
 extern String RID; // tên sự kiện
 extern String Rfull; // json
 
-DynamicJsonBuffer bufferred(512);
-JsonObject& object = bufferred.createObject();
-
 void setupNetwork()
 {
   WiFi.persistent(false);
-
   // access to a wifi
   WiFi.mode(WIFI_STA);
-    wifimulti.addAP("FPT Telecom", "dongthap");
+  wifimulti.addAP("FPT Telecom", "dongthap");
   wifimulti.addAP("AnhTraiMua", "meochonhe");
   wifimulti.addAP("HoangPhat_Pro", "20052010");
   wifimulti.addAP("ANDY", "01666988779");
@@ -43,11 +39,9 @@ void setupNetwork()
     Serial.println("Can not connect wifi!");
     while (1) delay(500);
   }
-
   //connected
   Serial.print("\nWifi connected to ");
   Serial.println(WiFi.SSID());
-
   Serial.print("ESP8266 IP: ");
   Serial.println(WiFi.localIP());
 }
@@ -61,15 +55,15 @@ void listenSocketIO()
     mySerial.print('\r');
     mySerial.print(Rfull);
     mySerial.print('\r');
+    delay(100);
   }
   else Serial.println("Waiting for imcoming data...");
 }
 void loadDevices()
 {
-  String server = host;
-  Serial.println("Get POST from http://" + server + ":3000/devices/");
-  httpClient.begin("http://" + server + ":3000/devices/");
-
+  String hoststr = host;
+  Serial.println("Get POST from http://" + hoststr + ":3000/devices/");
+  httpClient.begin("http://" + hoststr + ":3000/devices/");
   httpClient.addHeader("Content-Type", "application/json");
   String query = "{}";
   int httpCode = httpClient.POST(query);
@@ -88,7 +82,6 @@ void parseJsonArray(String s)
   JsonObject& deviceArr  = bufferred.parseObject(s);
   JsonArray& arr = deviceArr["devices"];
   if (arr.success()) {
-    object["devices"] = arr;
     for (int i = 0; i < arr.size(); i++)
     {
       JsonObject& device = arr[i];
@@ -109,8 +102,11 @@ String createJsonString(String type, int pin, boolean state)
   data["type"] = type;
   data["pin"] = pin;
   data["state"] = state;
+
   String json;
   data.printTo(json);
+  Serial.println(json);
+
   return json;
 }
 
@@ -142,10 +138,11 @@ void readfromArduino()
     String type = object["type"];
     int pin = object["pin"];
     boolean state = object["state"];
-    client.send("d2s-change", createJsonString(type, pin, state));
+    socketClient.send("d2s-change", createJsonString(type, pin, state));
     delay(200);
   }
-  else {
+  else
+  {
     mySerial.print("E2A-ERROR");
     mySerial.print('\r');
     mySerial.print(s);
@@ -157,8 +154,7 @@ void readfromArduino()
 
 void listenSensorArduino()
 {
-  char* json = sCmd.next();
-  String s = json;
+  String s = sCmd.next();
   //  Serial.println("Sensor send: " + s);
   DynamicJsonBuffer bufferred(512);
   JsonObject& object = bufferred.parseObject(s);
@@ -167,15 +163,15 @@ void listenSensorArduino()
     String type = object["type"];
     int pin = object["pin"];
     boolean state = object["state"];
-    client.send("d2s-sensor", createJsonString(type, pin, state));
-    //    delay(1000);
+
+    socketClient.send("d2s-sensor", createJsonString(type, pin, state));
+    //    delay(300);
   }
   sCmd.clearBuffer();
 }
 void connectArduino() {
-  char* json = sCmd.next();
-  String s = json;
-  Serial.println("Connet Arduino: " + s);
+  String s = sCmd.next();
+  Serial.println("Connect Arduino: " + s);
 }
 
 void setup()
@@ -183,7 +179,7 @@ void setup()
   Serial.begin(19200);
   mySerial.begin(19200);
   setupNetwork();
-  client.connect(host, port);
+  socketClient.connect(host, port);
   Serial.println("connected to server!");
   loadDevices();
   sCmd.addCommand("connect", connectArduino);
@@ -193,15 +189,14 @@ void setup()
 
 void loop()
 {
-  if (client.monitor())
+  if (!socketClient.connected())
   {
-    listenSocketIO();
+    socketClient.reconnect(host, port);
   }
 
-  // reconnect
-  if (!client.connected())
+  if (socketClient.monitor())
   {
-    client.reconnect(host, port);
+    listenSocketIO();
   }
 
   sCmd.readSerial();
