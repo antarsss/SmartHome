@@ -8,7 +8,7 @@ SoftwareSerial mySerial(rx, tx);
 SerialCommand sCmd(mySerial);
 Servo servo;
 int digitalPin[] = {4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
-int servoPin = digitalPin[8];
+int servoPin = digitalPin[7];
 
 
 // sử dụng cho cảm biến hồng ngoại A0 -> A3
