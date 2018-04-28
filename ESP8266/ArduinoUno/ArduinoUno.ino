@@ -107,6 +107,22 @@ void sendJson(String event, String type, int pin, boolean state)
   data.printTo(mySerial);
   mySerial.print('\r');
 }
+
+void turnOnPIR(boolean isOn)
+{
+  firstState[3] = analogRead(analogPin[3]) < 400;
+  if (lastState[3] != firstState[3] && isOn)
+  {
+    sendJson("SEN-A2E", "SENSOR", 3, firstState[3]);
+    Serial.print("3");
+    Serial.print(": ");
+    Serial.print(firstState[3]);
+    Serial.print("\n");
+    lastState[3] = firstState[3];
+    delay(300);
+  }
+}
+
 void checkDoor()
 {
   // main door
@@ -115,18 +131,13 @@ void checkDoor()
   int D3 = analogRead(analogPin[2]);
   // maindoors
   int D4 = analogRead(analogPin[3]);
-  // sensor pir
-  int D5 = analogRead(analogPin[4]);
 
-  int sensors[] = {D2, D3, D4, D5};
+  int sensors[] = {D2, D3, D4};
   int n = sizeof(sensors) / sizeof(int);
 
   for (int i = 0; i < n ; i++)
   {
     firstState[i] = sensors[i] > 30;
-    if (i == 4)
-      firstState[i] = sensors[i] < 400;
-    else  firstState[i] = sensors[i] > 30;
     
     if (lastState[i] != firstState[i])
     {
@@ -138,8 +149,8 @@ void checkDoor()
       lastState[i] = firstState[i];
       delay(300);
     }
-
-  }
+  }  
+  turnOnPIR(firstState[2]);
 }
 
 void setup() {
