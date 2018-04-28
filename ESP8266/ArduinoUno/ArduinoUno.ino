@@ -115,13 +115,19 @@ void checkDoor()
   int D3 = analogRead(analogPin[2]);
   // maindoors
   int D4 = analogRead(analogPin[3]);
+  // sensor pir
+  int D5 = analogRead(analogPin[4]);
 
-  int sensors[] = {D2, D3, D4};
+  int sensors[] = {D2, D3, D4, D5};
   int n = sizeof(sensors) / sizeof(int);
 
   for (int i = 0; i < n ; i++)
   {
     firstState[i] = sensors[i] > 30;
+    if (i == 4)
+      firstState[i] = sensors[i] < 400;
+    else  firstState[i] = sensors[i] > 30;
+    
     if (lastState[i] != firstState[i])
     {
       sendJson("SEN-A2E", "SENSOR", i, firstState[i]);
