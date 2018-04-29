@@ -39,20 +39,17 @@ public class Fragment_Profile extends Fragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
          view = inflater.inflate(R.layout.fragment_profile, container, false);
-
         Mount();
 
-        Bitmap bmp = BitmapFactory.decodeResource(this.getResources(), R.drawable.anonymous);
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        byte[] avatar = stream.toByteArray();
-        bmp.recycle();
-
-        user = new User("admin", "admin", "0123456789", "admin@smarthome.com", "VietNam", avatar);
+        user = (User) getArguments().getSerializable("user");
+//        user = new User("admin", "admin", "0123456789", "admin@smarthome.com", "VietNam", avatar);
         idProfile.setText("ID: "+user.getUsername());
-        byte[] bitmapdata = user.getAvatar();
-        Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapdata, 0, bitmapdata.length);
-        imgProfile.setImageBitmap(bitmap);
+        Bitmap bitmap = byteToBitmap(user.getAvatar());
+        if (bitmap != null){
+            imgProfile.setImageBitmap(bitmap);
+        }else {
+            imgProfile.setImageResource(R.drawable.userifo);
+        }
 
         lnChangeInfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,6 +106,19 @@ public class Fragment_Profile extends Fragment {
         });
 
         return view;
+    }
+
+    public byte[] bitmapToByte(Bitmap bmp){
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] avatar = stream.toByteArray();
+        return avatar;
+    }
+
+    public Bitmap byteToBitmap (byte[] bytes){
+        Bitmap bitmap = null;
+        bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        return bitmap;
     }
 
     public void Mount(){

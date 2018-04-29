@@ -24,7 +24,8 @@ import com.n8plus.smarthome.Activity.Fragment.Fragment_Notification;
 import com.n8plus.smarthome.Activity.Fragment.Fragment_Profile;
 import com.n8plus.smarthome.Interface.CountMarkedAsRead;
 import com.n8plus.smarthome.Model.Notification;
-import com.n8plus.smarthome.Presenter.Notification.NotificationPresenter;
+import com.n8plus.smarthome.Model.User;
+import com.n8plus.smarthome.Presenter.HomePage.HomePagePresenter;
 import com.n8plus.smarthome.R;
 import com.n8plus.smarthome.Service.EmitListenerService;
 import com.n8plus.smarthome.Utils.common.DeviceConverter;
@@ -43,7 +44,7 @@ public class HomeActivity extends AppCompatActivity implements CountMarkedAsRead
     TextView txtCount;
     ArrayList<Notification> notificationList;
     int countNoti = 0;
-    NotificationPresenter notificationPresenter;
+    HomePagePresenter homePagePresenter;
 
     public static final DeviceConverter deviceConvert = new DeviceConverter();
     public static final DeviceConverter doorConvert = new DeviceConverter();
@@ -58,8 +59,8 @@ public class HomeActivity extends AppCompatActivity implements CountMarkedAsRead
 
 //        addDataList();
         notificationList = new ArrayList<>();
-        notificationPresenter = new NotificationPresenter(this);
-        notificationPresenter.loadNotification();
+        homePagePresenter = new HomePagePresenter(this);
+        homePagePresenter.loadNotification();
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navMain);
         disableShiftMode(bottomNavigationView);
@@ -169,6 +170,19 @@ public class HomeActivity extends AppCompatActivity implements CountMarkedAsRead
     @Override
     public void loadNotificationFailure() {
         Toast.makeText(this, "Load all notification failure!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void loadUserSuccess(User user) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("user", user);
+        Fragment_Profile fragment_profile = new Fragment_Profile();
+        fragment_profile.setArguments(bundle);
+    }
+
+    @Override
+    public void loadUserFailure() {
+
     }
 
     @Override

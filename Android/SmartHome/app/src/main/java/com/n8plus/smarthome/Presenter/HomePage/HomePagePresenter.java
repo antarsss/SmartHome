@@ -1,4 +1,4 @@
-package com.n8plus.smarthome.Presenter.Notification;
+package com.n8plus.smarthome.Presenter.HomePage;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +15,7 @@ import com.n8plus.smarthome.Model.Enum.DeviceType;
 import com.n8plus.smarthome.Model.Enum.NotificationType;
 import com.n8plus.smarthome.Model.Enum.Type;
 import com.n8plus.smarthome.Model.Notification;
+import com.n8plus.smarthome.Model.User;
 import com.n8plus.smarthome.Utils.common.Constant;
 import com.n8plus.smarthome.Utils.common.VolleySingleton;
 import com.n8plus.smarthome.View.HomePage.HomeActivity;
@@ -30,15 +31,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class NotificationPresenter implements NotificationPresenterImpl {
-    HomeActivityViewImpl notificationView;
+public class HomePagePresenter implements HomePagePresenterImpl {
+    HomeActivityViewImpl homePageView;
     List<Notification> notificationList;
     android.os.Handler handler;
 
-    public NotificationPresenter(HomeActivityViewImpl notificationView) {
-        this.notificationView = notificationView;
+    public HomePagePresenter(HomeActivityViewImpl homePageView) {
+        this.homePageView = homePageView;
         notificationList = new ArrayList<>();
-        handler = new android.os.Handler(((Context) notificationView).getMainLooper());
+        handler = new android.os.Handler(((Context) homePageView).getMainLooper());
     }
 
     @Override
@@ -46,7 +47,7 @@ public class NotificationPresenter implements NotificationPresenterImpl {
         final String URI = Constant.URL + "/devices/";
         final Map<String, String> params = new HashMap<String, String>();
         params.put("deviceType", DeviceType.DOOR.name());
-        ((AppCompatActivity) notificationView).runOnUiThread(new Runnable() {
+        ((AppCompatActivity) homePageView).runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 JsonObjectRequest jreq = new JsonObjectRequest(Request.Method.POST, URI, new JSONObject(params),
@@ -66,21 +67,20 @@ public class NotificationPresenter implements NotificationPresenterImpl {
 
                                             Notification notification = new Notification(i, object.getString("deviceName")
                                                     + " in " + room + " is opened!", date, true, NotificationType.DOOR);
-//                                            + " in " + object.getString("position")
                                             notifications.add(notification);
                                         }
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
-                                notificationView.loadNotificationSuccess(notifications);
+                                homePageView.loadNotificationSuccess(notifications);
                             }
 
                         },
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                notificationView.loadNotificationFailure();
+                                homePageView.loadNotificationFailure();
                             }
                         });
                 jreq.setRetryPolicy(new
@@ -88,7 +88,7 @@ public class NotificationPresenter implements NotificationPresenterImpl {
                         DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                         DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
-                VolleySingleton.getInstance((Context) notificationView).addToRequestQueue(jreq);
+                VolleySingleton.getInstance((Context) homePageView).addToRequestQueue(jreq);
             }
         });
     }
@@ -105,13 +105,46 @@ public class NotificationPresenter implements NotificationPresenterImpl {
                         Device device = HomeActivity.deviceConvert.jsonToDeviceFromDatabase((JSONObject) args[0]);
                         Date date = new Date(System.currentTimeMillis());
                         if (device.getStateByType(Type.SENSOR)) {
+                            String room = device.getPosition().name().toLowerCase().replace("room", " room");
                             notificationList.add(new Notification(notificationList.size() + 1, device.getDeviceName()
-                                    + " is opened!", date, true, NotificationType.DOOR));
-//                            + " in " + device.getPosition().name()
+                                    + " in " + room + " is opened!", date, true, NotificationType.DOOR));
                         }
-                        notificationView.pushNotification(notificationList);
+                        homePageView.pushNotification(notificationList);
                     }
                 });
+            }
+        });
+    }
+
+    @Override
+    public void loadUserLogin(String username) {
+        final String URI = Constant.URL + "/users/";
+        final Map<String, String> params = new HashMap<String, String>();
+        params.put("username", username);
+        ((AppCompatActivity) homePageView).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                final JsonObjectRequest jreq = new JsonObjectRequest(Request.Method.POST, URI, new JSONObject(params),
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                try {
+                                    User user = (User) response.get("users");
+                                    if (user != null){
+
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+
+                            }
+                        });
+
             }
         });
     }

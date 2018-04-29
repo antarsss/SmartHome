@@ -60,7 +60,7 @@ public class EmitListenerService extends Service {
 //        });
 
         handler = new Handler();
-        HomeActivity.mSocket.on("s2c-sensor", new Emitter.Listener() {
+        HomeActivity.mSocket.on("s2c-change", new Emitter.Listener() {
             @Override
             public void call(final Object... args) {
                 runnable = new Runnable() {
