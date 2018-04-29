@@ -1,0 +1,65 @@
+<nav class="navbar navbar-expand fixed-top d-flex flex-row justify-content-start">
+    <div class="d-none d-lg-block">
+        <form>
+            <div id="menu-minifier">
+                <label>
+							
+							<input id="minifier" type="checkbox"> 
+							<img src="/img/menu.png">
+						</label>
+                <div class="info-holder info-rb">
+                    <div data-toggle="popover-all" data-content="Checkbox element using localStorage to remember the last status." data-original-title="Side menu narrowing" data-placement="right"></div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <a class="navbar-brand px-lg-3 px-1 mr-0" href="#" id="home-logo">SMART family</a>
+    <script type="text/javascript">
+        $("#home-logo").click(function() {
+            $("#home").show(2000);
+            $("#lights-control").hide(1000);
+            $("#doors-control").hide(1000);
+            $("#cameras-control").hide(1000);
+            $("#profile").hide(1000);
+        });
+
+    </script>
+    <div class="ml-auto">
+        <div class="navbar-nav flex-row navbar-icons">
+            <div class="nav-item">
+                <button id="alerts-toggler" class="btn btn-link nav-link" title="Alerts" type="button" data-alerts="3" data-toggle="modal" data-target="#alertsModal" class="modal-show">
+							<img src="/img/notification.png"/>
+						</button>
+
+            </div>
+            <div id="user-menu" class="nav-item dropdown">
+                <button class="btn btn-link nav-link dropdown-toggle" title="User" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<img src="/img/account.png"/>
+						</button>
+
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="#" id="profile-header">Profile</a>
+                    <script type="text/javascript">
+                        $("#profile-header").click(function() {
+                            $("#lights-control").hide(1000);
+                            $("#home").hide(1000);
+                            $("#doors-control").hide(1000);
+                            $("#cameras-control").hide(1000);
+                            $("#profile").show(2000);
+                        });
+
+                    </script>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="login.html">Logout</a>
+                </div>
+
+            </div>
+            <div class="nav-item d-lg-none">
+                <button id="sidebar-toggler" type="button" class="btn btn-link nav-link" data-toggle="offcanvas">
+						  <img src="/img/menu.png"/>
+						</button>
+            </div>
+
+        </div>
+    </div>
+</nav>
