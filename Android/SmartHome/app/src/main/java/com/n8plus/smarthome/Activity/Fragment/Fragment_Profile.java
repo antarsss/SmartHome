@@ -44,7 +44,6 @@ public class Fragment_Profile extends Fragment {
 
         if (getArguments() != null) {
             user = (User) getArguments().getSerializable("user");
-//        user = new User("admin", "admin", "0123456789", "admin@smarthome.com", "VietNam", avatar);
             idProfile.setText("ID: " + user.getUsername());
             Bitmap bitmap = byteToBitmap(user.getAvatar());
             if (bitmap != null) {
@@ -66,7 +65,9 @@ public class Fragment_Profile extends Fragment {
         lnChangePass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(view.getContext(), ChangePassword.class));
+                Intent intent = new Intent(view.getContext(), ChangePassword.class);
+                intent.putExtra("user", user);
+                startActivity(intent);
             }
         });
 
