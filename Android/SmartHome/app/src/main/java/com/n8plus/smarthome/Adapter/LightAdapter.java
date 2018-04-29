@@ -16,6 +16,7 @@ import com.n8plus.smarthome.Model.Enum.Type;
 import com.n8plus.smarthome.R;
 import com.n8plus.smarthome.View.ControlLight.ControlLightView;
 import com.n8plus.smarthome.View.HomePage.HomeActivity;
+import com.n8plus.smarthome.View.Login.LoginActivity;
 
 import java.util.ArrayList;
 
@@ -60,7 +61,7 @@ public class LightAdapter extends RecyclerView.Adapter<LightAdapter.ViewHolder> 
             @Override
             public void onClick(View view) {
                 device.setState(holder.swtState.isChecked());
-                HomeActivity.mSocket.emit("c2s-change", HomeActivity.deviceConvert.object2Json(device));
+                LoginActivity.mSocket.emit("c2s-change", HomeActivity.deviceConvert.object2Json(device));
                 Log.i("EMIT", HomeActivity.deviceConvert.object2Json(device).toString());
                 holder.imgLight.setImageResource(holder.swtState.isChecked() ? R.drawable.light_on : R.drawable.light_off);
 
@@ -91,7 +92,7 @@ public class LightAdapter extends RecyclerView.Adapter<LightAdapter.ViewHolder> 
 
     public void emitAll() {
         for (Device device : devices) {
-            HomeActivity.mSocket.emit("c2s-change", HomeActivity.deviceConvert.object2Json(device));
+            LoginActivity.mSocket.emit("c2s-change", HomeActivity.deviceConvert.object2Json(device));
         }
     }
 

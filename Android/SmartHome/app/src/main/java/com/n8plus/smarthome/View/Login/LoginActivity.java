@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.n8plus.smarthome.Utils.common.SocketSingeton;
 import com.n8plus.smarthome.View.ForgotPassword.ForgotPassword;
 import com.n8plus.smarthome.View.HomePage.HomeActivity;
 import com.n8plus.smarthome.Presenter.Login.LoginPresenter;
@@ -28,7 +29,10 @@ public class LoginActivity extends AppCompatActivity implements LoginViewImpl {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     LoginPresenter loginPresenter;
-
+    public static SocketSingeton mSocket = new SocketSingeton();
+    static {
+        mSocket.connect();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +40,6 @@ public class LoginActivity extends AppCompatActivity implements LoginViewImpl {
         Mount();
         loginPresenter = new LoginPresenter(this);
         sharedPreferences = getSharedPreferences("account", MODE_PRIVATE);
-
         Intent intent = getIntent();
         if (intent != null) {
             boolean isLogout = intent.getBooleanExtra("isLogout", false);
@@ -120,7 +123,7 @@ public class LoginActivity extends AppCompatActivity implements LoginViewImpl {
     }
 
     @Override
-    public void loginFailure() {
-        Toast.makeText(LoginActivity.this, "Tài khoản hoặc mật khẩu chưa chính xác!", Toast.LENGTH_SHORT).show();
+    public void loginFailure(String message) {
+        Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
     }
 }

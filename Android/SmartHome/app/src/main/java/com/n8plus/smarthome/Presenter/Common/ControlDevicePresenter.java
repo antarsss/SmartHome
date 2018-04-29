@@ -16,6 +16,7 @@ import com.n8plus.smarthome.Utils.common.VolleySingleton;
 import com.n8plus.smarthome.View.Common.ControlDeviceViewImpl;
 import com.n8plus.smarthome.View.ControlDoor.ControlMainDoor;
 import com.n8plus.smarthome.View.HomePage.HomeActivity;
+import com.n8plus.smarthome.View.Login.LoginActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,7 +40,7 @@ public class ControlDevicePresenter implements ControlDeviceImpl {
 
     @Override
     public void listenState() {
-        HomeActivity.mSocket.on("s2c-change", new Emitter.Listener() {
+        LoginActivity.mSocket.on("s2c-change", new Emitter.Listener() {
             @Override
             public void call(final Object... args) {
                 handler.post(new Runnable() {

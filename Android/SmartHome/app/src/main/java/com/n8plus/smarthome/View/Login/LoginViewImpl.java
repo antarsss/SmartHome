@@ -6,5 +6,5 @@ package com.n8plus.smarthome.View.Login;
 
 public interface LoginViewImpl {
     void loginSuccess();
-    void loginFailure();
+    void loginFailure(String message);
 }
