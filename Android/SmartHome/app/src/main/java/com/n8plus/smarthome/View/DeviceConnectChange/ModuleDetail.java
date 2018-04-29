@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ModuleDetail extends AppCompatActivity implements ConnectModuleViewImpl{
+public class ModuleDetail extends AppCompatActivity implements ConnectModuleViewImpl {
     ListView lsvModuleDoor;
     Device door;
     ArrayList<Module> arrayList;
@@ -39,20 +39,20 @@ public class ModuleDetail extends AppCompatActivity implements ConnectModuleView
         lsvModuleDoor = (ListView) findViewById(R.id.lsvModuleDoor);
         connectModulePresenter = new ConnectModulePresenter(this);
         Intent intent = getIntent();
-        if (intent != null){
+        if (intent != null) {
             door = (Device) intent.getSerializableExtra("door");
             arrayList = door.getModules();
             setTitle(door.getDeviceName());
-            moduleAdapter = new ModuleAdapter(this, arrayList,R.layout.row_module);
+            moduleAdapter = new ModuleAdapter(this, arrayList, R.layout.row_module);
             lsvModuleDoor.setAdapter(moduleAdapter);
 
             lsvModuleDoor.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Gson gson = new Gson();
-                    if (arrayList.get(position).isConnect()){
+                    if (arrayList.get(position).isConnect()) {
                         Toast.makeText(ModuleDetail.this, "Disconnecting..", Toast.LENGTH_SHORT).show();
-                        switch (arrayList.get(position).getType()){
+                        switch (arrayList.get(position).getType()) {
                             case RADAR:
                                 door.setConnectByType(Type.RADAR, false);
                                 break;
@@ -71,10 +71,9 @@ public class ModuleDetail extends AppCompatActivity implements ConnectModuleView
                         }
                         connectModulePresenter.connectChange(door.get_id(), headers);
                         moduleAdapter.notifyDataSetChanged();
-                    }
-                    else {
+                    } else {
                         Toast.makeText(ModuleDetail.this, "Connecting..", Toast.LENGTH_SHORT).show();
-                        switch (arrayList.get(position).getType()){
+                        switch (arrayList.get(position).getType()) {
                             case RADAR:
                                 door.setConnectByType(Type.RADAR, true);
                                 break;
@@ -101,17 +100,20 @@ public class ModuleDetail extends AppCompatActivity implements ConnectModuleView
 
     @Override
     public void onBackPressed() {
+        Intent intent = new Intent();
+        intent.putExtra("resultChange", door);
+        setResult(RESULT_OK, intent);
         finish();
     }
 
     @Override
     public void connectSuscess() {
-        Toast.makeText(ModuleDetail.this,"Success",Toast.LENGTH_SHORT).show();
+        Toast.makeText(ModuleDetail.this, "Success", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void connectFailue() {
-        Toast.makeText(ModuleDetail.this,"Failure",Toast.LENGTH_SHORT).show();
+        Toast.makeText(ModuleDetail.this, "Failure", Toast.LENGTH_SHORT).show();
 
     }
 }

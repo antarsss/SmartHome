@@ -35,7 +35,6 @@ public class ControlMainDoor extends AppCompatActivity implements ControlMainDoo
         setTitle("Main Door Control");
         Mount();
         ControlDoorPresenter controlDoorPresenter = new ControlDoorPresenter(this);
-        controlDoorPresenter.listenState();
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -54,25 +53,27 @@ public class ControlMainDoor extends AppCompatActivity implements ControlMainDoo
             }
         }
 
+        controlDoorPresenter.listenState();
+
         btnAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (door.getStateByType(Type.SENSOR)) {
-                    door.setState(false);
-                    HomeActivity.mSocket.emit("c2s-change", HomeActivity.doorConvert.object2Json(door));
+                if (door.getStateByType(Type.SERVO)) {
+                    door.setStateByType(Type.SERVO, false);
                     imgStateDoor.setImageResource(R.drawable.close_door);
                     state.setText("Closed");
                     state.setTextColor(Color.parseColor("#00a0dc"));
                     btnAction.setText("OPEN NOW");
                     Toast.makeText(ControlMainDoor.this, "Door Closed!", Toast.LENGTH_SHORT).show();
-                } else {
-                    door.setState(true);
                     HomeActivity.mSocket.emit("c2s-change", HomeActivity.doorConvert.object2Json(door));
+                } else {
+                    door.setStateByType(Type.SERVO, true);
                     imgStateDoor.setImageResource(R.drawable.door);
                     state.setText("Opened");
                     state.setTextColor(Color.parseColor("#ffff4444"));
                     btnAction.setText("CLOSE NOW");
                     Toast.makeText(ControlMainDoor.this, "Door Opened!", Toast.LENGTH_SHORT).show();
+                    HomeActivity.mSocket.emit("c2s-change", HomeActivity.doorConvert.object2Json(door));
                 }
             }
         });

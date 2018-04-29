@@ -173,19 +173,23 @@ public class ControlLightView extends AppCompatActivity implements ControlLightV
 
     @Override
     public void checkResponse(ArrayList<Device> devices) {
-//        for (Device light : devices) {
-//            lightLivingRoom.get(light.get_id()).setState(light.getStateByType(Type.LIGHT));
-//        }
-//        for (Device light : devices) {
-//            lightBedRoom.get(light.get_id()).setState(light.getStateByType(Type.LIGHT));
-//        }
-//        for (Device light : devices) {
-//            lightDiningRoom.get(light.get_id()).setState(light.getStateByType(Type.LIGHT));
-//        }
-//        for (Device light : devices) {
-//            lightBathRoom.get(light.get_id()).setState(light.getStateByType(Type.LIGHT));
-//        }
-//        reloadList();
+        for (Device light : devices){
+            switch (light.getPosition()){
+                case LIVINGROOM:
+                    lightLivingRoom.get(light.get_id()).setStateByType(Type.LIGHT, light.getStateByType(Type.LIGHT));
+                    break;
+                case DININGROOM:
+                    lightDiningRoom.get(light.get_id()).setStateByType(Type.LIGHT, light.getStateByType(Type.LIGHT));
+                    break;
+                case BEDROOM:
+                    lightBedRoom.get(light.get_id()).setStateByType(Type.LIGHT, light.getStateByType(Type.LIGHT));
+                    break;
+                case BATHROOM:
+                    lightBathRoom.get(light.get_id()).setStateByType(Type.LIGHT, light.getStateByType(Type.LIGHT));
+                    break;
+            }
+        }
+        reloadList();
     }
 
     public void reloadList() {

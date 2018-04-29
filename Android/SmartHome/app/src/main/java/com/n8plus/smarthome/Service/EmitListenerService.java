@@ -28,6 +28,8 @@ public class EmitListenerService extends Service {
     public Context context = this;
     public Handler handler = null;
     public static Runnable runnable = null;
+    NotificationCompat.Builder mBuilder;
+    NotificationManager mNotificationManager;
     int numMessages;
 
     @Nullable
@@ -67,13 +69,12 @@ public class EmitListenerService extends Service {
                         Log.v("Sensor-ON", args[0].toString());
                         Gson gson = new Gson();
                         Device device = gson.fromJson(((JSONObject) args[0]).toString(), Device.class);
-                        if (device != null){
+                        if (device != null) {
                             numMessages = 0;
-                            NotificationCompat.Builder mBuilder =
-                                    new NotificationCompat.Builder(context)
-                                            .setSmallIcon(R.drawable.alarm)
-                                            .setContentTitle(device.getPosition().name())
-                                            .setContentText(device.getDeviceName()+" is opened");
+                            mBuilder = new NotificationCompat.Builder(context)
+                                    .setSmallIcon(R.drawable.alarm)
+                                    .setContentTitle(device.getPosition().name())
+                                    .setContentText(device.getDeviceName() + " is opened");
                             mBuilder.setNumber(++numMessages);
                             Intent resultIntent = new Intent(context, HomeActivity.class);
                             TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
@@ -85,9 +86,9 @@ public class EmitListenerService extends Service {
                                             PendingIntent.FLAG_UPDATE_CURRENT
                                     );
                             mBuilder.setContentIntent(resultPendingIntent);
-                            NotificationManager mNotificationManager =
+                            mNotificationManager =
                                     (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                            mNotificationManager.notify(0, mBuilder.build());
+                            mNotificationManager.notify(++numMessages, mBuilder.build());
                         }
                     }
                 };

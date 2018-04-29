@@ -38,7 +38,7 @@ public class NotificationPresenter implements NotificationPresenterImpl {
     public NotificationPresenter(HomeActivityViewImpl notificationView) {
         this.notificationView = notificationView;
         notificationList = new ArrayList<>();
-        handler =new android.os.Handler(((Context)notificationView).getMainLooper());
+        handler = new android.os.Handler(((Context) notificationView).getMainLooper());
     }
 
     @Override
@@ -56,14 +56,17 @@ public class NotificationPresenter implements NotificationPresenterImpl {
                                 List<Notification> notifications = new ArrayList<>();
                                 try {
                                     JSONArray array = response.getJSONArray("devices");
-                                    System.out.println("lenght: "+array.length());
+                                    System.out.println("lenght: " + array.length());
                                     for (int i = 0; i < array.length(); i++) {
                                         JSONObject object = array.getJSONObject(i);
                                         Device door = HomeActivity.deviceConvert.jsonToDeviceFromDatabase(object);
                                         if (door.getStateByType(Type.SERVO)) {
                                             Date date = new Date(System.currentTimeMillis());
+                                            String room = door.getPosition().name().toLowerCase().replace("room", " room");
+
                                             Notification notification = new Notification(i, object.getString("deviceName")
-                                                    + " in " + object.getString("position") + " is opened!", date, true, NotificationType.DOOR);
+                                                    + " in " + room + " is opened!", date, true, NotificationType.DOOR);
+//                                            + " in " + object.getString("position")
                                             notifications.add(notification);
                                         }
                                     }
@@ -101,9 +104,10 @@ public class NotificationPresenter implements NotificationPresenterImpl {
                         Log.v("ON", args[0].toString());
                         Device device = HomeActivity.deviceConvert.jsonToDeviceFromDatabase((JSONObject) args[0]);
                         Date date = new Date(System.currentTimeMillis());
-                        if (device.getStateByType(Type.SENSOR)){
-                            notificationList.add(new Notification(notificationList.size()+1, device.getDeviceName()
-                                    + " in " + device.getPosition().name() + " is opened!", date, true, NotificationType.DOOR));
+                        if (device.getStateByType(Type.SENSOR)) {
+                            notificationList.add(new Notification(notificationList.size() + 1, device.getDeviceName()
+                                    + " is opened!", date, true, NotificationType.DOOR));
+//                            + " in " + device.getPosition().name()
                         }
                         notificationView.pushNotification(notificationList);
                     }

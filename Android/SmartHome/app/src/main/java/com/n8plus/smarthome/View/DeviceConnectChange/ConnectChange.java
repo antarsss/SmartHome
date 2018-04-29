@@ -13,6 +13,7 @@ import com.n8plus.smarthome.Adapter.DeviceAdapter;
 import com.n8plus.smarthome.Model.Device;
 import com.n8plus.smarthome.Model.Enum.DeviceType;
 import com.n8plus.smarthome.Model.Enum.Type;
+import com.n8plus.smarthome.Model.Module;
 import com.n8plus.smarthome.Presenter.DeviceConnectChange.ConnectChangePresenter;
 import com.n8plus.smarthome.R;
 
@@ -30,6 +31,7 @@ public class ConnectChange extends AppCompatActivity implements ConnectChangeVie
     DeviceAdapter deviceAdapter;
     View view;
     private static int REQUEST_CODE = 1234;
+    private static int position = 0;
     ConnectChangePresenter connectChangePresenter;
 
     @Override
@@ -63,6 +65,7 @@ public class ConnectChange extends AppCompatActivity implements ConnectChangeVie
                     if (device.getModules().size() > 0) {
                         Intent intent = new Intent(ConnectChange.this, ModuleDetail.class);
                         intent.putExtra("door", device);
+                        position = i;
                         startActivityForResult(intent, REQUEST_CODE);
                     } else {
                         Toast.makeText(ConnectChange.this, "This devide can't change connect of module!", Toast.LENGTH_SHORT).show();
@@ -102,8 +105,9 @@ public class ConnectChange extends AppCompatActivity implements ConnectChangeVie
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_CODE && data != null){
-//            ArrayList<>
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null){
+            Device device = (Device) data.getSerializableExtra("resultChange");
+            deviceArrayList.get(position).setModules(device.getModules());
         }
     }
 
