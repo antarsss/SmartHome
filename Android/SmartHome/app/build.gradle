@@ -37,5 +37,5 @@ dependencies {
     implementation 'com.github.nkzawa:socket.io-client:0.3.0'
     implementation 'com.android.volley:volley:1.1.0'
     implementation 'com.google.code.gson:gson:2.8.2'
-    implementation project(path:':camera-stream-rtsp')
+    implementation project(path: ':camera-stream-rtsp')
 }

@@ -21,9 +21,10 @@
             <TextView
                 android:padding="2dp"
                 android:id="@+id/txtName"
-                android:textColor="@color/txtColor1"
+                android:textColor="@color/txtColor2"
                 android:textSize="16dp"
                 android:gravity="center_vertical"
+                android:textStyle="bold"
                 android:text="Device name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

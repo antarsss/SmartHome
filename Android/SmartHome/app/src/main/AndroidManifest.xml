@@ -3,8 +3,8 @@
     package="com.n8plus.smarthome">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -35,9 +35,18 @@
         <activity android:name=".Activity.ActivityFAQ" />
         <activity android:name=".Activity.ActivityFeedback" />
         <activity android:name=".Activity.ActivityAbout" />
-        <activity android:name=".View.ForgotPassword.ForgotPassword" android:parentActivityName=".View.Login.LoginActivity"/>
-        <activity android:name=".View.Register.Register" android:parentActivityName=".View.Login.LoginActivity"/>
-        <service android:name=".Service.EmitListenerService" android:exported="false"/>
+        <activity
+            android:name=".View.ForgotPassword.ForgotPassword"
+            android:parentActivityName=".View.Login.LoginActivity" />
+        <activity
+            android:name=".View.Register.Register"
+            android:parentActivityName=".View.Login.LoginActivity" />
+
+        <service
+            android:name=".Service.EmitListenerService"
+            android:exported="false" />
+
+        <activity android:name=".View.DeviceConnectChange.ModuleDetail"></activity>
     </application>
 
 </manifest>

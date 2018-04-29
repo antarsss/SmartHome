@@ -3,6 +3,7 @@ package com.n8plus.smarthome.Adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -101,7 +102,7 @@ public class DeviceAdapter extends BaseAdapter {
         } else if (device.getDeviceType()==DeviceType.LIGHT){
             setConnectByDeviceType(device, Type.LIGHT, viewHolder);
         } else {
-            viewHolder.txtState.setText("");
+            viewHolder.txtState.setText("Module: "+device.getModules().size());
         }
 
         return view;
