@@ -18,7 +18,7 @@ import com.n8plus.smarthome.Activity.ActivityFAQ;
 import com.n8plus.smarthome.Activity.ActivityFeedback;
 import com.n8plus.smarthome.Model.User;
 import com.n8plus.smarthome.View.ChangeInformation.ChangeInformation;
-import com.n8plus.smarthome.Activity.ChangePassword;
+import com.n8plus.smarthome.View.ChangePassword.ChangePassword;
 import com.n8plus.smarthome.View.Login.LoginActivity;
 import com.n8plus.smarthome.Activity.Setting;
 import com.n8plus.smarthome.R;
