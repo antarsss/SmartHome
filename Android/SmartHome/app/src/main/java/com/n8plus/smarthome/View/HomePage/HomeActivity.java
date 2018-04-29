@@ -45,6 +45,7 @@ public class HomeActivity extends AppCompatActivity implements CountMarkedAsRead
     ArrayList<Notification> notificationList;
     int countNoti = 0;
     HomePagePresenter homePagePresenter;
+    User user;
 
     public static final DeviceConverter deviceConvert = new DeviceConverter();
     public static final DeviceConverter doorConvert = new DeviceConverter();
@@ -59,6 +60,11 @@ public class HomeActivity extends AppCompatActivity implements CountMarkedAsRead
         notificationList = new ArrayList<>();
         homePagePresenter = new HomePagePresenter(this);
         homePagePresenter.loadNotification();
+
+        Intent intent = getIntent();
+        if (intent !=null){
+            user = (User) intent.getSerializableExtra("user");
+        }
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navMain);
         disableShiftMode(bottomNavigationView);
@@ -94,7 +100,10 @@ public class HomeActivity extends AppCompatActivity implements CountMarkedAsRead
                         frmCircle.setBackgroundResource(R.drawable.circle_gray);
                         break;
                     case R.id.menuProfile:
+                        Bundle userInfo = new Bundle();
+                        userInfo.putSerializable("user", user);
                         fragment = new Fragment_Profile();
+                        fragment.setArguments(userInfo);
                         frmCircle.setBackgroundResource(R.drawable.circle_gray);
                         break;
                     case R.id.menuNotification:
@@ -171,25 +180,11 @@ public class HomeActivity extends AppCompatActivity implements CountMarkedAsRead
     }
 
     @Override
-    public void loadUserSuccess(User user) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("user", user);
-        Fragment_Profile fragment_profile = new Fragment_Profile();
-        fragment_profile.setArguments(bundle);
-    }
-
-    @Override
-    public void loadUserFailure() {
-
-    }
-
-    @Override
     public void pushNotification(List<Notification> notifications) {
         if (!notifications.isEmpty()){
             notificationList.addAll(notifications);
         }
     }
-
 
     @Override
     public void updateList(ArrayList<Notification> list) {

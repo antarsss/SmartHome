@@ -9,11 +9,15 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.github.nkzawa.emitter.Emitter;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.n8plus.smarthome.Model.User;
 import com.n8plus.smarthome.Utils.common.Constant;
 import com.n8plus.smarthome.Utils.common.VolleySingleton;
 import com.n8plus.smarthome.View.Login.LoginActivity;
 import com.n8plus.smarthome.View.Login.LoginViewImpl;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -32,7 +36,7 @@ public class LoginPresenter implements LoginPresenterImpl {
     }
 
     @Override
-    public void checkLogin(String usn, String pass) {
+    public void checkLogin(final String usn, String pass) {
         final String URI = Constant.URL + "/authenticate";
         final Map<String, String> params = new HashMap<String, String>();
         params.put("username", usn);
@@ -43,7 +47,7 @@ public class LoginPresenter implements LoginPresenterImpl {
                 JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URI, new JSONObject(params),
                         new Response.Listener<JSONObject>() {
                             @Override
-                            public void onResponse(JSONObject response) {
+                            public void onResponse(final JSONObject response) {
                                 try {
                                     if (response.getBoolean("success")) {
                                         JSONObject authen = new JSONObject();
@@ -53,12 +57,26 @@ public class LoginPresenter implements LoginPresenterImpl {
                                         LoginActivity.mSocket.on("authenticated", new Emitter.Listener() {
                                             @Override
                                             public void call(Object... args) {
-                                                System.out.println(args[0]);
-                                                boolean authenticated = (boolean) args[0];
-                                                if (authenticated) {
-                                                    loginView.loginSuccess();
-                                                } else {
-                                                    loginView.loginFailure("Can't connect to socket");
+                                                try {
+                                                    JSONObject object = new JSONObject(args[0].toString());
+                                                    boolean authenticated = object.getBoolean("auth");
+                                                    if (authenticated) {
+                                                        Gson gson = new Gson();
+                                                        JSONObject jsonObject = (JSONObject) response.get("user");
+                                                        // Xu li avatar
+                                                        JSONArray jo_avatar = (JSONArray) jsonObject.get("avatar");
+                                                        JSONObject jo_data = jo_avatar.getJSONObject(0);
+                                                        JSONArray ja_bytes = (JSONArray) jo_data.get("data");
+                                                        jsonObject.remove("avatar");
+                                                        jsonObject.put("avatar", ja_bytes);
+
+                                                        User user = (User) gson.fromJson(jsonObject.toString(), User.class);
+                                                        loginView.loginSuccess(user);
+                                                    } else {
+                                                        loginView.loginFailure("Unauthorized");
+                                                    }
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
                                                 }
                                             }
                                         });

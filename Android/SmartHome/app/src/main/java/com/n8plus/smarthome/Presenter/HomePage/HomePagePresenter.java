@@ -117,37 +117,4 @@ public class HomePagePresenter implements HomePagePresenterImpl {
         });
     }
 
-    @Override
-    public void loadUserLogin(String username) {
-        final String URI = Constant.URL + "/users/";
-        final Map<String, String> params = new HashMap<String, String>();
-        params.put("username", username);
-        ((AppCompatActivity) homePageView).runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                final JsonObjectRequest jreq = new JsonObjectRequest(Request.Method.POST, URI, new JSONObject(params),
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                try {
-                                    User user = (User) response.get("users");
-                                    if (user != null){
-
-                                    }
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-
-                            }
-                        });
-
-            }
-        });
-    }
-
 }

@@ -5,16 +5,18 @@ import java.io.Serializable;
 public class User implements Serializable{
     private String username;
     private String password;
-    private String phone;
+    private String fullname;
     private String email;
+    private String phone;
     private String location;
     private byte[] avatar;
 
-    public User(String username, String password, String phone, String email, String location, byte[] avatar) {
+    public User(String username, String password, String fullname, String phone, String email, String location, byte[] avatar) {
         this.username = username;
         this.password = password;
-        this.phone = phone;
+        this.fullname = fullname;
         this.email = email;
+        this.phone = phone;
         this.location = location;
         this.avatar = avatar;
     }
@@ -33,6 +35,14 @@ public class User implements Serializable{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 
     public String getPhone() {

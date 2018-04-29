@@ -35,20 +35,23 @@ public class Fragment_Profile extends Fragment {
     ImageView imgProfile;
     TextView idProfile;
     User user;
+
     @Nullable
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-         view = inflater.inflate(R.layout.fragment_profile, container, false);
+        view = inflater.inflate(R.layout.fragment_profile, container, false);
         Mount();
 
-        user = (User) getArguments().getSerializable("user");
+        if (getArguments() != null) {
+            user = (User) getArguments().getSerializable("user");
 //        user = new User("admin", "admin", "0123456789", "admin@smarthome.com", "VietNam", avatar);
-        idProfile.setText("ID: "+user.getUsername());
-        Bitmap bitmap = byteToBitmap(user.getAvatar());
-        if (bitmap != null){
-            imgProfile.setImageBitmap(bitmap);
-        }else {
-            imgProfile.setImageResource(R.drawable.userifo);
+            idProfile.setText("ID: " + user.getUsername());
+            Bitmap bitmap = byteToBitmap(user.getAvatar());
+            if (bitmap != null) {
+                imgProfile.setImageBitmap(bitmap);
+            } else {
+                imgProfile.setImageResource(R.drawable.userifo);
+            }
         }
 
         lnChangeInfo.setOnClickListener(new View.OnClickListener() {
@@ -108,20 +111,20 @@ public class Fragment_Profile extends Fragment {
         return view;
     }
 
-    public byte[] bitmapToByte(Bitmap bmp){
+    public byte[] bitmapToByte(Bitmap bmp) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] avatar = stream.toByteArray();
         return avatar;
     }
 
-    public Bitmap byteToBitmap (byte[] bytes){
+    public Bitmap byteToBitmap(byte[] bytes) {
         Bitmap bitmap = null;
         bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         return bitmap;
     }
 
-    public void Mount(){
+    public void Mount() {
         lnChangeInfo = (LinearLayout) view.findViewById(R.id.lnChangeInfo);
         lnChangePass = (LinearLayout) view.findViewById(R.id.lnChangePass);
         lnSetting = (LinearLayout) view.findViewById(R.id.lnSetting);

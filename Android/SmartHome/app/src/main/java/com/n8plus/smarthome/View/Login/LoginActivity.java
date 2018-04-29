@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.n8plus.smarthome.Model.User;
 import com.n8plus.smarthome.Utils.common.SocketSingeton;
 import com.n8plus.smarthome.View.ForgotPassword.ForgotPassword;
 import com.n8plus.smarthome.View.HomePage.HomeActivity;
@@ -117,8 +118,10 @@ public class LoginActivity extends AppCompatActivity implements LoginViewImpl {
     }
 
     @Override
-    public void loginSuccess() {
-        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+    public void loginSuccess(User user) {
+        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
         finish();
     }
 
