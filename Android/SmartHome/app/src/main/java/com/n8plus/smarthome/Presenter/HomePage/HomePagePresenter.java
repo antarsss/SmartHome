@@ -20,6 +20,7 @@ import com.n8plus.smarthome.Utils.common.Constant;
 import com.n8plus.smarthome.Utils.common.VolleySingleton;
 import com.n8plus.smarthome.View.HomePage.HomeActivity;
 import com.n8plus.smarthome.View.HomePage.HomeActivityViewImpl;
+import com.n8plus.smarthome.View.Login.LoginActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -95,7 +96,7 @@ public class HomePagePresenter implements HomePagePresenterImpl {
 
     @Override
     public void listenState() {
-        HomeActivity.mSocket.on("s2c-sensor", new Emitter.Listener() {
+        LoginActivity.mSocket.on("s2c-sensor", new Emitter.Listener() {
             @Override
             public void call(final Object... args) {
                 handler.post(new Runnable() {

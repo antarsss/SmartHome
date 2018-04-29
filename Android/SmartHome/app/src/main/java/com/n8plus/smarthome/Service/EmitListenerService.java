@@ -17,8 +17,9 @@ import com.github.nkzawa.emitter.Emitter;
 import com.google.gson.Gson;
 import com.n8plus.smarthome.Model.Device;
 import com.n8plus.smarthome.R;
-import com.n8plus.smarthome.View.Common.ControlDeviceViewImpl;
+
 import com.n8plus.smarthome.View.HomePage.HomeActivity;
+import com.n8plus.smarthome.View.Login.LoginActivity;
 
 import org.json.JSONObject;
 
@@ -60,7 +61,7 @@ public class EmitListenerService extends Service {
 //        });
 
         handler = new Handler();
-        HomeActivity.mSocket.on("s2c-change", new Emitter.Listener() {
+        LoginActivity.mSocket.on("s2c-sensor", new Emitter.Listener() {
             @Override
             public void call(final Object... args) {
                 runnable = new Runnable() {

@@ -8,8 +8,10 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.github.nkzawa.emitter.Emitter;
 import com.n8plus.smarthome.Utils.common.Constant;
 import com.n8plus.smarthome.Utils.common.VolleySingleton;
+import com.n8plus.smarthome.View.Login.LoginActivity;
 import com.n8plus.smarthome.View.Login.LoginViewImpl;
 
 import org.json.JSONException;
@@ -31,7 +33,7 @@ public class LoginPresenter implements LoginPresenterImpl {
 
     @Override
     public void checkLogin(String usn, String pass) {
-        final String URI = Constant.URL + "/login";
+        final String URI = Constant.URL + "/authenticate";
         final Map<String, String> params = new HashMap<String, String>();
         params.put("username", usn);
         params.put("password", pass);
@@ -43,8 +45,25 @@ public class LoginPresenter implements LoginPresenterImpl {
                             @Override
                             public void onResponse(JSONObject response) {
                                 try {
-                                    if (response.getBoolean("login")) {
-                                        loginView.loginSuccess();
+                                    if (response.getBoolean("success")) {
+                                        JSONObject authen = new JSONObject();
+                                        authen.put("token", response.getString("token"));
+                                        LoginActivity.mSocket.connect();
+                                        LoginActivity.mSocket.emit("authorization", authen);
+                                        LoginActivity.mSocket.on("authenticated", new Emitter.Listener() {
+                                            @Override
+                                            public void call(Object... args) {
+                                                System.out.println(args[0]);
+                                                boolean authenticated = (boolean) args[0];
+                                                if (authenticated) {
+                                                    loginView.loginSuccess();
+                                                } else {
+                                                    loginView.loginFailure("Can't connect to socket");
+                                                }
+                                            }
+                                        });
+                                    } else {
+                                        loginView.loginFailure(response.getString("message"));
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -54,8 +73,7 @@ public class LoginPresenter implements LoginPresenterImpl {
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                System.out.println("change Pass response -->> " + error.toString());
-                                loginView.loginFailure();
+                                loginView.loginFailure("Connecting error...");
                             }
                         });
 

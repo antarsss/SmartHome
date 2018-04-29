@@ -48,13 +48,11 @@ public class HomeActivity extends AppCompatActivity implements CountMarkedAsRead
 
     public static final DeviceConverter deviceConvert = new DeviceConverter();
     public static final DeviceConverter doorConvert = new DeviceConverter();
-    public static SocketSingeton mSocket = new SocketSingeton();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        mSocket.connect();
         frmContent = (FrameLayout) findViewById(R.id.frmContent);
 
 //        addDataList();
