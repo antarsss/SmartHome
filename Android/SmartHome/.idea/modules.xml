@@ -3,11 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SmartHome.iml" filepath="$PROJECT_DIR$/SmartHome.iml" />
-      <module fileurl="file://D:\Project\SmartHome\Android\SmartHome\SmartHome.iml" filepath="D:\Project\SmartHome\Android\SmartHome\SmartHome.iml" />
+      <module fileurl="file://D:/Project/SmartHome/Android/SmartHome/SmartHome.iml" filepath="D:/Project/SmartHome/Android/SmartHome/SmartHome.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://D:\Project\SmartHome\Android\SmartHome\app\app.iml" filepath="D:\Project\SmartHome\Android\SmartHome\app\app.iml" />
+      <module fileurl="file://D:/Project/SmartHome/Android/SmartHome/app/app.iml" filepath="D:/Project/SmartHome/Android/SmartHome/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/camera-stream-rtsp/camera-stream-rtsp.iml" filepath="$PROJECT_DIR$/camera-stream-rtsp/camera-stream-rtsp.iml" />
-      <module fileurl="file://D:\Project\SmartHome\Android\SmartHome\camera-stream-rtsp\camera-stream-rtsp.iml" filepath="D:\Project\SmartHome\Android\SmartHome\camera-stream-rtsp\camera-stream-rtsp.iml" />
+      <module fileurl="file://D:/Project/SmartHome/Android/SmartHome/camera-stream-rtsp/camera-stream-rtsp.iml" filepath="D:/Project/SmartHome/Android/SmartHome/camera-stream-rtsp/camera-stream-rtsp.iml" />
     </modules>
   </component>
 </project>
