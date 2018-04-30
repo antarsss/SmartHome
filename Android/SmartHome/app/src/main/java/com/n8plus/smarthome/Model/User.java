@@ -11,6 +11,11 @@ public class User implements Serializable{
     private String location;
     private byte[] avatar;
 
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
     public User(String username, String password, String fullname, String phone, String email, String location, byte[] avatar) {
         this.username = username;
         this.password = password;

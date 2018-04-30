@@ -13,8 +13,7 @@ exports.createDevice = function (req, res) {
       deviceType: req.body.deviceType,
       description: req.body.description || "No description",
       position: req.body.position,
-      modules: req.body.modules || [],
-      connect: req.body.connect || false
+      modules: req.body.modules || []
    });
    device.save(function (err, data) {
       if (err) {
@@ -48,6 +47,7 @@ exports.getDevicesProperty = function (req, res) {
 
 exports.updateDeviceById = function (req, res) {
    // Update a device identified by the devicename in the request
+   console.log(req.body);
    Device.findByIdAndUpdate(req.params.deviceId, {
       $set: req.body
    }, function (err, device) {

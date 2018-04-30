@@ -2,6 +2,7 @@ package com.n8plus.smarthome.Activity.Fragment;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -16,14 +17,16 @@ import android.widget.TextView;
 import com.n8plus.smarthome.Activity.ActivityAbout;
 import com.n8plus.smarthome.Activity.ActivityFAQ;
 import com.n8plus.smarthome.Activity.ActivityFeedback;
+import com.n8plus.smarthome.Activity.Setting;
 import com.n8plus.smarthome.Model.User;
+import com.n8plus.smarthome.R;
 import com.n8plus.smarthome.View.ChangeInformation.ChangeInformation;
 import com.n8plus.smarthome.View.ChangePassword.ChangePassword;
 import com.n8plus.smarthome.View.Login.LoginActivity;
-import com.n8plus.smarthome.Activity.Setting;
-import com.n8plus.smarthome.R;
 
 import java.io.ByteArrayOutputStream;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by Hiep_Nguyen on 2/1/2018.
@@ -41,7 +44,6 @@ public class Fragment_Profile extends Fragment {
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_profile, container, false);
         Mount();
-
         if (getArguments() != null) {
             user = (User) getArguments().getSerializable("user");
             idProfile.setText("ID: " + user.getUsername());
@@ -102,9 +104,13 @@ public class Fragment_Profile extends Fragment {
         lnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext().getApplicationContext(), LoginActivity.class);
-                intent.putExtra("isLogout", true);
-                view.getContext().startActivity(intent);
+                SharedPreferences account = view.getContext().getSharedPreferences("account", MODE_PRIVATE);
+                SharedPreferences.Editor editor = account.edit();
+                editor.putBoolean("remember", false);
+                editor.putString("username", null);
+                editor.putString("password", null);
+                editor.commit();
+                view.getContext().startActivity(new Intent(view.getContext().getApplicationContext(), LoginActivity.class));
 
             }
         });

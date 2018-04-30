@@ -32,9 +32,7 @@ public class DeviceTypePresenter implements DeviceTypePresenterImpl {
 
     @Override
     public void loadDeviceType(Map<String, String> headers) {
-
-        String URI = Constant.URL + "/devices/";
-        JsonObjectRequest jreq = new JsonObjectRequest(Request.Method.POST, URI, new JSONObject(headers),
+        JsonObjectRequest jreq = new JsonObjectRequest(Request.Method.POST, Constant.DEVICES, new JSONObject(headers),
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {

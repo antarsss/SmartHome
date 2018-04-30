@@ -1,30 +1,46 @@
 var User = require('../models/user.model');
+var jwt = require('jsonwebtoken');
+var md5 = require('md5');
+var user_token = "avenger@chuna";
+var device_token = "esp8266@chuna";
+
+var hash_user_token = md5(user_token);
 
 exports.login = function (req, res) {
    // Create and Save a new User
    if (!req.body.username && !req.body.password) {
-      return res.status(400).send({
-         message: "User can not be empty"
+      return res.json({
+         success: false,
+         message: 'Authentication failed. User not found.'
       });
    }
-
    var user = new User({
       username: req.body.username,
       password: req.body.password
    });
-
    User.find({
-      username: user.username,
-      password: user.password
+      username: user.username
    }, function (err, rs) {
-      if (rs.length == 0) {
-         return res.status(500).send({
-            login: false
+      if (err) throw err;
+      if (!rs) {
+         res.json({
+            success: false,
+            message: 'Authentication failed. User not found.'
          });
-      } else {
-         res.send({
-            login: true
-         });
+      } else if (rs.length == 1) {
+         if (rs[0].password != user.password) {
+            res.json({
+               success: false,
+               message: 'Authentication failed. Wrong password.'
+            });
+         } else {
+            res.json({
+               success: true,
+               message: 'Authentication successfully!',
+               user: rs[0],
+               token: hash_user_token
+            });
+         }
       }
    });
 };

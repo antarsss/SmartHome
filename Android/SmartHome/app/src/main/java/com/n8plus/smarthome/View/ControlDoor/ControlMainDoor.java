@@ -17,6 +17,7 @@ import com.n8plus.smarthome.Model.Module;
 import com.n8plus.smarthome.Presenter.ControlDoor.ControlDoorPresenter;
 import com.n8plus.smarthome.R;
 import com.n8plus.smarthome.View.HomePage.HomeActivity;
+import com.n8plus.smarthome.View.LoadScreen.StartViewActivity;
 import com.n8plus.smarthome.View.Login.LoginActivity;
 
 import java.util.ArrayList;
@@ -66,7 +67,7 @@ public class ControlMainDoor extends AppCompatActivity implements ControlMainDoo
                     state.setTextColor(Color.parseColor("#00a0dc"));
                     btnAction.setText("OPEN NOW");
                     Toast.makeText(ControlMainDoor.this, "Door Closed!", Toast.LENGTH_SHORT).show();
-                    LoginActivity.mSocket.emit("c2s-change", HomeActivity.doorConvert.object2Json(door));
+                    StartViewActivity.mSocket.emit("c2s-change", HomeActivity.doorConvert.object2Json(door));
                 } else {
                     door.setStateByType(Type.SERVO, true);
                     imgStateDoor.setImageResource(R.drawable.door);
@@ -74,7 +75,7 @@ public class ControlMainDoor extends AppCompatActivity implements ControlMainDoo
                     state.setTextColor(Color.parseColor("#ffff4444"));
                     btnAction.setText("CLOSE NOW");
                     Toast.makeText(ControlMainDoor.this, "Door Opened!", Toast.LENGTH_SHORT).show();
-                    LoginActivity.mSocket.emit("c2s-change", HomeActivity.doorConvert.object2Json(door));
+                    StartViewActivity.mSocket.emit("c2s-change", HomeActivity.doorConvert.object2Json(door));
                 }
             }
         });

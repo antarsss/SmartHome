@@ -19,16 +19,8 @@ boolean firstState[] = {false , false, false, false};
 boolean lastState[] = {false , false, false, false};
 
 void setState(int pin, boolean state) {
-  if (state)
-  {
-    digitalWrite(pin, HIGH);
-    Serial.println(pin + " - ON");
-  }
-  else
-  {
-    digitalWrite(pin, LOW);
-    Serial.println(pin + " - OFF");
-  }
+  digitalWrite(pin, state ? HIGH : LOW);
+  Serial.println(pin + state ? " - ON" : " - OFF");
 }
 
 void Light(int pin, boolean st)
@@ -57,7 +49,7 @@ void classify(JsonObject& obj)
     Door(pin, state);
   }
 }
-
+ 
 void parseJsonObject(String data)
 {
   StaticJsonBuffer<256> bufferred;
@@ -107,22 +99,6 @@ void sendJson(String event, String type, int pin, boolean state)
   data.printTo(mySerial);
   mySerial.print('\r');
 }
-
-void turnOnPIR(boolean isOn)
-{
-  firstState[3] = analogRead(analogPin[3]) < 400;
-  if (lastState[3] != firstState[3] && isOn)
-  {
-    sendJson("SEN-A2E", "SENSOR", 3, firstState[3]);
-    Serial.print("3");
-    Serial.print(": ");
-    Serial.print(firstState[3]);
-    Serial.print("\n");
-    lastState[3] = firstState[3];
-    delay(300);
-  }
-}
-
 void checkDoor()
 {
   // main door
@@ -138,7 +114,6 @@ void checkDoor()
   for (int i = 0; i < n ; i++)
   {
     firstState[i] = sensors[i] > 30;
-    
     if (lastState[i] != firstState[i])
     {
       sendJson("SEN-A2E", "SENSOR", i, firstState[i]);
@@ -149,8 +124,9 @@ void checkDoor()
       lastState[i] = firstState[i];
       delay(300);
     }
-  }  
-  turnOnPIR(firstState[2]);
+
+  }
+  Serial.println(D4);
 }
 
 void setup() {
@@ -164,6 +140,7 @@ void setup() {
   sCmd.addCommand("E2A-S", readfromSocket);
   Serial.println("Ready...");
   servo.attach(servoPin);
+  servo.write(0);
 }
 int ko = 0;
 void loop()

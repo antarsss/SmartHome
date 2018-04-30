@@ -4,8 +4,6 @@ import com.n8plus.smarthome.Model.Enum.DeviceType;
 import com.n8plus.smarthome.Model.Enum.Position;
 import com.n8plus.smarthome.Model.Enum.Type;
 
-import org.json.JSONArray;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -77,6 +75,9 @@ public class Device implements Serializable {
         this.modules = modules;
     }
 
+    public boolean equals(Device obj) {
+        return obj.get_id().equalsIgnoreCase(get_id());
+    }
 
     @Override
     public String toString() {

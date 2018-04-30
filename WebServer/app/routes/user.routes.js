@@ -1,7 +1,7 @@
 module.exports = function (app) {
    var users = require('../controllers/user.controller');
    // Login
-   app.post('/login', users.login);
+   app.post('/authenticate', users.login);
    // Create a new User
    app.post('/signup', users.createUser);
    // Retrieve all Users

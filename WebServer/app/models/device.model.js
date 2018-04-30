@@ -10,7 +10,11 @@ var Module = mongoose.Schema({
       required: true
    },
    state: {
-      type: String,
+      type: Boolean,
+      required: true
+   },
+   connect: {
+      type: Boolean,
       required: true
    }
 }, {
@@ -35,8 +39,7 @@ var DeviceSchema = mongoose.Schema({
    modules: {
       type: [Module],
       unique: true
-   },
-   connect: Boolean
+   }
 }, {
    versionKey: false
 });

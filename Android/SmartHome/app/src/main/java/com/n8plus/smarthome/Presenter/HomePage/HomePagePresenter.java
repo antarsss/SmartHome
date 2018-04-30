@@ -20,6 +20,7 @@ import com.n8plus.smarthome.Utils.common.Constant;
 import com.n8plus.smarthome.Utils.common.VolleySingleton;
 import com.n8plus.smarthome.View.HomePage.HomeActivity;
 import com.n8plus.smarthome.View.HomePage.HomeActivityViewImpl;
+import com.n8plus.smarthome.View.LoadScreen.StartViewActivity;
 import com.n8plus.smarthome.View.Login.LoginActivity;
 
 import org.json.JSONArray;
@@ -45,13 +46,12 @@ public class HomePagePresenter implements HomePagePresenterImpl {
 
     @Override
     public void loadNotification() {
-        final String URI = Constant.URL + "/devices/";
         final Map<String, String> params = new HashMap<String, String>();
         params.put("deviceType", DeviceType.DOOR.name());
         ((AppCompatActivity) homePageView).runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                JsonObjectRequest jreq = new JsonObjectRequest(Request.Method.POST, URI, new JSONObject(params),
+                JsonObjectRequest jreq = new JsonObjectRequest(Request.Method.POST, Constant.DEVICES, new JSONObject(params),
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
@@ -96,7 +96,7 @@ public class HomePagePresenter implements HomePagePresenterImpl {
 
     @Override
     public void listenState() {
-        LoginActivity.mSocket.on("s2c-sensor", new Emitter.Listener() {
+        StartViewActivity.mSocket.on("s2c-sensor", new Emitter.Listener() {
             @Override
             public void call(final Object... args) {
                 handler.post(new Runnable() {

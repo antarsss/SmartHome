@@ -5,12 +5,13 @@ var http = require("http").Server(app);
 var colors = require("colors");
 var port = process.env.PORT || 3000;
 var bodyParser = require("body-parser");
+var socketioJwt = require('socketio-jwt');
 
-var io = require("socket.io", {
-   rememberTransport: false,
-   transports: ['WebSocket', 'Flash Socket', 'AJAX long-polling']
-})(http);
+var io = require("socket.io")(http);
+
 var logger = require('./helpers/logger');
+var config = require('./config/config');
+
 
 http.listen(port, function () {
    logger.info("Server listening at port: %s", port);
@@ -27,26 +28,22 @@ app.use(function (req, res, next) {
 app.use(bodyParser.urlencoded({
    extended: false
 }));
-
-// parse application/json
 app.use(bodyParser.json());
 
 require("./app/routes/user.routes")(app);
 require("./app/routes/device.routes")(app);
 require('./app/routes/admin.routes')(app);
 //configuring the client
+var authorizationSocket = require("./app/socket.io/authorization.socket");
 var deviceSocket = require("./app/socket.io/device.socket");
-var streamSocket = require("./app/socket.io/stream.socket.io");
 
 // Configuring the database
-var dbConfig = require("./config/database.config.js");
 var mongoose = require("mongoose");
-
-var sockets = {};
+global.sockets = {};
 
 mongoose.Promise = global.Promise;
 
-mongoose.connect(dbConfig.url);
+mongoose.connect(config.url);
 
 mongoose.connection.on("error", function () {
    logger.error("Could not connect to the database. Exiting now...");
@@ -54,20 +51,18 @@ mongoose.connection.on("error", function () {
 });
 mongoose.connection.once("open", function () {
    logger.info("Successfully connected to the database");
-
    io.on("connection", function (socket) {
-      sockets[socket.id] = socket;
-      logger.info("New client connected: %s", socket.id);
-      console.log("Total clients connected: ", Object.keys(sockets).length);
+      sockets[socket.id] = {};
+      var clientIp = socket.request.connection.remoteAddress;
+      sockets[socket.id].address = clientIp.split("::ffff:")[1];
+      logger.info(socket.id.magenta + " - " + sockets[socket.id].address + " is trying connect");
       //call listen
+      authorizationSocket(socket);
       deviceSocket(socket);
-      //when client disconnect
-      socket.on("disconnect", function () {
+      socket.on("disconnect", () => {
          delete sockets[socket.id];
          logger.warn("Client disconnected:  %s.", socket.id);
          console.log("Total clients connected : ".grey, Object.keys(sockets).length);
       });
    });
-
-
 });

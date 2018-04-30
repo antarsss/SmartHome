@@ -17,18 +17,16 @@ import com.github.nkzawa.emitter.Emitter;
 import com.google.gson.Gson;
 import com.n8plus.smarthome.Model.Device;
 import com.n8plus.smarthome.R;
-
 import com.n8plus.smarthome.View.HomePage.HomeActivity;
-import com.n8plus.smarthome.View.Login.LoginActivity;
+import com.n8plus.smarthome.View.LoadScreen.StartViewActivity;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
 public class EmitListenerService extends Service {
+    public static Runnable runnable = null;
     public Context context = this;
     public Handler handler = null;
-    public static Runnable runnable = null;
     NotificationCompat.Builder mBuilder;
     NotificationManager mNotificationManager;
     int numMessages;
@@ -61,39 +59,48 @@ public class EmitListenerService extends Service {
 //        });
 
         handler = new Handler();
-        LoginActivity.mSocket.on("s2c-sensor", new Emitter.Listener() {
+        StartViewActivity.mSocket.on("s2c-sensor", new Emitter.Listener() {
             @Override
             public void call(final Object... args) {
                 runnable = new Runnable() {
                     @Override
                     public void run() {
                         Log.v("Sensor-ON", args[0].toString());
-                        Gson gson = new Gson();
-                        Device device = gson.fromJson(((JSONObject) args[0]).toString(), Device.class);
-                        if (device != null) {
-                            numMessages = 0;
-                            mBuilder = new NotificationCompat.Builder(context)
-                                    .setSmallIcon(R.drawable.alarm)
-                                    .setContentTitle(device.getPosition().name())
-                                    .setContentText(device.getDeviceName() + " is opened");
-                            mBuilder.setNumber(++numMessages);
-                            Intent resultIntent = new Intent(context, HomeActivity.class);
-                            TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-                            stackBuilder.addParentStack(HomeActivity.class);
-                            stackBuilder.addNextIntent(resultIntent);
-                            PendingIntent resultPendingIntent =
-                                    stackBuilder.getPendingIntent(
-                                            0,
-                                            PendingIntent.FLAG_UPDATE_CURRENT
-                                    );
-                            mBuilder.setContentIntent(resultPendingIntent);
-                            mNotificationManager =
-                                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                            mNotificationManager.notify(++numMessages, mBuilder.build());
+                        try {
+                            JSONObject jsonObject = new JSONObject(args[0].toString());
+                            boolean success = jsonObject.getBoolean("success");
+                            if (success) {
+                                JSONObject device1 = jsonObject.getJSONObject("device");
+                                Gson gson = new Gson();
+                                Device device = gson.fromJson(device1.toString(), Device.class);
+                                if (device != null) {
+                                    numMessages = 0;
+                                    mBuilder = new NotificationCompat.Builder(context)
+                                            .setSmallIcon(R.drawable.alarm)
+                                            .setContentTitle(device.getPosition().name())
+                                            .setContentText(device.getDeviceName() + " is opened");
+                                    mBuilder.setNumber(++numMessages);
+                                    Intent resultIntent = new Intent(context, HomeActivity.class);
+                                    TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+                                    stackBuilder.addParentStack(HomeActivity.class);
+                                    stackBuilder.addNextIntent(resultIntent);
+                                    PendingIntent resultPendingIntent =
+                                            stackBuilder.getPendingIntent(
+                                                    0,
+                                                    PendingIntent.FLAG_UPDATE_CURRENT
+                                            );
+                                    mBuilder.setContentIntent(resultPendingIntent);
+                                    mNotificationManager =
+                                            (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                                    mNotificationManager.notify(++numMessages, mBuilder.build());
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
                     }
                 };
-                handler.postDelayed(runnable, 1000);
+//                handler.postDelayed(runnable, 200);
             }
         });
 

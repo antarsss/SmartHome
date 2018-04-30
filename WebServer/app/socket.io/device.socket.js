@@ -1,5 +1,16 @@
 var Device = require("../models/device.model");
 var deviceOr = {};
+var count = 0;
+const timeout = ms => new Promise(res => setTimeout(res, ms))
+
+function sleep(time) {
+   return new Promise((resolve) => setTimeout(resolve, time));
+}
+
+setInterval(() => {
+   count = 0;
+}, 3000);
+
 
 function loadDevices(callback) {
    Device.find({}, null, {
@@ -70,7 +81,6 @@ function updateDeviceById(deviceOr, callback) {
 }
 
 function proccessData(socket, type, pin, state) {
-   console.log(type + ", " + pin + ", " + state);
    loadDevices((devices) => {
       var array = devices["devices"];
       for (var i = 0; i < array.length; i++) {
@@ -83,7 +93,13 @@ function proccessData(socket, type, pin, state) {
             var _type = m5[j]["type"];
             var _pin = m5[j]["pin"];
             if (type == _type && pin == _pin) {
-               m5[j].state = state;
+               if (type == "SERVO") {
+                  for (var z = 0; z < m5.length; z++) {
+                     m5[z].state = state;
+                  }
+               } else {
+                  m5[j].state = state;
+               }
                deviceOr._id = device._id;
                deviceOr.deviceName = device.deviceName;
                deviceOr.deviceType = device.deviceType;
@@ -93,7 +109,7 @@ function proccessData(socket, type, pin, state) {
                deviceOr.connect = device.connect;
                updateDeviceById(deviceOr, (deviceOr) => {
                   socket.broadcast.emit("s2c-change", deviceOr);
-                  console.log("Device to Server: " + socket.id.magenta + ": %s".red, JSON.stringify(deviceOr));
+                  console.log("Device to Server: " + sockets[socket.id].address + ": %s".red, JSON.stringify(deviceOr));
                })
             }
          }
@@ -114,7 +130,6 @@ function processSensor(socket, type, pin, state) {
             var _type = m5[j]["type"];
             var _pin = m5[j]["pin"];
             if (_type == "SENSOR" && pin == _pin) {
-               console.log("OK");
                for (var z = 0; z < m5.length; z++) {
                   m5[z].state = state;
                }
@@ -127,18 +142,12 @@ function processSensor(socket, type, pin, state) {
                deviceOr.connect = device.connect;
                updateDeviceById(deviceOr, (device) => {
                   socket.broadcast.emit("s2c-change", device);
-                  console.log("Device to Server: " + socket.id.magenta + ": %s".red, JSON.stringify(device));
+                  console.log("Device " + sockets[socket.id].address + "to Server: %s".red, JSON.stringify(device));
                });
             }
          }
       };
    });
-}
-
-const timeout = ms => new Promise(res => setTimeout(res, ms))
-
-function sleep(time) {
-   return new Promise((resolve) => setTimeout(resolve, time));
 }
 
 function listenDevice(socket) {
@@ -154,16 +163,19 @@ function listenDevice(socket) {
    });
 }
 
+
 function listenSensor(socket) {
    socket.on("d2s-sensor", async (data) => {
-      if (!isEmpty(data["type"]) && !isEmpty(data["pin"])) {
-         var type = data["type"];
-         var pin = data["pin"];
-         var state = data["state"] == 1;
-         if (checkValidate(type, pin, state)) {
-            processSensor(socket, type, pin, state);
+      count++;
+      if (count < 2)
+         if (!isEmpty(data["type"]) && !isEmpty(data["pin"])) {
+            var type = data["type"];
+            var pin = data["pin"];
+            var state = data["state"] == 1;
+            if (checkValidate(type, pin, state)) {
+               processSensor(socket, type, pin, state);
+            }
          }
-      }
    })
 }
 
@@ -173,11 +185,11 @@ module.exports = function (socket) {
          var modules = device["modules"];
          if (typeof modules != undefined || modules != "") {
             modules.forEach((mo) => {
-               if (mo.type != "SENSOR") {
-                  sleep(30).then(() => {
+               if (mo.type != "SENSOR" && mo.connect) {
+                  sleep(60).then(() => {
                      mo.state = mo.state ? 1 : 0;
                      socket.broadcast.emit("s2d-change", mo);
-                     console.log("Client to Server: " + socket.id.magenta + ": %s".red, JSON.stringify(mo));
+                     console.log("Client to Server: " + sockets[socket.id].address + ": %s".red, JSON.stringify(mo));
                   })
                }
             });

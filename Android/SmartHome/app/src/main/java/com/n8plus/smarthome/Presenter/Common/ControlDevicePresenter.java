@@ -14,9 +14,8 @@ import com.n8plus.smarthome.Model.Device;
 import com.n8plus.smarthome.Utils.common.Constant;
 import com.n8plus.smarthome.Utils.common.VolleySingleton;
 import com.n8plus.smarthome.View.Common.ControlDeviceViewImpl;
-import com.n8plus.smarthome.View.ControlDoor.ControlMainDoor;
 import com.n8plus.smarthome.View.HomePage.HomeActivity;
-import com.n8plus.smarthome.View.Login.LoginActivity;
+import com.n8plus.smarthome.View.LoadScreen.StartViewActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,37 +23,38 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.logging.Handler;
 
 public class ControlDevicePresenter implements ControlDeviceImpl {
     ControlDeviceViewImpl controlDeviceView;
     ArrayList<Device> deviceList;
-    String URI = Constant.URL + "/devices/";
     android.os.Handler handler;
 
     public ControlDevicePresenter(ControlDeviceViewImpl controlLightView) {
         this.controlDeviceView = controlLightView;
         this.deviceList = new ArrayList<>();
-        handler =new android.os.Handler(((Context)controlLightView).getMainLooper());
+        handler = new android.os.Handler(((Context) controlLightView).getMainLooper());
     }
 
     @Override
     public void listenState() {
-        LoginActivity.mSocket.on("s2c-change", new Emitter.Listener() {
+        StartViewActivity.mSocket.on("s2c-change", new Emitter.Listener() {
             @Override
-            public void call(final Object... args) {
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        deviceList.clear();
-                        Log.v("ON", args[0].toString());
-                        Device device = HomeActivity.deviceConvert.jsonToDeviceFromDatabase((JSONObject) args[0]);
-                        deviceList.add(device);
-                        System.out.println("Devices count: " + deviceList.size());
-                        controlDeviceView.checkResponse(deviceList);
-                    }
-                });
-
+            public void call(Object... args) {
+//                deviceList.clear();
+//                Log.v("ON", args[0].toString());
+//                try {
+//                    JSONObject jsonObject = new JSONObject(args[0].toString());
+//                    boolean success = jsonObject.getBoolean("success");
+//                    if (success) {
+//                        JSONObject object = jsonObject.getJSONObject("device");
+//                        Device device = HomeActivity.deviceConvert.jsonToDeviceFromDatabase(object);
+//                        deviceList.add(device);
+//
+//                        controlDeviceView.checkResponse(deviceList);
+//                    }
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
             }
         });
     }
@@ -64,7 +64,7 @@ public class ControlDevicePresenter implements ControlDeviceImpl {
         ((AppCompatActivity) controlDeviceView).runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                JsonObjectRequest jreq = new JsonObjectRequest(Request.Method.POST, URI, new JSONObject(headers),
+                JsonObjectRequest jreq = new JsonObjectRequest(Request.Method.POST, Constant.DEVICES, new JSONObject(headers),
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {

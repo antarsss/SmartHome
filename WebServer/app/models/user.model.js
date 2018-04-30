@@ -17,7 +17,7 @@ var UserSchema = mongoose.Schema({
    email: String,
    phone: String,
    location: String,
-   avatar: String
+   avatar: [Buffer]
 }, {
    versionKey: false
 });

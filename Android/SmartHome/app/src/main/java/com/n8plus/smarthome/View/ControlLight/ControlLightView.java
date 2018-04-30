@@ -209,6 +209,7 @@ public class ControlLightView extends AppCompatActivity implements ControlLightV
         bedRoomAdapter.emitAll();
         diningRoomAdapter.emitAll();
         bathRoomAdapter.emitAll();
+        reloadList();
     }
 
     @Override

@@ -14,12 +14,10 @@ import com.n8plus.smarthome.View.ChangePassword.ChangePasswordViewImpl;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.URI;
 import java.util.Map;
 
 public class ChangePasswordPresenter implements ChangePasswordPresenterImpl {
 
-    String url = Constant.URL + "/user/";
     ChangePasswordViewImpl changePasswordView;
 
     public ChangePasswordPresenter(ChangePasswordViewImpl changePasswordView) {
@@ -31,13 +29,13 @@ public class ChangePasswordPresenter implements ChangePasswordPresenterImpl {
         ((AppCompatActivity) changePasswordView).runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url + username, new JSONObject(headers),
+                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, Constant.USER + username, new JSONObject(headers),
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
                                 try {
                                     String result = (String) response.get("message");
-                                    if(result.equals("OK")){
+                                    if (result.equals("OK")) {
                                         changePasswordView.changePasswordSuccess();
                                     }
                                 } catch (JSONException e) {

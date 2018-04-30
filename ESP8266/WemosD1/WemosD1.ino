@@ -15,21 +15,24 @@ const byte tx = D2;
 SoftwareSerial mySerial(rx, tx, false, 256);
 SerialCommand sCmd(mySerial);
 
-//char host[] = "172.16.199.170";
-char host[] = "192.168.1.5";
+char host[] = "172.16.199.170";
+//char host[] = "192.168.1.5";
 int port = 3000;
 
 extern String RID; // tên sự kiện
 extern String Rfull; // json
+
+boolean authenticated = false;
+String md5hash = "45be731e36db60bbc596c63cff413a7c";
 
 void setupNetwork()
 {
   WiFi.persistent(false);
   // access to a wifi
   WiFi.mode(WIFI_STA);
+  wifimulti.addAP("HoangPhat_Pro", "20052010");
   wifimulti.addAP("FPT Telecom", "dongthap");
   wifimulti.addAP("AnhTraiMua", "meochonhe");
-  wifimulti.addAP("HoangPhat_Pro", "20052010");
   wifimulti.addAP("ANDY", "01666988779");
 
   // connecting
@@ -49,15 +52,30 @@ void setupNetwork()
 
 void listenSocketIO()
 {
-  if (RID == "s2d-change")
-  {
-    mySerial.print("E2A-S");
-    mySerial.print('\r');
-    mySerial.print(Rfull);
-    mySerial.print('\r');
-    delay(100);
+  if (RID == "authenticated") {
+    DynamicJsonBuffer bufferred;
+    JsonObject& auth = bufferred.parseObject(Rfull);
+    if (auth.success()) {
+      authenticated = auth["auth"];
+      loadDevices();
+      Serial.println("connected to server!");
+    }
   }
   else Serial.println("Waiting for imcoming data...");
+
+  if (authenticated)
+  {
+    if (RID == "s2d-change")
+    {
+      mySerial.print("E2A-S");
+      mySerial.print('\r');
+      mySerial.print(Rfull);
+      mySerial.print('\r');
+      delay(100);
+    }
+    else Serial.println("Waiting for imcoming data...");
+  }
+
 }
 void loadDevices()
 {
@@ -102,11 +120,8 @@ String createJsonString(String type, int pin, boolean state)
   data["type"] = type;
   data["pin"] = pin;
   data["state"] = state;
-
   String json;
   data.printTo(json);
-  Serial.println(json);
-
   return json;
 }
 
@@ -174,14 +189,23 @@ void connectArduino() {
   Serial.println("Connect Arduino: " + s);
 }
 
+
+void connectServer() {
+  DynamicJsonBuffer buff;
+  JsonObject& authen = buff.createObject();
+  authen["token"] = md5hash;
+  String json;
+  authen.printTo(json);
+  socketClient.send("authorization", json);
+}
+
 void setup()
 {
   Serial.begin(19200);
   mySerial.begin(19200);
   setupNetwork();
   socketClient.connect(host, port);
-  Serial.println("connected to server!");
-  loadDevices();
+  connectServer();
   sCmd.addCommand("connect", connectArduino);
   sCmd.addCommand("A2E", readfromArduino);
   sCmd.addCommand("SEN-A2E", listenSensorArduino);
@@ -192,6 +216,7 @@ void loop()
   if (!socketClient.connected())
   {
     socketClient.reconnect(host, port);
+    connectServer();
   }
 
   if (socketClient.monitor())

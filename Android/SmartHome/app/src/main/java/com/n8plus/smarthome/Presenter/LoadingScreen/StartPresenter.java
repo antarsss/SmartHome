@@ -1,4 +1,4 @@
-package com.n8plus.smarthome.Presenter.Login;
+package com.n8plus.smarthome.Presenter.LoadingScreen;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
@@ -13,7 +13,7 @@ import com.n8plus.smarthome.Model.User;
 import com.n8plus.smarthome.Utils.common.Constant;
 import com.n8plus.smarthome.Utils.common.VolleySingleton;
 import com.n8plus.smarthome.View.LoadScreen.StartViewActivity;
-import com.n8plus.smarthome.View.Login.LoginViewImpl;
+import com.n8plus.smarthome.View.LoadScreen.ScreenViewImpl;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,24 +22,19 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by Hiep_Nguyen on 3/30/2018.
- */
+public class StartPresenter implements StartPresenterImpl {
+    ScreenViewImpl startViewImpl;
 
-public class LoginPresenter implements LoginPresenterImpl {
-    LoginViewImpl loginView;
-
-    public LoginPresenter(LoginViewImpl loginView) {
-        this.loginView = loginView;
+    public StartPresenter(ScreenViewImpl startViewImpl) {
+        this.startViewImpl = startViewImpl;
     }
-
     @Override
-    public void checkLogin(final String usn, String pass) {
+    public void checkLogin(User user) {
         final Map<String, String> params = new HashMap<String, String>();
-        params.put("username", usn);
-        params.put("password", pass);
+        params.put("username", user.getUsername());
+        params.put("password", user.getPassword());
         System.out.println(new JSONObject(params).toString());
-        ((AppCompatActivity) loginView).runOnUiThread(new Runnable() {
+        ((AppCompatActivity) startViewImpl).runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, Constant.AUTHENTICATE, new JSONObject(params),
@@ -61,12 +56,12 @@ public class LoginPresenter implements LoginPresenterImpl {
                                             jsonObject.remove("avatar");
                                             jsonObject.put("avatar", ja_bytes);
                                             User user = (User) gson.fromJson(jsonObject.toString(), User.class);
-                                            loginView.loginSuccess(user);
+                                            startViewImpl.loginSuccess(user);
                                         } else {
-                                            loginView.loginFailure("Unauthorized");
+                                            startViewImpl.loginFailure("Unauthorized");
                                         }
                                     } else {
-                                        loginView.loginFailure(response.getString("message"));
+                                        startViewImpl.loginFailure(response.getString("message"));
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -76,7 +71,7 @@ public class LoginPresenter implements LoginPresenterImpl {
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                loginView.loginFailure("Connecting error...");
+                                startViewImpl.loginFailure("Connecting error...");
                             }
                         });
 
@@ -84,7 +79,7 @@ public class LoginPresenter implements LoginPresenterImpl {
                         DefaultRetryPolicy(60000,
                         DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                         DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-                VolleySingleton.getInstance((Context) loginView).addToRequestQueue(request);
+                VolleySingleton.getInstance((Context) startViewImpl).addToRequestQueue(request);
             }
         });
     }

@@ -13,12 +13,7 @@
         android:roundIcon="@drawable/smarthone_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.Login.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".View.Login.LoginActivity"/>
         <activity android:name=".View.HomePage.HomeActivity" />
         <activity android:name=".View.LoadDoor.DetectionDoor" />
         <activity android:name=".Activity.DetectionUnknow" />
@@ -46,6 +41,13 @@
             android:exported="false" />
 
         <activity android:name=".View.DeviceConnectChange.ModuleDetail"></activity>
+        <activity android:name=".View.LoadScreen.StartViewActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
