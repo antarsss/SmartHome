@@ -11,7 +11,7 @@ exports.login = function (req, res) {
    if (!req.body.username && !req.body.password) {
       return res.json({
          success: false,
-         message: 'Authentication failed. User not found.'
+         message: 'Authentication failed. User is empty.'
       });
    }
    var user = new User({

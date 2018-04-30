@@ -61,22 +61,7 @@ function updateDeviceById(deviceOr, callback) {
    Device.findByIdAndUpdate(deviceOr._id, {
       $set: deviceOr
    }, function (err, device) {
-      if (err) {
-         if (err.kind === "ObjectId") {
-            return res.status(404).send({
-               message: "Note not found with id " + req.params.devicename
-            });
-         }
-         return res.status(500).send({
-            message: "Error finding device with id " + req.params.devicename
-         });
-      }
-      if (!device) {
-         return res.status(404).send({
-            message: "Note not found with id " + req.params.devicename
-         });
-      }
-      callback(deviceOr);
+      callback(err, deviceOr);
    });
 }
 
@@ -107,13 +92,25 @@ function proccessData(socket, type, pin, state) {
                deviceOr.position = device.position;
                deviceOr.modules = m5;
                deviceOr.connect = device.connect;
-               updateDeviceById(deviceOr, (deviceOr) => {
-                  socket.broadcast.emit("s2c-change", deviceOr);
-                  console.log("Device to Server: " + sockets[socket.id].address + ": %s".red, JSON.stringify(deviceOr));
-               })
+               updateDeviceById(deviceOr, (err, device) => {
+                  if (err || device == undefined) {
+                     var data = {
+                        success: false
+                     }
+                     socket.broadcast.emit("s2c-change", data);
+                     console.log("Device " + sockets[socket.id].address + " to Server: %s".red, JSON.stringify(data));
+                  } else {
+                     var data = {
+                        success: true,
+                        device: device
+                     }
+                     socket.broadcast.emit("s2c-change", data);
+                     console.log("Device " + sockets[socket.id].address + " to Server: %s".red, JSON.stringify(data));
+                  }
+               });
             }
          }
-      };
+      }
    });
 }
 
@@ -140,13 +137,25 @@ function processSensor(socket, type, pin, state) {
                deviceOr.position = device.position;
                deviceOr.modules = m5;
                deviceOr.connect = device.connect;
-               updateDeviceById(deviceOr, (device) => {
-                  socket.broadcast.emit("s2c-change", device);
-                  console.log("Device " + sockets[socket.id].address + "to Server: %s".red, JSON.stringify(device));
+               updateDeviceById(deviceOr, (err, device) => {
+                  if (err || device == undefined) {
+                     var data = {
+                        success: false
+                     }
+                     socket.broadcast.emit("s2c-sensor", data);
+                     console.log("Device " + sockets[socket.id].address + " to Server: %s".red, JSON.stringify(data));
+                  } else {
+                     var data = {
+                        success: true,
+                        device: device
+                     }
+                     socket.broadcast.emit("s2c-sensor", data);
+                     console.log("Device " + sockets[socket.id].address + " to Server: %s".red, JSON.stringify(data));
+                  }
                });
             }
          }
-      };
+      }
    });
 }
 

@@ -15,8 +15,8 @@ const byte tx = D2;
 SoftwareSerial mySerial(rx, tx, false, 256);
 SerialCommand sCmd(mySerial);
 
-char host[] = "172.16.199.170";
-//char host[] = "192.168.1.5";
+//char host[] = "172.16.199.170";
+char host[] = "192.168.1.2";
 int port = 3000;
 
 extern String RID; // tên sự kiện
