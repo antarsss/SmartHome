@@ -1,5 +1,9 @@
 use smarthome
+db.users.remove({})
 db.devices.remove({})
+db.users.insert([
+	{username:"admin",password: "admin", fullname:"Administrators",phone:"",email:"",location:"",avatar:""}
+])
 db.devices.insert([
 	{deviceName: "Doors", deviceType:"DOOR", description: "Doors", position: "LIVINGROOM", modules:[
 				{type: "SERVO", pin:11, state: false,	connect: true},
