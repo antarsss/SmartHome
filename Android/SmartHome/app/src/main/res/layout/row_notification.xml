@@ -29,21 +29,21 @@
             android:padding="6dp">
 
             <TextView
-                android:id="@+id/txtMessage"
+                android:id="@+id/txtTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Nội dung thông báo Nội dung thông báo Nội dung thông báo"
+                android:text="Title of notification"
                 android:textColor="@color/txtColor2"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:layout_marginTop="4dp"
                 android:id="@+id/txtTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="4dp"
                 android:text="12:00 - 04/03/2018"
                 android:textColor="@color/txtColor3"
                 android:textSize="13sp" />

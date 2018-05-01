@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.n8plus.smarthome.Model.Device;
 import com.n8plus.smarthome.Model.Enum.Type;
-import com.n8plus.smarthome.Presenter.ControlDoor.ControlDoorPresenterPresenter;
+import com.n8plus.smarthome.Presenter.ControlDoor.ControlDoorPresenter;
 import com.n8plus.smarthome.R;
 import com.n8plus.smarthome.View.HomePage.HomeActivity;
 import com.n8plus.smarthome.View.LoadScreen.StartViewActivity;
@@ -34,7 +34,7 @@ public class ControlMainDoor extends AppCompatActivity implements ControlMainDoo
         setContentView(R.layout.activity_control_maindoor);
         setTitle("Main Door Control");
         Mount();
-        ControlDoorPresenterPresenter controlDoorPresenter = new ControlDoorPresenterPresenter(this);
+        ControlDoorPresenter controlDoorPresenter = new ControlDoorPresenter(this);
 
         Intent intent = getIntent();
         if (intent != null) {

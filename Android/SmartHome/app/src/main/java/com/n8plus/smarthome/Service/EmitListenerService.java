@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.github.nkzawa.emitter.Emitter;
 import com.google.gson.Gson;
 import com.n8plus.smarthome.Model.Device;
+import com.n8plus.smarthome.Model.Enum.Type;
 import com.n8plus.smarthome.R;
 import com.n8plus.smarthome.View.Camera.SelectCameraViewImpl;
 import com.n8plus.smarthome.View.ControlDoor.ControlMainDoor;
@@ -31,7 +32,6 @@ public class EmitListenerService extends IntentService {
 
     public EmitListenerService() {
         super("Listen SocketIO");
-
     }
 
     @Override
@@ -86,10 +86,28 @@ public class EmitListenerService extends IntentService {
     }
 
     private void showNotify(Device device) {
+        String title = device.getDeviceName() + " | " + device.getPosition();
+        String messgage = device.getDeviceType() + " is ";
+
+        switch (device.getDeviceType()) {
+            case DOOR:
+                boolean state1 = device.getStateByType(Type.SENSOR);
+                messgage += state1 ? "opened" : "closed";
+                break;
+            case LIGHT:
+                boolean state2 = device.getStateByType(Type.LIGHT);
+                messgage += state2 ? "opened" : "closed";
+                break;
+            case CAMERA:
+//                state = device.getStateByType(Type.CAMERA);
+//                messgage += state ? "opened" : "closed";
+                break;
+        }
+
         mBuilder = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.alarm)
-                .setContentTitle(device.getPosition().name())
-                .setContentText(device.getDeviceName() + " is opened");
+                .setContentTitle(title)
+                .setContentText(messgage);
         mBuilder.setNumber(++numMessages);
         Intent resultIntent = new Intent(context, classtifyActivity(device));
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);

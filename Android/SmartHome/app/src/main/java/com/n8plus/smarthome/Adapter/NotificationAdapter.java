@@ -2,7 +2,6 @@ package com.n8plus.smarthome.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,15 +12,13 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import com.n8plus.smarthome.View.LoadDoor.DetectionDoor;
 import com.n8plus.smarthome.Activity.NotificationDetail;
-import com.n8plus.smarthome.Interface.CountMarkedAsRead;
+import com.n8plus.smarthome.Model.Enum.LevelNotification;
 import com.n8plus.smarthome.Model.Notification;
-import com.n8plus.smarthome.Model.Enum.NotificationType;
 import com.n8plus.smarthome.R;
+import com.n8plus.smarthome.View.LoadDoor.DetectionDoor;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,24 +27,16 @@ import java.util.List;
 
 public class NotificationAdapter extends BaseAdapter {
 
-    private Context context;
     List<Notification> list;
-    private int layout;
     boolean seen;
     ViewHolder viewHolder;
-    CountMarkedAsRead countMarkedAsRead;
+    private Context context;
+    private int layout;
 
     public NotificationAdapter(Context context, List<Notification> list, int layout) {
         this.context = context;
         this.list = list;
         this.layout = layout;
-    }
-
-    public NotificationAdapter(Context context, CountMarkedAsRead markedAsRead,  List<Notification> list, int layout) {
-        this.context = context;
-        this.list = list;
-        this.layout = layout;
-        countMarkedAsRead = markedAsRead;
     }
 
 
@@ -66,13 +55,6 @@ public class NotificationAdapter extends BaseAdapter {
         return 0;
     }
 
-    private class ViewHolder {
-        ImageView imgNotification, imgMore;
-        TextView txtMessage, txtTime;
-        LinearLayout layoutNoti;
-    }
-
-
     @Override
     public View getView(final int i, View view, ViewGroup viewGroup) {
         final int pos = i;
@@ -84,27 +66,25 @@ public class NotificationAdapter extends BaseAdapter {
 
             viewHolder = new ViewHolder();
 
-            viewHolder.txtMessage = view.findViewById(R.id.txtMessage);
+            viewHolder.txtMessage = view.findViewById(R.id.txtTitle);
             viewHolder.imgNotification = view.findViewById(R.id.imgNotification);
             viewHolder.imgMore = view.findViewById(R.id.imgMore);
             viewHolder.txtTime = view.findViewById(R.id.txtTime);
             viewHolder.layoutNoti = view.findViewById(R.id.layoutNoti);
 
             view.setTag(viewHolder);
-        }
-        else{
+        } else {
             viewHolder = (ViewHolder) view.getTag();
         }
 
         final Notification notification = list.get(i);
 
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm - dd/MM/yy");
-        viewHolder.imgNotification.setImageResource(notification.getType()==NotificationType.DOOR ? R.drawable.door:R.drawable.anonymous);
+        viewHolder.imgNotification.setImageResource(notification.getType() == LevelNotification.DOOR ? R.drawable.door : R.drawable.anonymous);
         viewHolder.txtMessage.setText(notification.getMessage());
         viewHolder.txtTime.setText(sdf.format(notification.getTime()));
 
         seen = notification.isState();
-        setBgSeen();
 
         viewHolder.imgMore.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,12 +94,11 @@ public class NotificationAdapter extends BaseAdapter {
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
-                        switch (menuItem.getItemId()){
+                        switch (menuItem.getItemId()) {
                             case R.id.mnuDetails:
-                                if (notification.getType()== NotificationType.DOOR){
+                                if (notification.getType() == LevelNotification.DOOR) {
                                     view.getContext().startActivity(new Intent(view.getContext(), DetectionDoor.class));
-                                }
-                                else {
+                                } else {
                                     Intent intent = new Intent(view.getContext(), NotificationDetail.class);
                                     intent.putExtra("unknowAlert", notification);
                                     view.getContext().startActivity(intent);
@@ -128,12 +107,10 @@ public class NotificationAdapter extends BaseAdapter {
                             case R.id.mnuMark:
                                 list.get(i).setState(false);
                                 notifyDataSetChanged();
-                                countMarkedAsRead.updateList((ArrayList<Notification>) list);
                                 break;
                             case R.id.mnuDelNoti:
                                 list.remove(list.remove(i));
                                 notifyDataSetChanged();
-                                countMarkedAsRead.updateList((ArrayList<Notification>) list);
                                 break;
                         }
                         return false;
@@ -146,13 +123,9 @@ public class NotificationAdapter extends BaseAdapter {
         return view;
     }
 
-    private void setBgSeen(){
-        if (seen){
-            viewHolder.txtTime.setTextColor(Color.parseColor("#898989"));
-            viewHolder.layoutNoti.setBackgroundColor(Color.parseColor("#d1f3ff"));
-        }else{
-            viewHolder.txtTime.setTextColor(Color.parseColor("#898989"));
-            viewHolder.layoutNoti.setBackgroundColor(Color.parseColor("#f9f9f9"));
-        }
+    private class ViewHolder {
+        ImageView imgNotification, imgMore;
+        TextView txtMessage, txtTime;
+        LinearLayout layoutNoti;
     }
 }

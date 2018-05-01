@@ -20,7 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.n8plus.smarthome.Activity.Fragment.Fragment_Home;
-import com.n8plus.smarthome.Activity.Fragment.Fragment_Notification;
+import com.n8plus.smarthome.View.Notification.Fragment.NotificationFragment;
 import com.n8plus.smarthome.Activity.Fragment.Fragment_Profile;
 import com.n8plus.smarthome.Interface.CountMarkedAsRead;
 import com.n8plus.smarthome.Model.Notification;
@@ -29,7 +29,6 @@ import com.n8plus.smarthome.Presenter.HomePage.HomePagePresenter;
 import com.n8plus.smarthome.R;
 import com.n8plus.smarthome.Service.EmitListenerService;
 import com.n8plus.smarthome.Utils.common.DeviceConverter;
-import com.n8plus.smarthome.Utils.common.SocketSingeton;
 import com.n8plus.smarthome.View.SelectDeviceType.Fragment_Select_Device_Type;
 
 import java.lang.reflect.Field;
@@ -109,7 +108,7 @@ public class HomeActivity extends AppCompatActivity implements CountMarkedAsRead
                     case R.id.menuNotification:
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("notification", notificationList);
-                        fragment = new Fragment_Notification(HomeActivity.this);
+                        fragment = new NotificationFragment(HomeActivity.this);
                         frmCircle.setBackgroundResource(R.drawable.circle_red);
                         fragment.setArguments(bundle);
                         break;

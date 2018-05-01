@@ -12,10 +12,7 @@ import android.widget.Toast;
 
 import com.n8plus.smarthome.Activity.Fragment.Fragment_Choose_Options;
 import com.n8plus.smarthome.Activity.Fragment.Fragment_Enter_UserName;
-import com.n8plus.smarthome.Activity.Fragment.Fragment_Notification;
-import com.n8plus.smarthome.Activity.Fragment.Fragment_Profile;
 import com.n8plus.smarthome.R;
-import com.n8plus.smarthome.View.SelectDeviceType.Fragment_Select_Device_Type;
 
 public class ForgotPassword extends AppCompatActivity implements ForgotPasswordViewImpl {
     FrameLayout frmForgotPass;

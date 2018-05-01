@@ -1,51 +1,53 @@
 package com.n8plus.smarthome.Model;
 
-import com.n8plus.smarthome.Model.Enum.NotificationType;
+import com.n8plus.smarthome.Model.Enum.LevelNotification;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * Created by Hiep_Nguyen on 2/5/2018.
  */
 
-public class Notification implements Serializable{
-    private int Id;
-    private String Message;
-    private Date time;
+public class Notification implements Serializable {
+    private String _id;
+    private String title;
+    private String message;
     private boolean state;
-    private NotificationType type;
+    private LevelNotification level;
+    private Date createAt;
 
-    public Notification(int id, String message, Date time, boolean state, NotificationType type) {
-        Id = id;
-        Message = message;
-        this.time = time;
+    public Notification(String _id, String title, String message, boolean state, LevelNotification level, Date createAt) {
+        this._id = _id;
+        this.title = title;
+        this.message = message;
         this.state = state;
-        this.type = type;
+        this.level = level;
+        this.createAt = createAt;
     }
 
-    public int getId() {
-        return Id;
+    public String get_id() {
+        return _id;
     }
 
-    public void setId(int id) {
-        Id = id;
+    public void set_id(String _id) {
+        this._id = _id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getMessage() {
-        return Message;
+        return message;
     }
 
     public void setMessage(String message) {
-        Message = message;
-    }
-
-    public Date getTime() {
-        return time;
-    }
-
-    public void setTime(Date time) {
-        this.time = time;
+        this.message = message;
     }
 
     public boolean isState() {
@@ -56,11 +58,19 @@ public class Notification implements Serializable{
         this.state = state;
     }
 
-    public NotificationType getType() {
-        return type;
+    public LevelNotification getLevel() {
+        return level;
     }
 
-    public void setType(NotificationType type) {
-        this.type = type;
+    public void setLevel(LevelNotification level) {
+        this.level = level;
+    }
+
+    public Date getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(Date createAt) {
+        this.createAt = createAt;
     }
 }

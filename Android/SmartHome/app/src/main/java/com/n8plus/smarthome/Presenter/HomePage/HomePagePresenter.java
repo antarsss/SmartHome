@@ -12,16 +12,14 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.github.nkzawa.emitter.Emitter;
 import com.n8plus.smarthome.Model.Device;
 import com.n8plus.smarthome.Model.Enum.DeviceType;
-import com.n8plus.smarthome.Model.Enum.NotificationType;
+import com.n8plus.smarthome.Model.Enum.LevelNotification;
 import com.n8plus.smarthome.Model.Enum.Type;
 import com.n8plus.smarthome.Model.Notification;
-import com.n8plus.smarthome.Model.User;
 import com.n8plus.smarthome.Utils.common.Constant;
 import com.n8plus.smarthome.Utils.common.VolleySingleton;
 import com.n8plus.smarthome.View.HomePage.HomeActivity;
 import com.n8plus.smarthome.View.HomePage.HomeActivityViewImpl;
 import com.n8plus.smarthome.View.LoadScreen.StartViewActivity;
-import com.n8plus.smarthome.View.Login.LoginActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -67,7 +65,7 @@ public class HomePagePresenter implements HomePagePresenterImpl {
                                             String room = door.getPosition().name().toLowerCase().replace("room", " room");
 
                                             Notification notification = new Notification(i, object.getString("deviceName")
-                                                    + " in " + room + " is opened!", date, true, NotificationType.DOOR);
+                                                    + " in " + room + " is opened!", date, true, LevelNotification.DOOR);
                                             notifications.add(notification);
                                         }
                                     }
@@ -108,7 +106,7 @@ public class HomePagePresenter implements HomePagePresenterImpl {
                         if (device.getStateByType(Type.SENSOR)) {
                             String room = device.getPosition().name().toLowerCase().replace("room", " room");
                             notificationList.add(new Notification(notificationList.size() + 1, device.getDeviceName()
-                                    + " in " + room + " is opened!", date, true, NotificationType.DOOR));
+                                    + " in " + room + " is opened!", date, true, LevelNotification.DOOR));
                         }
                         homePageView.pushNotification(notificationList);
                     }
