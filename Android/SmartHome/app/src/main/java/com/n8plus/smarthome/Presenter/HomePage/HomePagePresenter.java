@@ -51,7 +51,7 @@ public class HomePagePresenter implements HomePagePresenterImpl {
         ((AppCompatActivity) homePageView).runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                JsonObjectRequest jreq = new JsonObjectRequest(Request.Method.POST, Constant.DEVICES, new JSONObject(params),
+                JsonObjectRequest jreq = new JsonObjectRequest(Request.Method.POST, Constant.GET_DEVICES, new JSONObject(params),
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {

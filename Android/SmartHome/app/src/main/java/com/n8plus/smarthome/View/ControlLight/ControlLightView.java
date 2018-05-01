@@ -1,6 +1,8 @@
 package com.n8plus.smarthome.View.ControlLight;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,12 +27,13 @@ import java.util.Map;
 public class ControlLightView extends AppCompatActivity implements ControlLightViewImpl {
 
     public int count = 0;
+    public int countAllLight = 0;
     RecyclerView listLivingRoom, listBedRoom, listDiningRoom, listBathRoom;
     SwitchButton swbAllLight;
     Map<String, Device> lightLivingRoom, lightBedRoom, lightDiningRoom, lightBathRoom;
     LightAdapter livingRoomAdapter, bedRoomAdapter, diningRoomAdapter, bathRoomAdapter;
     ControlLightPresenter controlLightPresenter;
-    int countAllLight = 0;
+    boolean isServiceFound;
 
     @SuppressLint("RestrictedApi")
     @Override
@@ -40,38 +43,26 @@ public class ControlLightView extends AppCompatActivity implements ControlLightV
         setTitle("Control Light");
         mount();
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
-
         controlLightPresenter = new ControlLightPresenter(this);
+        controlLightPresenter.onEmitterDevice();
         loadAlldevices();
-        controlLightPresenter.listenState();
-
         swbAllLight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 for (Device device : lightLivingRoom.values()) {
                     device.setState(swbAllLight.isChecked());
-                    lightLivingRoom.get(device.get_id()).setState(device.getStateByType(Type.LIGHT));
                 }
                 for (Device device : lightBedRoom.values()) {
                     device.setState(swbAllLight.isChecked());
-                    lightBedRoom.get(device.get_id()).setState(device.getStateByType(Type.LIGHT));
                 }
                 for (Device device : lightDiningRoom.values()) {
                     device.setState(swbAllLight.isChecked());
-                    lightDiningRoom.get(device.get_id()).setState(device.getStateByType(Type.LIGHT));
                 }
                 for (Device device : lightBathRoom.values()) {
                     device.setState(swbAllLight.isChecked());
-                    lightBathRoom.get(device.get_id()).setState(device.getStateByType(Type.LIGHT));
                 }
-                reloadList();
                 emitAllList();
-                if (swbAllLight.isChecked()) {
-                    count = countAllLight;
-                } else {
-                    count = 0;
-                }
-
+                setCheckAll();
             }
         });
     }
@@ -104,12 +95,11 @@ public class ControlLightView extends AppCompatActivity implements ControlLightV
         controlLightPresenter.loadDeviceProperty(params);
     }
 
-    public void setCheckAll(boolean b) {
-        swbAllLight.setChecked(b);
+    public void setCheckAll() {
+        swbAllLight.setChecked(count == countAllLight);
     }
 
     public void initView(RecyclerView recyclerView) {
-        recyclerView.setVisibility(View.VISIBLE);
         ((LinearLayout) recyclerView.getParent().getParent()).setVisibility(View.VISIBLE);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -122,9 +112,6 @@ public class ControlLightView extends AppCompatActivity implements ControlLightV
         }
     }
 
-    public int getCountAllLight() {
-        return countAllLight;
-    }
 
     @Override
     public void loadDevicesSuccess(ArrayList<Device> devices) {
@@ -133,25 +120,25 @@ public class ControlLightView extends AppCompatActivity implements ControlLightV
             case LIVINGROOM:
                 initView(listLivingRoom);
                 setDataValue(lightLivingRoom, devices);
-                livingRoomAdapter = new LightAdapter(new ArrayList<Device>(lightLivingRoom.values()), this);
+                livingRoomAdapter = new LightAdapter(new ArrayList<Device>(lightLivingRoom.values()), this, controlLightPresenter);
                 listLivingRoom.setAdapter(livingRoomAdapter);
                 break;
             case BEDROOM:
                 initView(listBedRoom);
                 setDataValue(lightBedRoom, devices);
-                bedRoomAdapter = new LightAdapter(new ArrayList<Device>(lightBedRoom.values()), this);
+                bedRoomAdapter = new LightAdapter(new ArrayList<Device>(lightBedRoom.values()), this, controlLightPresenter);
                 listBedRoom.setAdapter(bedRoomAdapter);
                 break;
             case DININGROOM:
                 initView(listDiningRoom);
                 setDataValue(lightDiningRoom, devices);
-                diningRoomAdapter = new LightAdapter(new ArrayList<Device>(lightDiningRoom.values()), this);
+                diningRoomAdapter = new LightAdapter(new ArrayList<Device>(lightDiningRoom.values()), this, controlLightPresenter);
                 listDiningRoom.setAdapter(diningRoomAdapter);
                 break;
             case BATHROOM:
                 initView(listBathRoom);
                 setDataValue(lightBathRoom, devices);
-                bathRoomAdapter = new LightAdapter(new ArrayList<Device>(lightBathRoom.values()), this);
+                bathRoomAdapter = new LightAdapter(new ArrayList<Device>(lightBathRoom.values()), this, controlLightPresenter);
                 listBathRoom.setAdapter(bathRoomAdapter);
                 break;
         }
@@ -160,10 +147,8 @@ public class ControlLightView extends AppCompatActivity implements ControlLightV
                 count++;
             }
         }
-        System.out.println("count nè: "+count);
         countAllLight += devices.size();
-        System.out.println("countAllLight: " + countAllLight);
-        swbAllLight.setChecked(count == countAllLight? true : false);
+        swbAllLight.setChecked(count == countAllLight);
     }
 
     @Override
@@ -172,36 +157,47 @@ public class ControlLightView extends AppCompatActivity implements ControlLightV
     }
 
     @Override
-    public void checkResponse(ArrayList<Device> devices) {
-        for (Device light : devices){
-            switch (light.getPosition()){
-                case LIVINGROOM:
-                    lightLivingRoom.get(light.get_id()).setStateByType(Type.LIGHT, light.getStateByType(Type.LIGHT));
-                    break;
-                case DININGROOM:
-                    lightDiningRoom.get(light.get_id()).setStateByType(Type.LIGHT, light.getStateByType(Type.LIGHT));
-                    break;
-                case BEDROOM:
-                    lightBedRoom.get(light.get_id()).setStateByType(Type.LIGHT, light.getStateByType(Type.LIGHT));
-                    break;
-                case BATHROOM:
-                    lightBathRoom.get(light.get_id()).setStateByType(Type.LIGHT, light.getStateByType(Type.LIGHT));
-                    break;
-            }
+    public void checkResponse(Device device) {
+        switch (device.getPosition()) {
+            case LIVINGROOM:
+                if (lightLivingRoom.containsKey(device.get_id())) {
+                    lightLivingRoom.get(device.get_id()).setStateByType(Type.LIGHT, device.getStateByType(Type.LIGHT));
+                    livingRoomAdapter.notifyDataSetChanged();
+                }
+                break;
+            case DININGROOM:
+                if (lightDiningRoom.containsKey(device.get_id())) {
+                    lightDiningRoom.get(device.get_id()).setStateByType(Type.LIGHT, device.getStateByType(Type.LIGHT));
+                    diningRoomAdapter.notifyDataSetChanged();
+                }
+                break;
+            case BEDROOM:
+                if (lightBedRoom.containsKey(device.get_id())) {
+                    lightBedRoom.get(device.get_id()).setStateByType(Type.LIGHT, device.getStateByType(Type.LIGHT));
+                    bedRoomAdapter.notifyDataSetChanged();
+                }
+                break;
+            case BATHROOM:
+                if (lightBathRoom.containsKey(device.get_id())) {
+                    lightBathRoom.get(device.get_id()).setStateByType(Type.LIGHT, device.getStateByType(Type.LIGHT));
+                    bathRoomAdapter.notifyDataSetChanged();
+                }
+                break;
         }
-        reloadList();
+
     }
 
-    public void reloadList() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                livingRoomAdapter.notifyDataSetChanged();
-                bedRoomAdapter.notifyDataSetChanged();
-                diningRoomAdapter.notifyDataSetChanged();
-                bathRoomAdapter.notifyDataSetChanged();
+    @Override
+    public boolean isServiceRunning() {
+        ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningTaskInfo> services = activityManager.getRunningTasks(Integer.MAX_VALUE);
+        isServiceFound = false;
+        for (int i = 0; i < services.size(); i++) {
+            if (services.get(i).topActivity.toString().equalsIgnoreCase("ComponentInfo{com.lyo.AutoMessage/com.lyo.AutoMessage.TextLogList}")) {
+                isServiceFound = true;
             }
-        });
+        }
+        return isServiceFound;
     }
 
     public void emitAllList() {
@@ -209,7 +205,6 @@ public class ControlLightView extends AppCompatActivity implements ControlLightV
         bedRoomAdapter.emitAll();
         diningRoomAdapter.emitAll();
         bathRoomAdapter.emitAll();
-        reloadList();
     }
 
     @Override

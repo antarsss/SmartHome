@@ -2,29 +2,20 @@ package com.n8plus.smarthome.Adapter;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.github.nkzawa.emitter.Emitter;
-import com.google.gson.Gson;
 import com.kyleduo.switchbutton.SwitchButton;
 import com.n8plus.smarthome.Model.Device;
 import com.n8plus.smarthome.Model.Enum.Type;
-import com.n8plus.smarthome.Presenter.ControlLight.LightAdapterPresenter;
+import com.n8plus.smarthome.Presenter.ControlLight.ControlLightPresenter;
 import com.n8plus.smarthome.R;
 import com.n8plus.smarthome.View.ControlLight.ControlLightView;
-import com.n8plus.smarthome.View.HomePage.HomeActivity;
-import com.n8plus.smarthome.View.LoadScreen.StartViewActivity;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -32,17 +23,17 @@ import java.util.ArrayList;
  * Created by Hiep_Nguyen on 3/1/2018.
  */
 
-public class LightAdapter extends RecyclerView.Adapter<LightAdapter.ViewHolder> implements LightAdapterImpl {
+public class LightAdapter extends RecyclerView.Adapter<LightAdapter.ViewHolder> {
 
     ArrayList<Device> devices;
     Context context;
     LightAdapter.ViewHolder holder;
-    LightAdapterPresenter lightAdapterPresenter;
+    ControlLightPresenter lightPresenter;
 
-    public LightAdapter(ArrayList<Device> devices, Context context) {
+    public LightAdapter(ArrayList<Device> devices, Context context, ControlLightPresenter lightPresenter) {
         this.devices = devices;
         this.context = context;
-        lightAdapterPresenter = new LightAdapterPresenter(this);
+        this.lightPresenter = lightPresenter;
     }
 
     @Override
@@ -56,56 +47,33 @@ public class LightAdapter extends RecyclerView.Adapter<LightAdapter.ViewHolder> 
     public void onBindViewHolder(final LightAdapter.ViewHolder holder, final int position) {
         this.holder = holder;
         final Device device = devices.get(position);
-
-        if (device.getStateByType(Type.LIGHT)) {
-            holder.imgLight.setImageResource(R.drawable.light_on);
-        } else {
-            holder.imgLight.setImageResource(R.drawable.light_off);
-        }
+        holder.imgLight.setImageResource(device.getStateByType(Type.LIGHT) ? R.drawable.light_on : R.drawable.light_off);
         holder.txtNameLight.setText(device.getDeviceName());
         holder.swtState.setChecked(device.getStateByType(Type.LIGHT));
         holder.swtState.setTintColor(Color.parseColor("#00a0dc"));
 
-        final boolean current = device.getStateByType(Type.LIGHT);
+        final boolean current = holder.swtState.isChecked();
         holder.swtState.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
                 device.setState(holder.swtState.isChecked());
-                StartViewActivity.mSocket.emit("c2s-change", HomeActivity.deviceConvert.object2Json(device));
-                StartViewActivity.mSocket.once("s2c-change", new Emitter.Listener() {
-                    @Override
-                    public void call(final Object... args) {
-                        ((AppCompatActivity) context).runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Log.v("Light", args[0].toString());
-                                try {
-                                    JSONObject jsonObject = new JSONObject(args[0].toString());
-                                    boolean success = jsonObject.getBoolean("success");
-                                    if (success) {
-                                        JSONObject device1 = jsonObject.getJSONObject("device");
-                                        Gson gson = new Gson();
-                                        Device device2 = gson.fromJson(device1.toString(), Device.class);
-                                        if (device2 != null) {
-                                            if (device.equals(device2)) {
-                                                ((SwitchButton) view).setChecked(device2.getStateByType(Type.LIGHT));
-                                            }
-                                        } else {
-                                            ((SwitchButton) view).setChecked(current);
-                                        }
-                                    } else {
-                                        ((SwitchButton) view).setChecked(current);
-                                    }
-                                } catch (JSONException e) {
-                                }
-                            }
-                        });
-                    }
-                });
-                ((ControlLightView) context).setCheckAll(isAllItemSelected(device));
+                holder.swtState.setChecked(current);
+                lightPresenter.emitEmitterDevice(device);
             }
         });
-
+        holder.swtState.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    ((ControlLightView) context).count++;
+                } else {
+                    if (((ControlLightView) context).count > 0) {
+                        ((ControlLightView) context).count--;
+                    }
+                }
+                ((ControlLightView) context).setCheckAll();
+            }
+        });
     }
 
     @Override
@@ -113,68 +81,12 @@ public class LightAdapter extends RecyclerView.Adapter<LightAdapter.ViewHolder> 
         return devices.size();
     }
 
-
-    public boolean isAllItemSelected(Device device) {
-        if (device.getStateByType(Type.LIGHT)) {
-            ((ControlLightView) context).count++;
-
-        } else {
-            if (((ControlLightView) context).count > 0) {
-                ((ControlLightView) context).count--;
-            }
-        }
-        return ((ControlLightView) context).count == ((ControlLightView) context).getCountAllLight();
-    }
-
     public void emitAll() {
-        for (final Device device : devices) {
-            StartViewActivity.mSocket.emit("c2s-change", HomeActivity.deviceConvert.object2Json(device));
-            StartViewActivity.mSocket.once("s2c-change", new Emitter.Listener() {
-                @Override
-                public void call(final Object... args) {
-                    ((AppCompatActivity) context).runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Log.v("Light", args[0].toString());
-                            try {
-                                JSONObject jsonObject = new JSONObject(args[0].toString());
-                                boolean success = jsonObject.getBoolean("success");
-                                if (success) {
-                                    JSONObject device1 = jsonObject.getJSONObject("device");
-                                    Gson gson = new Gson();
-                                    Device device2 = gson.fromJson(device1.toString(), Device.class);
-                                    if (device2 != null) {
-                                        if (device.equals(device2)) {
-                                            holder.swtState.setChecked(device2.getStateByType(Type.LIGHT));
-                                        }
-                                    }
-                                } else {
-                                 }
-                            } catch (JSONException e) {
-                            }
-                        }
-                    });
-                }
-            });
+        for (Device device : devices) {
+            lightPresenter.emitEmitterDevice(device);
         }
     }
 
-    @Override
-    public void setSwitchButton(Device device, boolean checked) {
-        for (int i = 0; i < devices.size(); i++) {
-            String id = (String) holder.swtState.getTag(i);
-            if (id.equals(device.get_id())) {
-                holder.swtState.setChecked(checked);
-                holder.imgLight.setImageResource(checked ? R.drawable.light_on : R.drawable.light_off);
-            }
-        }
-
-    }
-
-    @Override
-    public void setSwitchButtonFailure() {
-        Toast.makeText(context, "Turn on/off light failure!", Toast.LENGTH_LONG).show();
-    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 

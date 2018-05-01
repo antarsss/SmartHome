@@ -33,7 +33,7 @@ public class ConnectModulePresenter implements ConnectModulePresenterImpl {
         ((AppCompatActivity) connectModuleView).runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, Constant.DEVICE + id, new JSONObject(headers),
+                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, Constant.UPDATE_DEVICE + id, new JSONObject(headers),
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {

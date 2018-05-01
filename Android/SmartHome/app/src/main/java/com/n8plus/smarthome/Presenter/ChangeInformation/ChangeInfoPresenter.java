@@ -30,7 +30,7 @@ public class ChangeInfoPresenter implements ChangeInfoPresenterImpl {
         ((AppCompatActivity) changeInfoView).runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, Constant.USER + username, new JSONObject(headers),
+                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, Constant.UPDATE_USER + username, new JSONObject(headers),
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
@@ -62,7 +62,7 @@ public class ChangeInfoPresenter implements ChangeInfoPresenterImpl {
 
     @Override
     public void changeAvatar(final String username, final Map<String, String> headers) {
-        final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, Constant.USER + username, new JSONObject(headers),
+        final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, Constant.UPDATE_USER + username, new JSONObject(headers),
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {

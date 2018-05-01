@@ -1,27 +1,17 @@
 package com.n8plus.smarthome.View.Camera;
 
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.n8plus.smarthome.Adapter.CameraAdapter;
-import com.n8plus.smarthome.Model.Enum.DeviceType;
-import com.n8plus.smarthome.View.ControlCamera.ControlCamera;
-import com.n8plus.smarthome.Adapter.DeviceAdapter;
 import com.n8plus.smarthome.Model.Device;
-import com.n8plus.smarthome.Model.Enum.Position;
 import com.n8plus.smarthome.Presenter.Camera.CameraPresenter;
 import com.n8plus.smarthome.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class SelectCamera extends AppCompatActivity implements SelectCameraViewImpl {
@@ -41,7 +31,6 @@ public class SelectCamera extends AppCompatActivity implements SelectCameraViewI
         arrayListCam = new HashMap<String, Device>();
         cameraPresenter = new CameraPresenter(this);
         loadAlldevices();
-
     }
 
     public void loadAlldevices() {
@@ -51,14 +40,18 @@ public class SelectCamera extends AppCompatActivity implements SelectCameraViewI
     }
 
 
+    @Override
+    public boolean isServiceRunning() {
+        return false;
+    }
 
     @Override
     public void loadDevicesSuccess(ArrayList<Device> devices) {
         if (devices.isEmpty()) return;
-        for (Device device: devices){
+        for (Device device : devices) {
             arrayListCam.put(device.get_id(), device);
         }
-        System.out.println("Size Camera: "+arrayListCam.size());
+        System.out.println("Size Camera: " + arrayListCam.size());
         cameraAdapter = new CameraAdapter(this, new ArrayList<Device>(arrayListCam.values()), R.layout.row_camera);
         listCamera.setAdapter(cameraAdapter);
         Toast.makeText(this, "Load all camera success!", Toast.LENGTH_LONG).show();
@@ -70,8 +63,7 @@ public class SelectCamera extends AppCompatActivity implements SelectCameraViewI
     }
 
     @Override
-    public void checkResponse(ArrayList<Device> lights) {
+    public void checkResponse(Device device) {
 
     }
-
 }

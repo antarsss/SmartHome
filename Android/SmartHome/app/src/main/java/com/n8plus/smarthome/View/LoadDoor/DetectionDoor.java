@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import com.n8plus.smarthome.Adapter.DoorAdapter;
 import com.n8plus.smarthome.Model.Device;
-import com.n8plus.smarthome.Model.Enum.DeviceType;
 import com.n8plus.smarthome.Model.Enum.Position;
 import com.n8plus.smarthome.Model.Enum.Type;
 import com.n8plus.smarthome.Presenter.LoadDoor.LoadDoorPresenter;
@@ -122,6 +121,11 @@ public class DetectionDoor extends AppCompatActivity implements DetectionDoorVie
 
 
     @Override
+    public boolean isServiceRunning() {
+        return false;
+    }
+
+    @Override
     public void loadDevicesSuccess(ArrayList<Device> devices) {
         if (devices.isEmpty()) return;
         switch (devices.get(0).getPosition()) {
@@ -148,18 +152,25 @@ public class DetectionDoor extends AppCompatActivity implements DetectionDoorVie
     }
 
     @Override
-    public void checkResponse(ArrayList<Device> doors) {
-        for (Device door : doors) {
-            listLivingRoom.get(door.get_id()).setState(door.getStateByType(Type.SERVO));
-        }
-        for (Device door : doors) {
-            listBedRoom.get(door.get_id()).setState(door.getStateByType(Type.SERVO));
-        }
-        for (Device door : doors) {
-            listDiningRoom.get(door.get_id()).setState(door.getStateByType(Type.SERVO));
-        }
-        for (Device door : doors) {
-            listBathRoom.get(door.get_id()).setState(door.getStateByType(Type.SERVO));
+    public void checkResponse(Device device) {
+        switch (device.getPosition()) {
+            case LIVINGROOM:
+                if (listLivingRoom.containsKey(device.get_id())) {
+                    listLivingRoom.get(device.get_id()).setState(device.getStateByType(Type.SERVO));
+                }
+                break;
+            case BEDROOM:
+                if (listBedRoom.containsKey(device.get_id()))
+                    listBedRoom.get(device.get_id()).setState(device.getStateByType(Type.SERVO));
+                break;
+            case DININGROOM:
+                if (listDiningRoom.containsKey(device.get_id()))
+                    listDiningRoom.get(device.get_id()).setState(device.getStateByType(Type.SERVO));
+                break;
+            case BATHROOM:
+                if (listBathRoom.containsKey(device.get_id()))
+                    listBathRoom.get(device.get_id()).setState(device.getStateByType(Type.SERVO));
+                break;
         }
     }
 

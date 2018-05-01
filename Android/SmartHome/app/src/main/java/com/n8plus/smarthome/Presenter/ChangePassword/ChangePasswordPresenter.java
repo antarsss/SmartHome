@@ -29,7 +29,7 @@ public class ChangePasswordPresenter implements ChangePasswordPresenterImpl {
         ((AppCompatActivity) changePasswordView).runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, Constant.USER + username, new JSONObject(headers),
+                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, Constant.UPDATE_USER + username, new JSONObject(headers),
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {

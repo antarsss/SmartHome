@@ -13,12 +13,10 @@ import android.widget.Toast;
 
 import com.n8plus.smarthome.Model.Device;
 import com.n8plus.smarthome.Model.Enum.Type;
-import com.n8plus.smarthome.Model.Module;
-import com.n8plus.smarthome.Presenter.ControlDoor.ControlDoorPresenter;
+import com.n8plus.smarthome.Presenter.ControlDoor.ControlDoorPresenterPresenter;
 import com.n8plus.smarthome.R;
 import com.n8plus.smarthome.View.HomePage.HomeActivity;
 import com.n8plus.smarthome.View.LoadScreen.StartViewActivity;
-import com.n8plus.smarthome.View.Login.LoginActivity;
 
 import java.util.ArrayList;
 
@@ -36,7 +34,7 @@ public class ControlMainDoor extends AppCompatActivity implements ControlMainDoo
         setContentView(R.layout.activity_control_maindoor);
         setTitle("Main Door Control");
         Mount();
-        ControlDoorPresenter controlDoorPresenter = new ControlDoorPresenter(this);
+        ControlDoorPresenterPresenter controlDoorPresenter = new ControlDoorPresenterPresenter(this);
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -55,7 +53,7 @@ public class ControlMainDoor extends AppCompatActivity implements ControlMainDoo
             }
         }
 
-        controlDoorPresenter.listenState();
+        controlDoorPresenter.onEmitterDevice();
 
         btnAction.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,6 +124,11 @@ public class ControlMainDoor extends AppCompatActivity implements ControlMainDoo
     }
 
     @Override
+    public boolean isServiceRunning() {
+        return false;
+    }
+
+    @Override
     public void loadDevicesSuccess(ArrayList<Device> devices) {
 
     }
@@ -136,21 +139,20 @@ public class ControlMainDoor extends AppCompatActivity implements ControlMainDoo
     }
 
     @Override
-    public void checkResponse(ArrayList<Device> devices) {
-        for (Device door : devices) {
-            boolean check = door.getStateByType(Type.SERVO);
-            if (!check) {
-                imgStateDoor.setImageResource(R.drawable.close_door);
-                state.setText("Closed");
-                state.setTextColor(Color.parseColor("#00a0dc"));
-                btnAction.setText("OPEN NOW");
-            } else {
-                imgStateDoor.setImageResource(R.drawable.door);
-                state.setText("Opened");
-                state.setTextColor(Color.parseColor("#ffff4444"));
-                btnAction.setText("CLOSE NOW");
-            }
+    public void checkResponse(Device device) {
+        boolean check = door.getStateByType(Type.SERVO);
+        if (!check) {
+            imgStateDoor.setImageResource(R.drawable.close_door);
+            state.setText("Closed");
+            state.setTextColor(Color.parseColor("#00a0dc"));
+            btnAction.setText("OPEN NOW");
+        } else {
+            imgStateDoor.setImageResource(R.drawable.door);
+            state.setText("Opened");
+            state.setTextColor(Color.parseColor("#ffff4444"));
+            btnAction.setText("CLOSE NOW");
         }
     }
+
 }
 
