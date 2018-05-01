@@ -16,11 +16,11 @@
     <a class="navbar-brand px-lg-3 px-1 mr-0" href="#" id="home-logo">SMART family</a>
     <script type="text/javascript">
         $("#home-logo").click(function() {
-            $("#home").show(2000);
-            $("#lights-control").hide(1000);
-            $("#doors-control").hide(1000);
-            $("#cameras-control").hide(1000);
-            $("#profile").hide(1000);
+            $("#home").show(500);
+            $("#lights-control").hide(250);
+            $("#doors-control").hide(250);
+            $("#cameras-control").hide(250);
+            $("#profile").hide(250);
         });
 
     </script>
@@ -41,16 +41,16 @@
                     <a class="dropdown-item" href="#" id="profile-header">Profile</a>
                     <script type="text/javascript">
                         $("#profile-header").click(function() {
-                            $("#lights-control").hide(1000);
-                            $("#home").hide(1000);
-                            $("#doors-control").hide(1000);
-                            $("#cameras-control").hide(1000);
-                            $("#profile").show(2000);
+                            $("#lights-control").hide(250);
+                            $("#home").hide(250);
+                            $("#doors-control").hide(250);
+                            $("#cameras-control").hide(250);
+                            $("#profile").show(500);
                         });
 
                     </script>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="login.html">Logout</a>
+                    <a class="dropdown-item" href="login.ejs">Logout</a>
                 </div>
 
             </div>
@@ -59,6 +59,7 @@
 						  <img src="/img/menu.png"/>
 						</button>
             </div>
+
 
         </div>
     </div>

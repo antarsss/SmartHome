@@ -1,6 +1,6 @@
 function loadDevicesProperty(container, jsonRequest, callback) {
     $.ajax({
-        url: url_home + "/devices",
+        url: url_home + "/users",
         type: 'post',
         dataType: 'json',
         async: true,
@@ -8,6 +8,6 @@ function loadDevicesProperty(container, jsonRequest, callback) {
         retryLimit: 3,
         data: jsonRequest,
     }).done(function (data) {
-        callback(data["devices"]);
+        callback(data["users"]);
     });
 }
