@@ -1,4 +1,30 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> parent of 69104c7... nat cmnr
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+var POSITION = ["Living Room", "Dining Room", "Bath Room", "Bed Room"];
+
+function getPosition(position) {
+    switch (position) {
+        case 'LIVINGROOM':
+            return POSITION[0];
+        case 'DININGROOM':
+            return POSITION[1];
+        case 'BATHROOM':
+            return POSITION[2];
+        case 'BEDROOM':
+            return POSITION[3];
+    }
+}
+<<<<<<< HEAD
+>>>>>>> parent of 69104c7... nat cmnr
+=======
+>>>>>>> parent of 69104c7... nat cmnr
 async function setLightData(listDevice, container) {
 =======
 function setLightData(listDevice, container) {
@@ -13,7 +39,7 @@ function setLightData(listDevice, container) {
             var module = data.modules.filter(m => m.type == "LIGHT")[0];
             var checked = module.state ? "checked" : "";
             var path = checked == "checked" ? "light_on.png" : "light_off.png";
-            var connect = module.connect ? "Connected" : "Diconnected";
+            var connect = module.connect ? "Connected" : "Diconnected"
             light += '<div class="col-xs-6 col-sm-12 col-md-6 col-xl-4">' +
 =======
         listDevice.forEach(function (data) {
@@ -37,9 +63,17 @@ function setLightData(listDevice, container) {
                 '<li class="list-group-item pt-0">' +
                 '<p class="specs">Connect</p>' +
 <<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
                 '<p class="ml-auto mb-0 text-success">' + connect +
                 '</p>' +
                 '</li>' +
+=======
+                '<p class="ml-auto mb-0 text-success"></p>' + connect + '</li>' +
+>>>>>>> parent of 69104c7... nat cmnr
+=======
+                '<p class="ml-auto mb-0 text-success"></p>' + connect + '</li>' +
+>>>>>>> parent of 69104c7... nat cmnr
                 '<li class="list-group-item pt-0 pb-4">' +
                 '<p class="specs">Module</p>' +
                 '<p class="ml-auto mb-0 text-success">' + module.type + '</p>' +
@@ -49,6 +83,8 @@ function setLightData(listDevice, container) {
         });
         await sleep(200);
         $(container).html(light);
+<<<<<<< HEAD
+<<<<<<< HEAD
         emitLightData(listDevice);
         onLightData();
 =======
@@ -62,6 +98,12 @@ function setLightData(listDevice, container) {
             $(container).append(light);
         });
 >>>>>>> 0fc979b1a43d137fbc31b117caa4bb36bfb76124
+=======
+        setListenerLight();
+>>>>>>> parent of 69104c7... nat cmnr
+=======
+        setListenerLight();
+>>>>>>> parent of 69104c7... nat cmnr
     }
 };
 
@@ -88,8 +130,16 @@ function emitLightData(data) {
     });
 }
 
+<<<<<<< HEAD
+<<<<<<< HEAD
 function onLightData(data) {
 <<<<<<< HEAD
+=======
+function onLightData() {
+>>>>>>> parent of 69104c7... nat cmnr
+=======
+function onLightData() {
+>>>>>>> parent of 69104c7... nat cmnr
     socket.on("s2c-change", async function (data) {
         console.log("Response: " + JSON.stringify(data))
         var success = data.success;
@@ -98,9 +148,10 @@ function onLightData(data) {
             var id = device._id;
             var module = device.modules.filter(m => m.type == "LIGHT");
             if (module.length == 0) return;
-            var state = module[0].state;
+            module[0].state = state;
             var path = state ? "light_on.png" : "light_off.png";
             await sleep(100);
+            console.log(id);
             $("#" + id).prop("checked", state);
             $("#" + id).parent().siblings(".icon-state").attr("src", "/img/" + path);
         }
@@ -114,15 +165,16 @@ function onLightData(data) {
 >>>>>>> 0fc979b1a43d137fbc31b117caa4bb36bfb76124
     });
 }
+var devices;
 
 function setupLight(container, property) {
-    var devices;
     loadDevicesProperty(container, property, function (deviceArr) {
         setLightData(deviceArr, container)
-
     });
 }
 
+<<<<<<< HEAD
+<<<<<<< HEAD
 <<<<<<< HEAD
 setupLight('#lights-detail', {
     deviceType: 'LIGHT'
@@ -142,3 +194,23 @@ setupLight('#lights-detail', device);
 
 setListenerLight();
 >>>>>>> 0fc979b1a43d137fbc31b117caa4bb36bfb76124
+=======
+function setListenerLight() {
+    emitLightData(devices);
+    onLightData();
+}
+var device = {
+    deviceType: 'LIGHT'
+};
+setupLight('#lights-detail', device);
+>>>>>>> parent of 69104c7... nat cmnr
+=======
+function setListenerLight() {
+    emitLightData(devices);
+    onLightData();
+}
+var device = {
+    deviceType: 'LIGHT'
+};
+setupLight('#lights-detail', device);
+>>>>>>> parent of 69104c7... nat cmnr

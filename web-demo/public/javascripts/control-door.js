@@ -1,4 +1,31 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> parent of 69104c7... nat cmnr
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+var POSITION = ["Living Room", "Dining Room", "Bath Room", "Bed Room"];
+
+function getPosition(position) {
+    switch (position) {
+        case 'LIVINGROOM':
+            return POSITION[0];
+        case 'DININGROOM':
+            return POSITION[1];
+        case 'BATHROOM':
+            return POSITION[2];
+        case 'BEDROOM':
+            return POSITION[3];
+    }
+}
+
+<<<<<<< HEAD
+>>>>>>> parent of 69104c7... nat cmnr
+=======
+>>>>>>> parent of 69104c7... nat cmnr
 async function setDoorData(listDevice, container) {
 =======
 function setDoorData(listDevice, container) {
@@ -12,16 +39,15 @@ function setDoorData(listDevice, container) {
 
         listDevice.forEach((data) => {
             var module = data.modules.filter(m => m.type == "SENSOR");
-            var checked = "";
+            var checked = "CAN'T CONTROL";
             var state = "";
-            var connected = "";
             if (module.length > 0) {
                 checked = module[0].state ? "checked" : "";
-                connected = module[0].connect ? "Connected" : "Disconnect";
             }
             state = checked == "checked" ? "OPEN" : (checked == "" ? "CLOSE" : checked);
+            var text = state == "OPEN" ? "color:green;" : "color:red;";
             var path = checked ? "door-opened.png" : "door-close.png";
-            var connect = module.connect ? "Connected" : "Diconnected";
+            var connect = module.connect;
             door += '<div class="col-xs-6 col-sm-12 col-md-6 col-xl-4">' +
 =======
         listDevice.forEach(function (data) {
@@ -45,16 +71,18 @@ function setDoorData(listDevice, container) {
                 '<li class="list-group-item pt-0">' +
 <<<<<<< HEAD
                 '<p class="specs">Connect</p>' +
-                '<p class="ml-auto mb-0 text-success">' + connected +
-                '</p>' +
+                '<p class="ml-auto mb-0 text-success"></p>' + connect + '</li>' +
+                '<li class="list-group-item pt-0 pb-4">' +
+                '<p class="specs">Module</p>' +
+                '</li>' +
                 '</ul>' +
-                '</div></div>' +
-                '</div>';
-
+                '</div></div>';
 
         })
         await sleep(100);
         $(container).html(door);
+<<<<<<< HEAD
+<<<<<<< HEAD
         emitDoorData(listDevice);
         onDoorData();
 =======
@@ -69,6 +97,12 @@ function setDoorData(listDevice, container) {
             $(container).append(door);
         });
 >>>>>>> 0fc979b1a43d137fbc31b117caa4bb36bfb76124
+=======
+        setListenerDoor();
+>>>>>>> parent of 69104c7... nat cmnr
+=======
+        setListenerDoor();
+>>>>>>> parent of 69104c7... nat cmnr
     }
 };
 
@@ -85,7 +119,7 @@ function emitDoorData(data) {
         if (device != undefined) {
             var module = device.modules.filter(m => m.type == "SERVO");
             if (module.length == 0) return;
-            var state = module[0].state;
+            module[0].state = state;
             socket.emit("c2s-change", device);
             console.log("Send: " + module[0].state);
         }
@@ -101,9 +135,10 @@ function onDoorData() {
             var id = device._id;
             var module = device.modules.filter(m => m.type == "SERVO");
             if (module.length == 0) return;
-            var state = module[0].state;
+            module[0].state = state;
             var path = state ? "door-opened.png" : "door-close.png";
             await sleep(100);
+            console.log(id);
             $("#" + id).prop("checked", state);
             $("#" + id).parent().siblings(".icon-state").attr("src", "/img/" + path);
         }
@@ -126,6 +161,7 @@ function onDoorData() {
         })
     });
 }
+var devices;
 
 function onDoorData(data) {
     socket.on("s2c-change", function (rs) {
@@ -137,12 +173,14 @@ function onDoorData(data) {
     });
 >>>>>>> 0fc979b1a43d137fbc31b117caa4bb36bfb76124
 }
+var devices;
 
 function setupDoor(container, property) {
-    var devices;
     loadDevicesProperty(container, property, function (deviceArr) {
         setDoorData(deviceArr, container)
     });
+<<<<<<< HEAD
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 =======
@@ -164,3 +202,29 @@ setupDoor('#doors-detail', device);
 
 setListenerDoor();
 >>>>>>> 0fc979b1a43d137fbc31b117caa4bb36bfb76124
+=======
+}
+
+function setListenerDoor() {
+    emitDoorData(devices);
+    onDoorData();
+}
+var device = {
+    deviceType: 'DOOR'
+};
+
+setupDoor('#doors-detail', device);
+>>>>>>> parent of 69104c7... nat cmnr
+=======
+}
+
+function setListenerDoor() {
+    emitDoorData(devices);
+    onDoorData();
+}
+var device = {
+    deviceType: 'DOOR'
+};
+
+setupDoor('#doors-detail', device);
+>>>>>>> parent of 69104c7... nat cmnr

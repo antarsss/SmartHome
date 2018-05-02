@@ -1,4 +1,30 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> parent of 69104c7... nat cmnr
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+var POSITION = ["Living Room", "Dining Room", "Bath Room", "Bed Room"];
+
+function getPosition(position) {
+    switch (position) {
+        case 'LIVINGROOM':
+            return POSITION[0];
+        case 'DININGROOM':
+            return POSITION[1];
+        case 'BATHROOM':
+            return POSITION[2];
+        case 'BEDROOM':
+            return POSITION[3];
+    }
+}
+<<<<<<< HEAD
+>>>>>>> parent of 69104c7... nat cmnr
+=======
+>>>>>>> parent of 69104c7... nat cmnr
 async function setLightsData(listDevice) {
     var container = ".list-light"
 =======
@@ -36,8 +62,6 @@ function onLightsData() {
             var device = data.device;
             var id = device._id;
             var module = device.modules.filter(m => m.type == "LIGHT");
-            if (module.length == 0) return;
-            var state = module[0].state;
             var checked = state ? "ON" : "OFF";
             var text = state ? "color:green" : "color:red";
             await sleep(100);
@@ -63,6 +87,8 @@ function setupLights(container, property) {
     });
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
 setupLights('.list-light', {
     deviceType: 'LIGHT'
 });
@@ -81,3 +107,17 @@ setupLights('.list-light', device);
 
 setListenerLights();
 >>>>>>> 0fc979b1a43d137fbc31b117caa4bb36bfb76124
+=======
+
+var device = {
+    deviceType: 'LIGHT'
+};
+setupLights('.list-light', device);
+>>>>>>> parent of 69104c7... nat cmnr
+=======
+
+var device = {
+    deviceType: 'LIGHT'
+};
+setupLights('.list-light', device);
+>>>>>>> parent of 69104c7... nat cmnr
