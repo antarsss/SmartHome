@@ -1,5 +1,5 @@
 <div class="container-fluid" id="profile">
-    <script type="text/javascript">
+    <script>
         $("#profile").hide();
 
     </script>
@@ -8,13 +8,10 @@
             <!-- Profile tabs START -->
             <ul class="nav nav-tabs nav-fill" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#personal" role="tab">PERSONAL</a>
+                    <a class="nav-link" data-toggle="tab" href="#person" role="tab">PERSON</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#address" role="tab">ADDRESS</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#password" role="tab">PASSWORD</a>
+                    <a class="nav-link" data-toggle="tab" href="#account" role="tab">ACCOUNT</a>
                 </li>
             </ul>
             <div class="info-holder info-ct">
@@ -23,125 +20,100 @@
             <!-- Profile tab panes -->
             <div class="tab-content px-4 px-sm-0 py-sm-4 mt-4">
                 <!-- Personal pane START -->
-                <div class="tab-pane fade active in" id="personal" role="tabpanel">
+                <div class="tab-pane fade active in" id="person" role="tabpanel">
                     <form>
                         <div class="form-group row">
-                            <label for="first-name" class="col-12 col-sm-3 col-form-label">First name</label>
+                            <label for="last-name" class="col-12 col-sm-3 col-form-label">Email</label>
                             <div class="col-12 col-sm-9">
-                                <input class="form-control custom-focus" type="text" value="Joe" id="first-name">
+                                <input class="form-control custom-focus" type="text" id="email" value="<%=data.email%>" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="last-name" class="col-12 col-sm-3 col-form-label">Last name</label>
+                            <label for="user-email" class="col-12 col-sm-3 col-form-label">Phone</label>
                             <div class="col-12 col-sm-9">
-                                <input class="form-control custom-focus" type="text" value="Doe" id="last-name">
+                                <input class="form-control custom-focus" type="email" id="phone" value="<%=data.phone%>" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="user-email" class="col-12 col-sm-3 col-form-label">Email</label>
+                            <label for="user-tel" class="col-12 col-sm-3 col-form-label">Location</label>
                             <div class="col-12 col-sm-9">
-                                <input class="form-control custom-focus" type="email" value="info@creatingo.com" id="user-email">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="user-tel" class="col-12 col-sm-3 col-form-label">Phone</label>
-                            <div class="col-12 col-sm-9">
-                                <input class="form-control custom-focus" type="tel" value="1-(555)-555-5555" id="user-tel">
+                                <input class="form-control custom-focus" type="tel" id="location" value="<%=data.location%>" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="offset-xs-0 offset-sm-3 col-12 col-sm-9 mt-3">
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-                                <button id="saveinfo" data-action="open" type="button" class="btn btn-primary">Save</button>
->>>>>>> parent of 69104c7... nat cmnr
-=======
-                                <button id="saveinfo" data-action="open" type="button" class="btn btn-primary">Save</button>
->>>>>>> parent of 69104c7... nat cmnr
-=======
-                                <button id="saveinfo" data-action="open" type="button" class="btn btn-primary">Save</button>
->>>>>>> parent of 69104c7... nat cmnr
                                 <button data-action="open" type="button" id="closeperson" class="btn btn-primary">Close</button>
 
-=======
-                                <button type="submit" class="btn btn-primary">Save</button>
->>>>>>> 0fc979b1a43d137fbc31b117caa4bb36bfb76124
                             </div>
                         </div>
                     </form>
                 </div>
                 <!-- Personal pane END -->
                 <!-- Address pane START -->
-                <div class="tab-pane fade" id="address" role="tabpanel">
+                <div class="tab-pane fade" id="account" role="tabpanel">
                     <form>
                         <div class="form-group row">
-                            <label for="street" class="col-12 col-sm-3 col-form-label">Street</label>
+                            <label for="first-name" class="col-12 col-sm-3 col-form-label">Full Name</label>
                             <div class="col-12 col-sm-9">
-                                <input class="form-control custom-focus" type="text" value="Street address, P.O. BOX 49" id="street">
+                                <input class="form-control custom-focus" type="text" id="fullname" value="<%=data.fullname%>" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="city" class="col-12 col-sm-3 col-form-label">City / Town</label>
+                            <label for="street" class="col-12 col-sm-3 col-form-label">Username</label>
                             <div class="col-12 col-sm-9">
-                                <input class="form-control custom-focus" type="text" value="Fort Progress" id="city">
+                                <input class="form-control custom-focus" type="text" value="<%=data.username%>" id="username" readonly>
+                            </div>
+                        </div>
+
+
+                    </form>
+                    <form>
+                        <div class="form-group row">
+                            <label for="city" class="col-12 col-sm-3 col-form-label">Password</label>
+                            <div class="col-12 col-sm-9">
+                                <input class="form-control custom-focus" type="password" id="pass">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="city" class="col-12 col-sm-3 col-form-label">State / Region</label>
+                            <label for="city" class="col-12 col-sm-3 col-form-label">New Password</label>
                             <div class="col-12 col-sm-9">
-                                <input class="form-control custom-focus" type="text" value="California" id="city">
+                                <input class="form-control custom-focus" type="password" id="newpass">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="zip" class="col-12 col-sm-3 col-form-label">Zip / Postal</label>
+                            <label for="city" class="col-12 col-sm-3 col-form-label">Confirm Password</label>
                             <div class="col-12 col-sm-9">
-                                <input class="form-control custom-focus" type="text" value="90099" id="zip">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="country" class="col-12 col-sm-3 col-form-label">Country</label>
-                            <div class="col-12 col-sm-9">
-                                <select class="form-control custom-focus" id="country">
-                            <option>USA</option>
-                            <option>CANADA</option>
-                            <option>GREAT BRITAIN</option>
-                          </select>
+                                <input class="form-control custom-focus" type="password" id="confirmpass">
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="offset-xs-0 offset-sm-3 col-12 col-sm-9 mt-3">
-                                <button type="submit" class="btn btn-primary">Save</button>
+                                <button id="savepass" data-action="open" type="button" class="btn btn-primary">Save</button>
+                                <button id="close" data-action="open" type="button" class="btn btn-primary">Close</button>
                             </div>
+
+                            <script>
+                                $("#close").click(function() {
+                                    $("#profile").hide(250);
+                                    $("#home").show(500);
+
+                                })
+                                $("#closeperson").click(function() {
+                                    $("#profile").hide(250);
+                                    $("#home").show(500);
+
+                                })
+
+                            </script>
                         </div>
                     </form>
+
+
                 </div>
+
+
                 <!-- Address pane END -->
-                <!-- Password pane START -->
-                <div class="tab-pane fade" id="password" role="tabpanel">
-                    <form>
-                        <div class="form-group row">
-                            <label for="user-password" class="col-12 col-sm-3 col-form-label">Password</label>
-                            <div class="col-12 col-sm-9">
-                                <input class="form-control custom-focus" type="password" value="professor" id="user-password">
-                            </div>
-                        </div>
-                        <div class="form-group row has-success">
-                            <label for="user-password-confirm" class="col-12 col-sm-3 col-form-label">Confirm password</label>
-                            <div class="col-12 col-sm-9">
-                                <input class="form-control custom-focus is-valid" type="password" value="professor" id="user-password-confirm">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="offset-xs-0 offset-sm-3 col-12 col-sm-9 mt-3">
-                                <button type="submit" class="btn btn-primary">Save password</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <!-- Password pane END -->
+
             </div>
             <!-- Profile tabs END -->
         </div>

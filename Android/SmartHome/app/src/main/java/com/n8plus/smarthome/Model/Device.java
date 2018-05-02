@@ -1,8 +1,8 @@
 package com.n8plus.smarthome.Model;
 
 import com.n8plus.smarthome.Model.Enum.DeviceType;
-import com.n8plus.smarthome.Model.Enum.ModuleType;
 import com.n8plus.smarthome.Model.Enum.Position;
+import com.n8plus.smarthome.Model.Enum.Type;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -92,17 +92,17 @@ public class Device implements Serializable {
         return booleans;
     }
 
-    public boolean getStateByType(ModuleType moduleType) {
+    public boolean getStateByType(Type type) {
         boolean b = false;
         for (Module module : modules) {
-            if (module.getModuleType() == moduleType) b = module.isState();
+            if (module.getType() == type) b = module.isState();
         }
         return b;
     }
 
-    public void setStateByType(ModuleType moduleType, boolean state) {
+    public void setStateByType(Type type, boolean state) {
         for (Module module : modules) {
-            if (module.getModuleType() == moduleType) {
+            if (module.getType() == type) {
                 module.setState(state);
             }
         }
@@ -114,17 +114,17 @@ public class Device implements Serializable {
         }
     }
 
-    public boolean getConnectByType(ModuleType moduleType) {
+    public boolean getConnectByType(Type type) {
         boolean b = false;
         for (Module module : modules) {
-            if (module.getModuleType() == moduleType) b = module.isConnect();
+            if (module.getType() == type) b = module.isConnect();
         }
         return b;
     }
 
-    public void setConnectByType(ModuleType moduleType, boolean state) {
+    public void setConnectByType(Type type, boolean state) {
         for (Module module : modules) {
-            if (module.getModuleType() == moduleType) {
+            if (module.getType() == type) {
                 module.setConnect(state);
             }
         }

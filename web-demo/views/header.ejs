@@ -16,21 +16,20 @@
     <a class="navbar-brand px-lg-3 px-1 mr-0" href="#" id="home-logo">SMART family</a>
     <script type="text/javascript">
         $("#home-logo").click(function() {
-            $("#home").show(2000);
-            $("#lights-control").hide(1000);
-            $("#doors-control").hide(1000);
-            $("#cameras-control").hide(1000);
-            $("#profile").hide(1000);
+            $("#home").show(500);
+            $("#lights-control").hide(250);
+            $("#doors-control").hide(250);
+            $("#cameras-control").hide(250);
+            $("#profile").hide(250);
         });
 
     </script>
     <div class="ml-auto">
         <div class="navbar-nav flex-row navbar-icons">
             <div class="nav-item">
-                <button id="alerts-toggler" class="btn btn-link nav-link" title="Alerts" type="button" data-alerts="3" data-toggle="modal" data-target="#alertsModal" class="modal-show">
+                <button id="myBtn" class="btn btn-link nav-link" title="Alerts" type="button" data-alerts="3" data-toggle="modal" data-target="#alertsModal" class="modal-show">
 							<img src="/img/notification.png"/>
-						</button>
-
+                </button>
             </div>
             <div id="user-menu" class="nav-item dropdown">
                 <button class="btn btn-link nav-link dropdown-toggle" title="User" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -41,16 +40,16 @@
                     <a class="dropdown-item" href="#" id="profile-header">Profile</a>
                     <script type="text/javascript">
                         $("#profile-header").click(function() {
-                            $("#lights-control").hide(1000);
-                            $("#home").hide(1000);
-                            $("#doors-control").hide(1000);
-                            $("#cameras-control").hide(1000);
-                            $("#profile").show(2000);
+                            $("#lights-control").hide(250);
+                            $("#home").hide(250);
+                            $("#doors-control").hide(250);
+                            $("#cameras-control").hide(250);
+                            $("#profile").show(500);
                         });
 
                     </script>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="login.html">Logout</a>
+                    <a class="dropdown-item" id="logout" href="#">Logout</a>
                 </div>
 
             </div>
@@ -59,6 +58,7 @@
 						  <img src="/img/menu.png"/>
 						</button>
             </div>
+
 
         </div>
     </div>

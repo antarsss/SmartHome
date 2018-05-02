@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.n8plus.smarthome.View.ProfilePage.Others.NotificationDetail">
+    tools:context="com.n8plus.smarthome.Activity.NotificationDetail">
     <TextView
         android:id="@+id/txtTitleDetail"
         android:background="@drawable/title_box_shadow"

@@ -1,11 +1,11 @@
 package com.n8plus.smarthome.Model;
 
-import com.n8plus.smarthome.Model.Enum.ModuleType;
+import com.n8plus.smarthome.Model.Enum.Type;
 
 import java.io.Serializable;
 
 public class Module implements Serializable {
-    private ModuleType moduleType;
+    private Type type;
     private int pin;
     private boolean state;
     private boolean connect;
@@ -13,19 +13,19 @@ public class Module implements Serializable {
     public Module() {
     }
 
-    public Module(ModuleType moduleType, int pin, boolean state, boolean connect) {
-        this.moduleType = moduleType;
+    public Module(Type type, int pin, boolean state, boolean connect) {
+        this.type = type;
         this.pin = pin;
         this.state = state;
         this.connect = connect;
     }
 
-    public ModuleType getModuleType() {
-        return moduleType;
+    public Type getType() {
+        return type;
     }
 
-    public void setModuleType(ModuleType moduleType) {
-        this.moduleType = moduleType;
+    public void setType(Type type) {
+        this.type = type;
     }
 
     public int getPin() {
@@ -54,6 +54,6 @@ public class Module implements Serializable {
 
     @Override
     public String toString() {
-        return "{" + moduleType + ", " + pin + ", " + state + ", " + connect + "}";
+        return "{" + type + ", " + pin + ", " + state + ", " + connect + "}";
     }
 }

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.n8plus.smarthome.View.ProfilePage.Others.ActivityFeedback">
+    tools:context="com.n8plus.smarthome.Activity.ActivityFeedback">
     <TextView
         android:background="@drawable/title_box_shadow"
         android:paddingLeft="16dp"

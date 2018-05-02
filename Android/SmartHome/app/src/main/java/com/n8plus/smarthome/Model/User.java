@@ -2,7 +2,7 @@ package com.n8plus.smarthome.Model;
 
 import java.io.Serializable;
 
-public class User implements Serializable {
+public class User implements Serializable{
     private String username;
     private String password;
     private String fullname;

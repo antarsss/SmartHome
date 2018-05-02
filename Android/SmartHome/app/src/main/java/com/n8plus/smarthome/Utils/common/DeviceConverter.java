@@ -2,9 +2,14 @@ package com.n8plus.smarthome.Utils.common;
 
 import com.google.gson.Gson;
 import com.n8plus.smarthome.Model.Device;
+import com.n8plus.smarthome.Model.Enum.Type;
+import com.n8plus.smarthome.Model.Module;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * Created by Hiep_Nguyen on 3/30/2018.

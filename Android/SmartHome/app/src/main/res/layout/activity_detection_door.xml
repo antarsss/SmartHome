@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".View.DoorPage.DoorList.DoorListView">
+    tools:context="com.n8plus.smarthome.View.LoadDoor.DetectionDoor">
     <ScrollView
         android:scrollbars="none"
         android:layout_width="match_parent"

@@ -33,7 +33,6 @@ app.use(bodyParser.json());
 require("./app/routes/user.routes")(app);
 require("./app/routes/device.routes")(app);
 require('./app/routes/admin.routes')(app);
-require('./app/routes/notification.routes')(app);
 //configuring the client
 var authorizationSocket = require("./app/socket.io/authorization.socket");
 var deviceSocket = require("./app/socket.io/device.socket");

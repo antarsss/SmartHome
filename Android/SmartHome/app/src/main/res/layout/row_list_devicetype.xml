@@ -23,7 +23,7 @@
             android:textColor="@color/txtColor1"
             android:textSize="16dp"
             android:gravity="center_vertical"
-            android:text="Device moduleType"
+            android:text="Device type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <LinearLayout

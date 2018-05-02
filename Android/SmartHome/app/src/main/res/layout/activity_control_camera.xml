@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".View.CameraPage.CameraDetails.ControlCamera">
+    tools:context="com.n8plus.smarthome.View.ControlCamera.ControlCamera">
 
     <LinearLayout
         android:layout_width="match_parent"

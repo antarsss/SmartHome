@@ -4,33 +4,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".View.StartPage.LoadingPage.StartViewActivity">
+    tools:context=".View.LoadScreen.StartViewActivity">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <ImageView
+            android:layout_marginTop="-250px"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="-250px"
             android:src="@drawable/smart_home" />
 
         <ProgressBar
             android:id="@+id/pbar_loading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|bottom"
-            android:layout_marginBottom="70dp" />
-
-        <Button
-            android:visibility="gone"
-            android:id="@+id/btnTryLogin"
-            android:onClick="tryLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|bottom"
-            android:layout_marginBottom="70dp"
-            android:text="Try again" />
+            android:layout_gravity="center"
+            android:layout_marginTop="150dp" />
     </FrameLayout>
 </LinearLayout>

@@ -1,25 +1,50 @@
-<<<<<<< HEAD
-var url_home = "http://172.16.199.170:3000";
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
+//var url_home = "http://172.16.199.170:3000";
 //var url_home = "http://172.16.194.40:3000";
-=======
->>>>>>> 0fc979b1a43d137fbc31b117caa4bb36bfb76124
-=======
->>>>>>> parent of 69104c7... nat cmnr
-=======
->>>>>>> parent of 69104c7... nat cmnr
-=======
->>>>>>> parent of 69104c7... nat cmnr
+var url_home = "http://192.168.1.13:3000";
 var express = require('express');
 var router = express.Router();
 
 
-/* GET users listing. */
-router.get('/', function (req, res, next) {
-    res.send('respond with a resource');
-});
+
+
+router.post('/authenticate', function (req, res, next) {
+
+    var jsonRequest = {
+        username: req.body.username,
+        password: req.body.password
+    }
+    $.ajax({
+        url: url_home + "/authenticate",
+        type: 'post',
+        dataType: 'json',
+        async: true,
+        data: jsonRequest,
+        success: function (data) {
+            var success = data["success"];
+            if (success) {
+                var user = data["user"];
+                res.render('index', {
+                    data: user
+                });
+                next();
+            } else {
+                res.render('index-login', {
+                    data: data
+                });
+                next();
+            }
+            console.log(data);
+        },
+        error: function (XMLHttpRequest, textStatus, err) {
+            res.render('index-login', {
+                success: false,
+                message: textStatus
+            });
+            next();
+        }
+    });
+
+})
 
 
 module.exports = router;

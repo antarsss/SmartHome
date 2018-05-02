@@ -61,7 +61,7 @@ public class ModuleAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.txtModuleType.setText(arrayList.get(position).getModuleType().name());
+        viewHolder.txtModuleType.setText(arrayList.get(position).getType().name());
         viewHolder.txtModulePin.setText("Pin: " + arrayList.get(position).getPin());
         if (arrayList.get(position).isConnect()) {
             viewHolder.txtModuleConnect.setText("Connected");

@@ -3,6 +3,7 @@ package com.n8plus.smarthome.Adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,7 @@ import android.widget.TextView;
 
 import com.n8plus.smarthome.Model.Device;
 import com.n8plus.smarthome.Model.Enum.DeviceType;
-import com.n8plus.smarthome.Model.Enum.ModuleType;
+import com.n8plus.smarthome.Model.Enum.Type;
 import com.n8plus.smarthome.R;
 
 import java.util.List;
@@ -97,9 +98,9 @@ public class DeviceAdapter extends BaseAdapter {
         viewHolder.txtPosition.setText(device.getPosition().name());
 
         if (device.getDeviceType()==DeviceType.CAMERA){
-            setConnectByDeviceType(device, ModuleType.CAMERA, viewHolder);
+            setConnectByDeviceType(device, Type.CAMERA, viewHolder);
         } else if (device.getDeviceType()==DeviceType.LIGHT){
-            setConnectByDeviceType(device, ModuleType.LIGHT, viewHolder);
+            setConnectByDeviceType(device, Type.LIGHT, viewHolder);
         } else {
             viewHolder.txtState.setText("Module: "+device.getModules().size());
         }
@@ -107,8 +108,8 @@ public class DeviceAdapter extends BaseAdapter {
         return view;
     }
 
-    public void setConnectByDeviceType(Device device, ModuleType moduleType, ViewHolder viewHolder){
-        if (device.getConnectByType(moduleType)){
+    public void setConnectByDeviceType(Device device, Type type, ViewHolder viewHolder){
+        if (device.getConnectByType(type)){
             viewHolder.txtState.setText("Connected");
             viewHolder.txtState.setTextColor(Color.parseColor("#00a0dc"));
         }
