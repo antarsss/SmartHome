@@ -1,20 +1,3 @@
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-var POSITION = ["Living Room", "Dining Room", "Bath Room", "Bed Room"];
-
-function getPosition(position) {
-    switch (position) {
-        case 'LIVINGROOM':
-            return POSITION[0];
-        case 'DININGROOM':
-            return POSITION[1];
-        case 'BATHROOM':
-            return POSITION[2];
-        case 'BEDROOM':
-            return POSITION[3];
-    }
-}
 async function setLightData(listDevice, container) {
     if (listDevice.length == 0) {
         $(container).html('<h3>No Device</h3>');
@@ -25,7 +8,7 @@ async function setLightData(listDevice, container) {
             var module = data.modules.filter(m => m.type == "LIGHT")[0];
             var checked = module.state ? "checked" : "";
             var path = checked == "checked" ? "light_on.png" : "light_off.png";
-            var connect = module.connect ? "Connected" : "Diconnected"
+            var connect = module.connect ? "Connected" : "Diconnected";
             light += '<div class="col-xs-6 col-sm-12 col-md-6 col-xl-4">' +
                 '<div class="card" data-unit="switch-light-1">' +
                 '<div class="card-body d-flex flex-row justify-content-start">' +
@@ -43,7 +26,9 @@ async function setLightData(listDevice, container) {
                 '<p class="ml-auto mb-0 text-success">' + data.position + '</p>' + '</li>' +
                 '<li class="list-group-item pt-0">' +
                 '<p class="specs">Connect</p>' +
-                '<p class="ml-auto mb-0 text-success"></p>' + connect + '</li>' +
+                '<p class="ml-auto mb-0 text-success">' + connect +
+                '</p>' +
+                '</li>' +
                 '<li class="list-group-item pt-0 pb-4">' +
                 '<p class="specs">Module</p>' +
                 '<p class="ml-auto mb-0 text-success">' + module.type + '</p>' +
@@ -53,7 +38,8 @@ async function setLightData(listDevice, container) {
         });
         await sleep(200);
         $(container).html(light);
-        setListenerLight();
+        emitLightData(listDevice);
+        onLightData();
     }
 }
 
@@ -76,7 +62,7 @@ function emitLightData(data) {
     });
 }
 
-function onLightData() {
+function onLightData(data) {
     socket.on("s2c-change", async function (data) {
         console.log("Response: " + JSON.stringify(data))
         var success = data.success;
@@ -85,29 +71,24 @@ function onLightData() {
             var id = device._id;
             var module = device.modules.filter(m => m.type == "LIGHT");
             if (module.length == 0) return;
-            module[0].state = state;
+            var state = module[0].state;
             var path = state ? "light_on.png" : "light_off.png";
             await sleep(100);
-            console.log(id);
             $("#" + id).prop("checked", state);
             $("#" + id).parent().siblings(".icon-state").attr("src", "/img/" + path);
         }
     });
 }
-var devices;
 
 function setupLight(container, property) {
+    var devices;
     loadDevicesProperty(container, property, function (deviceArr) {
         devices = deviceArr;
         setLightData(deviceArr, container)
+
     });
 }
 
-function setListenerLight() {
-    emitLightData(devices);
-    onLightData();
-}
-var device = {
+setupLight('#lights-detail', {
     deviceType: 'LIGHT'
-};
-setupLight('#lights-detail', device);
+});

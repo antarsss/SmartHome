@@ -29,7 +29,6 @@ function setupCameras(container, property) {
     });
 }
 
-var device = {
+setupCameras('.list-camera', {
     deviceType: 'CAMERA'
-};
-setupCameras('.list-camera', device);
+});
