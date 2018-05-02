@@ -41,6 +41,7 @@ function setupCameras(container, property) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 setupCameras('.list-camera', {
     deviceType: 'CAMERA'
 });
@@ -58,6 +59,12 @@ setupCameras('.list-camera', device);
 
 setListenerCameras();
 >>>>>>> 0fc979b1a43d137fbc31b117caa4bb36bfb76124
+=======
+var device = {
+    deviceType: 'CAMERA'
+};
+setupCameras('.list-camera', device);
+>>>>>>> parent of 69104c7... nat cmnr
 =======
 var device = {
     deviceType: 'CAMERA'

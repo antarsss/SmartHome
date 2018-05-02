@@ -1,7 +1,10 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of 69104c7... nat cmnr
 =======
 >>>>>>> parent of 69104c7... nat cmnr
 function sleep(ms) {
@@ -22,6 +25,9 @@ function getPosition(position) {
     }
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 69104c7... nat cmnr
+=======
 >>>>>>> parent of 69104c7... nat cmnr
 =======
 >>>>>>> parent of 69104c7... nat cmnr

@@ -1,7 +1,10 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of 69104c7... nat cmnr
 =======
 >>>>>>> parent of 69104c7... nat cmnr
 function sleep(ms) {
@@ -23,6 +26,9 @@ function getPosition(position) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 69104c7... nat cmnr
+=======
 >>>>>>> parent of 69104c7... nat cmnr
 =======
 >>>>>>> parent of 69104c7... nat cmnr
@@ -83,6 +89,7 @@ function setDoorData(listDevice, container) {
         $(container).html(door);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         emitDoorData(listDevice);
         onDoorData();
 =======
@@ -97,6 +104,9 @@ function setDoorData(listDevice, container) {
             $(container).append(door);
         });
 >>>>>>> 0fc979b1a43d137fbc31b117caa4bb36bfb76124
+=======
+        setListenerDoor();
+>>>>>>> parent of 69104c7... nat cmnr
 =======
         setListenerDoor();
 >>>>>>> parent of 69104c7... nat cmnr
@@ -162,6 +172,7 @@ function onDoorData() {
     });
 }
 var devices;
+<<<<<<< HEAD
 
 function onDoorData(data) {
     socket.on("s2c-change", function (rs) {
@@ -174,11 +185,14 @@ function onDoorData(data) {
 >>>>>>> 0fc979b1a43d137fbc31b117caa4bb36bfb76124
 }
 var devices;
+=======
+>>>>>>> parent of 69104c7... nat cmnr
 
 function setupDoor(container, property) {
     loadDevicesProperty(container, property, function (deviceArr) {
         setDoorData(deviceArr, container)
     });
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 
@@ -202,6 +216,19 @@ setupDoor('#doors-detail', device);
 
 setListenerDoor();
 >>>>>>> 0fc979b1a43d137fbc31b117caa4bb36bfb76124
+=======
+}
+
+function setListenerDoor() {
+    emitDoorData(devices);
+    onDoorData();
+}
+var device = {
+    deviceType: 'DOOR'
+};
+
+setupDoor('#doors-detail', device);
+>>>>>>> parent of 69104c7... nat cmnr
 =======
 }
 

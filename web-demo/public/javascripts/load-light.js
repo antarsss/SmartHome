@@ -1,7 +1,10 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of 69104c7... nat cmnr
 =======
 >>>>>>> parent of 69104c7... nat cmnr
 function sleep(ms) {
@@ -22,6 +25,9 @@ function getPosition(position) {
     }
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 69104c7... nat cmnr
+=======
 >>>>>>> parent of 69104c7... nat cmnr
 =======
 >>>>>>> parent of 69104c7... nat cmnr
@@ -89,6 +95,7 @@ function setupLights(container, property) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 setupLights('.list-light', {
     deviceType: 'LIGHT'
 });
@@ -107,6 +114,13 @@ setupLights('.list-light', device);
 
 setListenerLights();
 >>>>>>> 0fc979b1a43d137fbc31b117caa4bb36bfb76124
+=======
+
+var device = {
+    deviceType: 'LIGHT'
+};
+setupLights('.list-light', device);
+>>>>>>> parent of 69104c7... nat cmnr
 =======
 
 var device = {
