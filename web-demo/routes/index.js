@@ -6,38 +6,39 @@ global.document = new jsdom.JSDOM().window.document;
 var url_home = "http://172.16.199.170:3000";
 
 router.get('/', function (req, res, next) {
-    res.render('login');
+    res.render('index-login', {
+        data: ""
+    });
 
 });
-
-router.get('/home.html', function (req, res, next) {
-    console.log(req)
-    res.render('index');
-});
-
-router.post('/authenticate', function (req, res, next) {
-    var jsonRequest = {
+router.post('/signup', function (req, res, next) {
+    var user = {
         username: req.body.username,
-        password: req.body.password
+        password: req.body.password,
+        fullname: req.body.fullname,
+        email: req.body.email,
+        phone: req.body.phone,
+        location: req.body.location,
+        avatar: ""
     }
     $.ajax({
-        url: url_home + "/authenticate",
+        url: url_home + "/signup",
         type: 'post',
         dataType: 'json',
         async: true,
-        tryCount: 0,
-        retryLimit: 3,
-        data: jsonRequest,
-    }).done(function (data) {
-        var success = data["success"];
-        if (success) {
-            var user = data["user"];
-            res.render('index', {
-                data: user;
-            });
-            next();
-        }
+        data: user,
+        success: function (data) {
+            var success = data["success"];
+            console.log(success);
+            if (success) {
+                res.render('index-login');
+                next();
+            }
+        },
+
     });
-});
+
+})
+
 
 module.exports = router;
