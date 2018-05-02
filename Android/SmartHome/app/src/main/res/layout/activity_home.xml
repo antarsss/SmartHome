@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.n8plus.smarthome.View.HomePage.HomeActivity">
+    tools:context="com.n8plus.smarthome.View.MainPage.MainView">
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navMain"
@@ -14,14 +14,14 @@
         app:itemBackground="@color/colorBackground"
         app:itemIconTint="@drawable/nav_item_color_state"
         app:itemTextColor="@drawable/nav_item_color_state"
-        app:menu="@menu/bottom_navigation_main"
-        />
+        app:menu="@menu/bottom_navigation_main" />
 
     <FrameLayout
         android:id="@+id/frmContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/navMain"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
     </FrameLayout>

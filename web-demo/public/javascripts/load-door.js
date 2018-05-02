@@ -1,8 +1,13 @@
+<<<<<<< HEAD
 async function setDoorsData(listDevice, container) {
+=======
+function setDoorsData(listDevice, container) {
+>>>>>>> 0fc979b1a43d137fbc31b117caa4bb36bfb76124
     if (listDevice.length == 0) {
         $(container).html('<h3>No Device</h3>');
     } else {
         $(container).html('');
+<<<<<<< HEAD
         var doors = '';
 
         listDevice.forEach((data) => {
@@ -17,20 +22,28 @@ async function setDoorsData(listDevice, container) {
             var text = state == "OPEN" ? "color:green;" : "color:red;'";
             var path = checked ? "door-opened.png" : "door-close.png";
             doors += '<ul class="list-group borderless active" data-unit="wash-machine">' +
+=======
+        listDevice.forEach(function (data) {
+            var checked = data.state ? "ON" : "OFF";
+            var path = checked ? "door-on.png" : "door-off.png";
+            var doors = '<ul class="list-group borderless active" data-unit="wash-machine">' +
+>>>>>>> 0fc979b1a43d137fbc31b117caa4bb36bfb76124
                 '<li class = "list-group-item d-flex pb-0">' +
-                '<img style="object-fit: contain; padding: 8px 8px 8px 0px" src="/img/' + path + '">' +
-                '<div><h4>' + data.deviceName + '</h4>' +
-                '<h6 class="text-success" style="padding-left:5px">' + getPosition(data.position) + '</h6>' +
-                '</div>' +
-                '<p id="a' + data._id + '" class="ml-auto status" style="' + text + 'padding: 16px 8px 8px 0px">' + state + '</p>' +
-                '</li></ul> ';
-
+                '<img src="/img/' + path + '">' +
+                '<h5>' + data.deviceName + '</h5>' +
+                '<p class="ml-auto status">' + checked +
+                '</li>' +
+                '<li class="list-group-item d-flex pb-0">' +
+                '<p style="padding-left:35px;" class="text-danger">' + data.position + '</p>' +
+                '<p class="ml-auto mb-0"></p>' +
+                '</li>' +
+                '</ul>';
+            $(container).append(doors);
         });
-        await sleep(100);
-        $(container).html(doors);
     }
 };
 
+<<<<<<< HEAD
 function onDoorsData() {
     socket.on("s2c-change", async function (data) {
         console.log("Response: " + JSON.stringify(data))
@@ -46,20 +59,29 @@ function onDoorsData() {
             await sleep(100);
             $("#a" + id).html(checked);
             $("#a" + id).attr('style', text);
+=======
+>>>>>>> 0fc979b1a43d137fbc31b117caa4bb36bfb76124
 
-        }
+function onDoorsData(data) {
+    socket.on("s2c-change", function (rs) {
+        var modules = rs.modules;
+        modules.forEach((module) => {
+            console.log("m:" + module);
+            $("#" + rs._id).prop("checked", module.state);
+        })
     });
 }
 
-
 function setupDoors(container, property) {
-    loadDevicesProperty(container, property, (deviceArr) => {
-        setDoorsData(deviceArr, container);
+    loadDevicesProperty(container, property, function (deviceArr) {
+        setDoorsData(deviceArr, container)
     });
 }
 
 function setListenerDoors() {
-    //    onDoorsData(devices);
+    loadDevicesProperty("", "{}", function (deviceArr) {
+        onDoorsData(deviceArr);
+    });
 
 }
 setupDoors('.list-door', {

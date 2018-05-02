@@ -13,35 +13,34 @@
         android:roundIcon="@drawable/smarthone_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.Login.LoginActivity"/>
-        <activity android:name=".View.HomePage.HomeActivity" />
-        <activity android:name=".View.LoadDoor.DetectionDoor" />
-        <activity android:name=".Activity.DetectionUnknow" />
-        <activity android:name=".Activity.NotificationDetail" />
-        <activity android:name=".View.ControlDoor.ControlMainDoor" />
-        <activity android:name=".View.ControlCamera.ControlCamera" />
-        <activity android:name=".View.ControlLight.ControlLightView" />
-        <activity android:name=".View.ChangeInformation.ChangeInformation" />
-        <activity android:name=".View.ChangePassword.ChangePassword" />
-        <activity android:name=".View.DeviceConnectChange.ConnectChange" />
-        <activity android:name=".View.Camera.SelectCamera" />
-        <activity android:name=".Activity.Setting" />
-        <activity android:name=".Activity.ActivityFAQ" />
-        <activity android:name=".Activity.ActivityFeedback" />
-        <activity android:name=".Activity.ActivityAbout" />
+        <activity android:name=".View.StartPage.LoginPage.LoginActivity" />
+        <activity android:name=".View.MainPage.MainView" />
+        <activity android:name=".View.DoorPage.DoorList.DoorListView" />
+        <activity android:name=".View.ProfilePage.Others.NotificationDetail" />
+        <activity android:name=".View.DoorPage.DoorDetails.DoorDetailsView" />
+        <activity android:name=".View.CameraPage.CameraDetails.ControlCamera" />
+        <activity android:name=".View.LightPage.ControlLightView" />
+        <activity android:name=".View.ProfilePage.ChangeInformation.ChangeInformation" />
+        <activity android:name=".View.ProfilePage.ChangePassword.ChangePassword" />
+        <activity android:name=".View.DevicesPage.DeviceDetails.ConnectChange" />
+        <activity android:name=".View.CameraPage.CameraList.SelectCamera" />
+        <activity android:name=".View.ProfilePage.Others.Setting" />
+        <activity android:name=".View.ProfilePage.Others.ActivityFAQ" />
+        <activity android:name=".View.ProfilePage.Others.ActivityFeedback" />
+        <activity android:name=".View.ProfilePage.Others.ActivityAbout" />
         <activity
-            android:name=".View.ForgotPassword.ForgotPassword"
-            android:parentActivityName=".View.Login.LoginActivity" />
+            android:name=".View.StartPage.ForgotPassword.ForgotPassword"
+            android:parentActivityName=".View.StartPage.LoginPage.LoginActivity" />
         <activity
-            android:name=".View.Register.Register"
-            android:parentActivityName=".View.Login.LoginActivity" />
+            android:name=".View.StartPage.RegisterPage.Register"
+            android:parentActivityName=".View.StartPage.LoginPage.LoginActivity" />
 
         <service
-            android:name=".Service.EmitListenerService"
+            android:name=".Service.SmartHomeService"
             android:exported="false" />
 
-        <activity android:name=".View.DeviceConnectChange.ModuleDetail"></activity>
-        <activity android:name=".View.LoadScreen.StartViewActivity">
+        <activity android:name=".View.DevicesPage.DeviceDetails.ModuleDetail"></activity>
+        <activity android:name=".View.StartPage.LoadingPage.StartViewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

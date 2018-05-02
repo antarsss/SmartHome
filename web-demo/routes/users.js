@@ -1,49 +1,16 @@
+<<<<<<< HEAD
 var url_home = "http://172.16.199.170:3000";
 //var url_home = "http://172.16.194.40:3000";
+=======
+>>>>>>> 0fc979b1a43d137fbc31b117caa4bb36bfb76124
 var express = require('express');
 var router = express.Router();
 
 
-
-
-router.post('/authenticate', function (req, res, next) {
-
-    var jsonRequest = {
-        username: req.body.username,
-        password: req.body.password
-    }
-    $.ajax({
-        url: url_home + "/authenticate",
-        type: 'post',
-        dataType: 'json',
-        async: true,
-        data: jsonRequest,
-        success: function (data) {
-            var success = data["success"];
-            if (success) {
-                var user = data["user"];
-                res.render('index', {
-                    data: user
-                });
-                next();
-            } else {
-                res.render('index-login', {
-                    data: data
-                });
-                next();
-            }
-            console.log(data);
-        },
-        error: function (XMLHttpRequest, textStatus, err) {
-            res.render('index-login', {
-                success: false,
-                message: textStatus
-            });
-            next();
-        }
-    });
-
-})
+/* GET users listing. */
+router.get('/', function (req, res, next) {
+    res.send('respond with a resource');
+});
 
 
 module.exports = router;

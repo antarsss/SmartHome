@@ -21,20 +21,19 @@ exports.login = function (req, res) {
    User.find({
       username: user.username
    }, function (err, rs) {
-      if (err) throw err;
-      if (!rs) {
-         res.json({
+      if (err || !rs) {
+         return res.json({
             success: false,
             message: 'Authentication failed. User not found.'
          });
       } else if (rs.length == 1) {
          if (rs[0].password != user.password) {
-            res.json({
+            return res.json({
                success: false,
                message: 'Authentication failed. Wrong password.'
             });
          } else {
-            res.json({
+            return res.json({
                success: true,
                message: 'Authentication successfully!',
                user: rs[0],
@@ -48,8 +47,9 @@ exports.login = function (req, res) {
 exports.createUser = function (req, res) {
    // Create and Save a new User
    if (!req.body.password) {
-      return res.status(400).send({
-         message: "User can not be empty"
+      return res.status(400).json({
+         success: false,
+         message: "Empty"
       });
    }
 
@@ -60,17 +60,19 @@ exports.createUser = function (req, res) {
       email: req.body.email,
       phone: req.body.phone,
       location: req.body.location,
-      avatar: req.body.avatar,
+      avatar: req.body.avatar || '',
    });
 
    user.save(function (err, data) {
       if (err) {
-         res.status(500).send({
+         res.status(500).json({
+            success: false,
             message: err
          });
       } else {
-         res.send({
-            message: "OK",
+         res.json({
+            success: true,
+            message: "",
             data: data
          });
       }
@@ -84,13 +86,13 @@ exports.getUserByProperty = function (req, res) {
       }
    }, function (err, users) {
       if (err) {
-         res.status(500).send({
+         res.status(500).json({
             message: err
          });
       } else {
-         var result = {};
-         result.users = users;
-         res.send(result);
+         res.json({
+            users: users
+         });
       }
    });
 };
@@ -102,13 +104,14 @@ exports.update = function (req, res) {
       $set: req.body
    }, function (err, user) {
       if (err || !user) {
-         return res.status(500).send({
+         return res.status(500).json({
+            success: false,
             message: err
          });
       }
-      return res.status(200).send({
-         message: "OK",
-         update: req.body
+      return res.status(200).json({
+         success: true,
+         data: req.body
       });
    });
 };
@@ -118,20 +121,24 @@ exports.delete = function (req, res) {
       if (err) {
          console.log(err);
          if (err.kind === 'ObjectId') {
-            return res.status(404).send({
+            return res.status(404).json({
+               success: false,
                message: "User not found with id " + req.params.username
             });
          }
-         return res.status(500).send({
+         return res.status(500).json({
+            success: false,
             message: "Could not delete user with id " + req.params.username
          });
       }
       if (!user) {
-         return res.status(404).send({
+         return res.status(404).json({
+            success: false,
             message: "User not found with id " + req.params.username
          });
       }
-      res.send({
+      res.json({
+         success: true,
          message: "User deleted successfully!"
       })
    });

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/bgDark"
-    tools:context="com.n8plus.smarthome.Activity.Setting">
+    tools:context="com.n8plus.smarthome.View.ProfilePage.Others.Setting">
     <TextView
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"

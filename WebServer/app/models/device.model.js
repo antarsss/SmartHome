@@ -3,6 +3,7 @@ var mongoose = require("mongoose");
 var Module = mongoose.Schema({
    type: {
       type: String,
+      enum: ['SENSOR', 'SERVO', 'LIGHT', 'RADAR'],
       required: true
    },
    pin: {
@@ -29,11 +30,13 @@ var DeviceSchema = mongoose.Schema({
    },
    deviceType: {
       type: String,
+      enum: ['LIGHT', 'DOOR', 'CAMERA'],
       required: true
    },
    description: String,
    position: {
       type: String,
+      enum: ['LIVINGROOM', 'DININGROOM', 'BEDROOM', 'BATHROOM', 'FRONTOF', 'BACK'],
       required: true
    },
    modules: {

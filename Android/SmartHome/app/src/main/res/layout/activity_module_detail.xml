@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     android:orientation="vertical"
-    tools:context=".View.DeviceConnectChange.ModuleDetail">
+    tools:context=".View.DevicesPage.DeviceDetails.ModuleDetail">
     <ListView
         android:background="@color/colorBackground"
         android:layout_marginTop="4dp"

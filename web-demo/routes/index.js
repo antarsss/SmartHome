@@ -3,43 +3,20 @@ var router = express.Router();
 var jsdom = require('jsdom');
 $ = require('jquery')(new jsdom.JSDOM().window);
 global.document = new jsdom.JSDOM().window.document;
+<<<<<<< HEAD
 var url_home = "http://172.16.199.170:3000";
 //var url_home = "http://172.16.194.40:3000";
+=======
+>>>>>>> 0fc979b1a43d137fbc31b117caa4bb36bfb76124
 
 router.get('/', function (req, res, next) {
-    res.render('index-login', {
-        data: ""
-    });
+    res.render('login');
 
 });
-router.post('/signup', function (req, res, next) {
-    var user = {
-        username: req.body.username,
-        password: req.body.password,
-        fullname: req.body.fullname,
-        email: req.body.email,
-        phone: req.body.phone,
-        location: req.body.location,
-        avatar: ""
-    }
-    $.ajax({
-        url: url_home + "/signup",
-        type: 'post',
-        dataType: 'json',
-        async: true,
-        data: user,
-        success: function (data) {
-            var success = data["success"];
-            console.log(success);
-            if (success) {
-                res.render('index-login');
-                next();
-            }
-        },
+router.get('/home.html', function (req, res, next) {
+    res.render('index');
 
-    });
-
-})
+});
 
 
 module.exports = router;

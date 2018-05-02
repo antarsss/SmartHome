@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:background="@color/colorBackground"
-    tools:context="com.n8plus.smarthome.View.Login.LoginActivity">
+    tools:context=".View.StartPage.LoginPage.LoginActivity">
 
     <ImageView
         android:layout_marginTop="8dp"

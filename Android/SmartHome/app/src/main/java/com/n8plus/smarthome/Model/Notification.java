@@ -1,9 +1,10 @@
 package com.n8plus.smarthome.Model;
 
-import com.n8plus.smarthome.Model.Enum.LevelNotification;
+import com.n8plus.smarthome.Model.Enum.NotificationLevel;
+import com.n8plus.smarthome.Model.Enum.NotificationType;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * Created by Hiep_Nguyen on 2/5/2018.
@@ -14,14 +15,16 @@ public class Notification implements Serializable {
     private String title;
     private String message;
     private boolean state;
-    private LevelNotification level;
+    private NotificationType type;
+    private NotificationLevel level;
     private Date createAt;
 
-    public Notification(String _id, String title, String message, boolean state, LevelNotification level, Date createAt) {
+    public Notification(String _id, String title, String message, boolean state, NotificationType type, NotificationLevel level, Date createAt) {
         this._id = _id;
         this.title = title;
         this.message = message;
         this.state = state;
+        this.type = type;
         this.level = level;
         this.createAt = createAt;
     }
@@ -58,11 +61,19 @@ public class Notification implements Serializable {
         this.state = state;
     }
 
-    public LevelNotification getLevel() {
+    public NotificationType getType() {
+        return type;
+    }
+
+    public void setType(NotificationType type) {
+        this.type = type;
+    }
+
+    public NotificationLevel getLevel() {
         return level;
     }
 
-    public void setLevel(LevelNotification level) {
+    public void setLevel(NotificationLevel level) {
         this.level = level;
     }
 

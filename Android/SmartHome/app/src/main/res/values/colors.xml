@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="txtEnableTrue">#00a0dc</color>
-    <color name="colorBackground">#f9f9f9</color>
+    <color name="colorBackground">#ffffff</color>
     <color name="txtEnableFalse">#bdbdbd</color>
     <color name="bgDark">#eeeeee</color>
     <color name="bgDarkNight">#dddddd</color>
@@ -20,4 +20,7 @@
     <color name="disable_foreground_grey">#42221f1f</color>
     <color name="disable_thumb_grey">#1c000000</color>
     <color name="enable_thumb_green">#46bdbf</color>
+    <color name="background_app">#cccdd2</color>
+    <color name="background_unread">#ECEFF6</color>
+    <color name="background_light">#FFFFFF</color>
 </resources>
