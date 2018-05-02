@@ -4,8 +4,6 @@ function loadDevicesProperty(container, jsonRequest, callback) {
         type: 'post',
         dataType: 'json',
         async: true,
-        tryCount: 0,
-        retryLimit: 3,
         data: jsonRequest,
     }).done(function (data) {
         callback(data["devices"]);

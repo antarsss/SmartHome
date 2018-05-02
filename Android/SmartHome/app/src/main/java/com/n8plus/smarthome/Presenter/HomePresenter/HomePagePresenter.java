@@ -10,7 +10,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.n8plus.smarthome.Utils.common.Constant;
 import com.n8plus.smarthome.Utils.common.VolleySingleton;
-import com.n8plus.smarthome.View.HomePage.HomeActivityViewImpl;
+import com.n8plus.smarthome.View.MainPage.MainViewImpl;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,9 +18,9 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 public class HomePagePresenter implements HomePagePresenterImpl {
-    HomeActivityViewImpl homePageView;
+    MainViewImpl homePageView;
 
-    public HomePagePresenter(HomeActivityViewImpl homePageView) {
+    public HomePagePresenter(MainViewImpl homePageView) {
         this.homePageView = homePageView;
     }
 

@@ -1,10 +1,12 @@
 package com.n8plus.smarthome.Service;
 
 import android.app.IntentService;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
@@ -25,13 +27,19 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class SmartHomeService extends IntentService {
+    private static int notificationId = 1;
     public Context context = this;
-    NotificationCompat.Builder mBuilder;
     NotificationManager mNotificationManager;
-    int numMessages = 0;
+    private Notification mNotification;
 
     public SmartHomeService() {
         super("Listen SocketIO");
+    }
+
+    @Override
+    public int onStartCommand(@Nullable Intent intent, int flags, int startId) {
+        startForeground(notificationId, mNotification);
+        return START_STICKY;
     }
 
     @Override
@@ -104,11 +112,13 @@ public class SmartHomeService extends IntentService {
                 break;
         }
 
-        mBuilder = new NotificationCompat.Builder(context)
+        mNotification = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.alarm)
                 .setContentTitle(title)
-                .setContentText(messgage);
-        mBuilder.setNumber(++numMessages);
+                .setContentIntent(PendingIntent.getActivity(this, 0, i,
+                        PendingIntent.FLAG_UPDATE_CURRENT))
+                .setContentText(messgage).build();
+
         Intent resultIntent = new Intent(context, classtifyActivity(device));
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
         stackBuilder.addParentStack(classtifyActivity(device));
@@ -118,9 +128,17 @@ public class SmartHomeService extends IntentService {
                         0,
                         PendingIntent.FLAG_UPDATE_CURRENT
                 );
-        mBuilder.setContentIntent(resultPendingIntent);
+
         mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.notify(++numMessages, mBuilder.build());
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
+            mNotification.priority = Notification.PRIORITY_MIN;
+        }
+    }
+
+    public void stopForeground() {
+        notificationId++;
+        stopForeground(true);
     }
 
     private Class classtifyActivity(Device device) {

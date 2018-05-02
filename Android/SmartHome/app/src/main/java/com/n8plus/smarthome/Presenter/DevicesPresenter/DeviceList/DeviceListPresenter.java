@@ -9,7 +9,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.n8plus.smarthome.Model.Device;
 import com.n8plus.smarthome.Utils.common.Constant;
 import com.n8plus.smarthome.Utils.common.VolleySingleton;
-import com.n8plus.smarthome.View.HomePage.HomeActivity;
+import com.n8plus.smarthome.View.MainPage.MainView;
 import com.n8plus.smarthome.View.DevicesPage.DeviceList.DeviceListImpl;
 
 import org.json.JSONArray;
@@ -41,7 +41,7 @@ public class DeviceListPresenter implements DeviceListPresenterImpl {
                             JSONArray array = response.getJSONArray("devices");
                             for (int i = 0; i < array.length(); i++) {
                                 JSONObject object = array.getJSONObject(i);
-                                Device device = HomeActivity.deviceConvert.jsonToDeviceFromDatabase(object);
+                                Device device = MainView.deviceConvert.jsonToDeviceFromDatabase(object);
                                 devices.add(device);
                             }
                         } catch (JSONException e) {

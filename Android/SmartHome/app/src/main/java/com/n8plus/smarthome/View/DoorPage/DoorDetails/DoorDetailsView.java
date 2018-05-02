@@ -15,7 +15,7 @@ import com.n8plus.smarthome.Model.Device;
 import com.n8plus.smarthome.Model.Enum.ModuleType;
 import com.n8plus.smarthome.Presenter.DoorPresenter.DoorDetails.DoorDetailsPresenter;
 import com.n8plus.smarthome.R;
-import com.n8plus.smarthome.View.HomePage.HomeActivity;
+import com.n8plus.smarthome.View.MainPage.MainView;
 import com.n8plus.smarthome.View.StartPage.LoadingPage.StartViewActivity;
 
 import java.util.ArrayList;
@@ -65,7 +65,7 @@ public class DoorDetailsView extends AppCompatActivity implements DoorDetailsVie
                     state.setTextColor(Color.parseColor("#00a0dc"));
                     btnAction.setText("OPEN NOW");
                     Toast.makeText(DoorDetailsView.this, "Door Closed!", Toast.LENGTH_SHORT).show();
-                    StartViewActivity.mSocket.emit("c2s-change", HomeActivity.doorConvert.object2Json(door));
+                    StartViewActivity.mSocket.emit("c2s-change", MainView.doorConvert.object2Json(door));
                 } else {
                     door.setStateByType(ModuleType.SERVO, true);
                     imgStateDoor.setImageResource(R.drawable.door);
@@ -73,7 +73,7 @@ public class DoorDetailsView extends AppCompatActivity implements DoorDetailsVie
                     state.setTextColor(Color.parseColor("#ffff4444"));
                     btnAction.setText("CLOSE NOW");
                     Toast.makeText(DoorDetailsView.this, "Door Opened!", Toast.LENGTH_SHORT).show();
-                    StartViewActivity.mSocket.emit("c2s-change", HomeActivity.doorConvert.object2Json(door));
+                    StartViewActivity.mSocket.emit("c2s-change", MainView.doorConvert.object2Json(door));
                 }
             }
         });

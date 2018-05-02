@@ -13,7 +13,7 @@ import com.n8plus.smarthome.Model.User;
 import com.n8plus.smarthome.Presenter.StartPresenter.LoadingPage.StartPresenter;
 import com.n8plus.smarthome.R;
 import com.n8plus.smarthome.Utils.common.SocketSingeton;
-import com.n8plus.smarthome.View.HomePage.HomeActivity;
+import com.n8plus.smarthome.View.MainPage.MainView;
 import com.n8plus.smarthome.View.StartPage.LoginPage.LoginActivity;
 
 public class StartViewActivity extends AppCompatActivity implements ScreenViewImpl {
@@ -60,7 +60,7 @@ public class StartViewActivity extends AppCompatActivity implements ScreenViewIm
     @Override
     protected void onRestart() {
         super.onRestart();
-        Intent intent = new Intent(StartViewActivity.this, HomeActivity.class);
+        Intent intent = new Intent(StartViewActivity.this, MainView.class);
         intent.putExtra("user", user);
         startActivity(intent);
         finish();
@@ -68,7 +68,7 @@ public class StartViewActivity extends AppCompatActivity implements ScreenViewIm
 
     @Override
     public void loginSuccess(User user) {
-        Intent intent = new Intent(StartViewActivity.this, HomeActivity.class);
+        Intent intent = new Intent(StartViewActivity.this, MainView.class);
         intent.putExtra("user", user);
         startActivity(intent);
         finish();

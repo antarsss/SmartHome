@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".View.StartPage.LoginPage.LoginActivity" />
-        <activity android:name=".View.HomePage.HomeActivity" />
+        <activity android:name=".View.MainPage.MainView" />
         <activity android:name=".View.DoorPage.DoorList.DoorListView" />
         <activity android:name=".View.ProfilePage.Others.NotificationDetail" />
         <activity android:name=".View.DoorPage.DoorDetails.DoorDetailsView" />

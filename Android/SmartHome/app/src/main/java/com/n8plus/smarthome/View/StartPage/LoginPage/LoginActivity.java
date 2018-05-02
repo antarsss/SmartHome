@@ -16,7 +16,7 @@ import com.n8plus.smarthome.Model.User;
 import com.n8plus.smarthome.Presenter.StartPresenter.LoginPage.LoginPresenter;
 import com.n8plus.smarthome.R;
 import com.n8plus.smarthome.View.StartPage.ForgotPassword.ForgotPassword;
-import com.n8plus.smarthome.View.HomePage.HomeActivity;
+import com.n8plus.smarthome.View.MainPage.MainView;
 import com.n8plus.smarthome.View.StartPage.RegisterPage.Register;
 
 import java.io.Serializable;
@@ -98,7 +98,7 @@ public class LoginActivity extends AppCompatActivity implements LoginViewImpl {
 
     @Override
     public void loginSuccess(User user) {
-        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+        Intent intent = new Intent(LoginActivity.this, MainView.class);
         intent.putExtra("user", user);
         startActivity(intent);
         finish();

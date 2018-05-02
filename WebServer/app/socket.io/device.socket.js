@@ -1,4 +1,5 @@
 var Device = require("../models/device.model");
+var Notification = require("../models/notification.model");
 var deviceOr = {};
 var count = 0;
 const timeout = ms => new Promise(res => setTimeout(res, ms))
@@ -9,7 +10,7 @@ function sleep(time) {
 
 setInterval(() => {
    count = 0;
-}, 3000);
+}, 5000);
 
 
 function loadDevices(callback) {
@@ -57,11 +58,61 @@ function checkValidate(type, pin, state) {
    return check.length == validate.length;
 }
 
+function pushNotification(notification, callback) {
+   notification.save((err, data) => {
+      callback(err, data);
+   });
+}
+
+function getState(device) {
+   var deviceType = device.deviceType;
+   var modules = device.modules;
+   switch (deviceType) {
+   case "LIGHT":
+      return modules[0].state;
+   case "CAMERA":
+      return modules[0].state;
+   case "DOOR":
+      var module = modules.filter(m => m.type == "SENSOR");
+      return module[0].state;
+   }
+}
+
+function getSummary(device) {
+   var deviceType = device.deviceType;
+   var summary = deviceType + " is ";
+   var state = getState(device);
+   switch (deviceType) {
+   case "LIGHT":
+      summary += state ? "on" : "off";
+      return summary;
+   case "CAMERA":
+      summary += state ? "on" : "off";
+      return summary;
+   case "DOOR":
+      summary += state ? "opened" : "closed";
+      return summary;
+   }
+   return
+}
+
 function updateDeviceById(deviceOr, callback) {
    Device.findByIdAndUpdate(deviceOr._id, {
       $set: deviceOr
    }, function (err, device) {
-      callback(err, deviceOr);
+      if (!err) {
+         var state = getState(deviceOr);
+         var message = getSummary(deviceOr);
+         var notification = new Notification({
+            title: deviceOr.deviceName + " | " + deviceOr.position,
+            message: message,
+            type: deviceOr.deviceType
+         });
+         pushNotification(notification, (error, data) => {
+            if (error) throw error;
+            callback(err, deviceOr);
+         })
+      }
    });
 }
 
@@ -172,7 +223,6 @@ function listenDevice(socket) {
    });
 }
 
-
 function listenSensor(socket) {
    socket.on("d2s-sensor", async (data) => {
       count++;
@@ -196,9 +246,14 @@ module.exports = function (socket) {
             modules.forEach((mo) => {
                if (mo.type != "SENSOR" && mo.connect) {
                   sleep(60).then(() => {
-                     mo.state = mo.state ? 1 : 0;
-                     socket.broadcast.emit("s2d-change", mo);
-                     console.log("Client to Server: " + sockets[socket.id].address + ": %s".red, JSON.stringify(mo));
+                     // mo.state = mo.state ? 1 : 0;
+                     // socket.emit("s2d-change", mo);
+                     // console.log("Client to Server: " + sockets[socket.id].address + ": %s".red, JSON.stringify(mo));
+                     socket.emit("s2c-change", {
+                        success: true,
+                        device: device
+                     });
+                     console.log("Client to Server: " + sockets[socket.id].address + ": %s".red, JSON.stringify(device));
                   })
                }
             });
