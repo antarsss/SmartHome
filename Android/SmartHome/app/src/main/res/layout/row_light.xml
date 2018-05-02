@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:weightSum="10"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/imgLight"
+            android:layout_gravity="center"
+            android:padding="2dp"
+            android:src="@drawable/light_off"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="50dp" />
+        <TextView
+            android:id="@+id/txtNameLight"
+            android:layout_gravity="center"
+            android:padding="8dp"
+            android:textSize="16sp"
+            android:layout_weight="7.5"
+            android:text="Name Light"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <com.kyleduo.switchbutton.SwitchButton
+            android:id="@+id/swtState"
+            android:layout_gravity="center"
+            android:padding="6dp"
+            android:layout_weight="1.5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</RelativeLayout>

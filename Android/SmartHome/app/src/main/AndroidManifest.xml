@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.n8plus.smarthome">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/smarthone_icon"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/smarthone_icon"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".View.StartPage.LoginPage.LoginActivity" />
+        <activity android:name=".View.HomePage.HomeActivity" />
+        <activity android:name=".View.DoorPage.DoorList.DoorListView" />
+        <activity android:name=".View.ProfilePage.Others.NotificationDetail" />
+        <activity android:name=".View.DoorPage.DoorDetails.DoorDetailsView" />
+        <activity android:name=".View.CameraPage.CameraDetails.ControlCamera" />
+        <activity android:name=".View.LightPage.ControlLightView" />
+        <activity android:name=".View.ProfilePage.ChangeInformation.ChangeInformation" />
+        <activity android:name=".View.ProfilePage.ChangePassword.ChangePassword" />
+        <activity android:name=".View.DevicesPage.DeviceDetails.ConnectChange" />
+        <activity android:name=".View.CameraPage.CameraList.SelectCamera" />
+        <activity android:name=".View.ProfilePage.Others.Setting" />
+        <activity android:name=".View.ProfilePage.Others.ActivityFAQ" />
+        <activity android:name=".View.ProfilePage.Others.ActivityFeedback" />
+        <activity android:name=".View.ProfilePage.Others.ActivityAbout" />
+        <activity
+            android:name=".View.StartPage.ForgotPassword.ForgotPassword"
+            android:parentActivityName=".View.StartPage.LoginPage.LoginActivity" />
+        <activity
+            android:name=".View.StartPage.RegisterPage.Register"
+            android:parentActivityName=".View.StartPage.LoginPage.LoginActivity" />
+
+        <service
+            android:name=".Service.SmartHomeService"
+            android:exported="false" />
+
+        <activity android:name=".View.DevicesPage.DeviceDetails.ModuleDetail"></activity>
+        <activity android:name=".View.StartPage.LoadingPage.StartViewActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.n8plus.smarthome.View.ProfilePage.Others.NotificationDetail">
+    <TextView
+        android:id="@+id/txtTitleDetail"
+        android:background="@drawable/title_box_shadow"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:text="Phát hiện người lạ!"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/txtTimeDetail"
+        android:background="@drawable/box_shadow"
+        android:textStyle="italic"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="Thời gian: "
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/imgScreenShot"
+        android:padding="16sp"
+        android:src="@drawable/smart_scenes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>
