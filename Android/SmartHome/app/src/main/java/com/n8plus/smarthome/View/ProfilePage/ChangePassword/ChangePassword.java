@@ -72,6 +72,7 @@ public class ChangePassword extends AppCompatActivity implements ChangePasswordV
         edtConfirmPass.setText("");
         edtNewPass.setText("");
         edtOldPass.setText("");
+        finish();
     }
 
     @Override

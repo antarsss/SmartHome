@@ -3,22 +3,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".View.HomePage.CameraPage.CameraDetails.CameraDetailsView">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@drawable/box_shadow"
         android:orientation="vertical">
-
-        <fragment
-            android:id="@+id/frag_video"
-            android:name="com.chuna.camerastreamrtsp.VideoFragment"
+        <!--<fragment-->
+        <!--android:id="@+id/frag_video"-->
+        <!--android:name="com.chuna.camerastreamrtsp.VideoFragment"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"/>-->
+        <TextureView
+            android:id="@+id/textureView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            tools:alpha="1"
+            tools:foreground="#000" />
     </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"

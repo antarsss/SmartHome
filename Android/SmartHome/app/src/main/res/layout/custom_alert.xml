@@ -18,7 +18,7 @@
         android:layout_height="wrap_content" />
     <EditText
         android:padding="10dp"
-        android:background="@drawable/box_shadow"
+        android:background="@drawable/border_box"
         android:id="@+id/edtNewText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
