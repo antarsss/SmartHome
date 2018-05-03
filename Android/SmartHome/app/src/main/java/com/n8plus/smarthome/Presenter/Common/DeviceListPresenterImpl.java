@@ -6,11 +6,9 @@ import java.util.Map;
 
 public interface DeviceListPresenterImpl {
 
-    void onEmitterDevice();
-
     void emitEmitterDevice(Device device);
 
-    void receveDevice(Device device);
+    void receiveEmitterDevice(Device device);
 
     void loadDeviceProperty(Map<String, String> headers);
 }

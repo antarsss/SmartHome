@@ -13,6 +13,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.n8plus.smarthome.Model.Device;
 import com.n8plus.smarthome.Utils.common.Constant;
+import com.n8plus.smarthome.Utils.common.DeviceConverter;
 import com.n8plus.smarthome.Utils.common.VolleySingleton;
 import com.n8plus.smarthome.View.Common.DeviceListViewImpl;
 import com.n8plus.smarthome.View.MainPage.MainView;
@@ -26,49 +27,19 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class DeviceListPresenter implements DeviceListPresenterImpl {
-    public static ProgressDialog progressDialog;
-    DeviceListViewImpl controlDeviceView;
-    ArrayList<Device> deviceList;
+    private static ProgressDialog progressDialog;
+    private DeviceListViewImpl controlDeviceView;
 
     public DeviceListPresenter(DeviceListViewImpl controlDeviceView) {
         this.controlDeviceView = controlDeviceView;
-        this.deviceList = new ArrayList<>();
         progressDialog = new ProgressDialog((Context) controlDeviceView);
         progressDialog.setTitle("Pending...");
         progressDialog.setMessage("Waiting for seconds");
     }
 
     @Override
-    public void onEmitterDevice() {
-//        StartViewActivity.mSocket.on("s2c-change", new Emitter.Listener() {
-//            @Override
-//            public void call(final Object... args) {
-//                ((AppCompatActivity) controlDeviceView).runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        Log.v("Device", args[0].toString());
-//                        try {
-//                            JSONObject jsonObject = new JSONObject(args[0].toString());
-//                            boolean success = jsonObject.getBoolean("success");
-//                            if (success) {
-//                                JSONObject device1 = jsonObject.getJSONObject("device");
-//                                Device device = new Gson().fromJson(device1.toString(), Device.class);
-//                                if (device != null) {
-//                                    controlDeviceView.checkResponse(device);
-//                                    progressDialog.dismiss();
-//                                }
-//                            }
-//                        } catch (JSONException e) {
-//                        }
-//                    }
-//                });
-//            }
-//        });
-    }
-
-    @Override
     public void emitEmitterDevice(Device device) {
-        StartViewActivity.mSocket.emit("c2s-change", MainView.deviceConvert.object2Json(device));
+        StartViewActivity.mSocket.emit("c2s-change", DeviceConverter.object2Json(device));
         progressDialog.show();
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -82,8 +53,11 @@ public class DeviceListPresenter implements DeviceListPresenterImpl {
     }
 
     @Override
-    public void receveDevice(Device device) {
-        controlDeviceView.checkResponse(device);
+    public void receiveEmitterDevice(Device device) {
+        if (device != null) {
+            controlDeviceView.checkResponse(device);
+            progressDialog.dismiss();
+        }
     }
 
     @Override
@@ -100,7 +74,7 @@ public class DeviceListPresenter implements DeviceListPresenterImpl {
                                     JSONArray array = response.getJSONArray("devices");
                                     for (int i = 0; i < array.length(); i++) {
                                         JSONObject object = array.getJSONObject(i);
-                                        Device device = MainView.deviceConvert.jsonToDeviceFromDatabase(object);
+                                        Device device = DeviceConverter.jsonToDevice(object);
                                         devices.add(device);
                                         controlDeviceView.loadDevicesSuccess(devices);
                                     }

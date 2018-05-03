@@ -87,10 +87,10 @@ public class NotificationFragment extends Fragment implements NotificationFragme
 
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
-        if (adapterNew.containItem(viewHolder.getAdapterPosition())) {
+        if (adapterNew != null && adapterNew.containItem(viewHolder.getAdapterPosition())) {
             notificationPresenter.removeNotification(listNew.get(position));
             adapterNew.removeItem(viewHolder.getAdapterPosition());
-        } else if (adapterOlder.containItem(viewHolder.getAdapterPosition())) {
+        } else if (adapterOlder != null && adapterOlder.containItem(viewHolder.getAdapterPosition())) {
             notificationPresenter.removeNotification(listOld.get(position));
             adapterOlder.removeItem(viewHolder.getAdapterPosition());
         }

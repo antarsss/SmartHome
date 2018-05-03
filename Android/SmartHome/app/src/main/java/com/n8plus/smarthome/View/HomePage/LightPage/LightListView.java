@@ -45,7 +45,6 @@ public class LightListView extends AppCompatActivity implements LightListViewImp
         mount();
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         lightListPresenter = new LightListPresenter(this);
-        lightListPresenter.onEmitterDevice();
         loadAlldevices();
         swbAllLight.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -212,6 +211,8 @@ public class LightListView extends AppCompatActivity implements LightListViewImp
 
     @Override
     public void onBackPressed() {
+        super.onBackPressed();
+        lightListPresenter = null;
         finish();
     }
 }

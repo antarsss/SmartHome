@@ -36,7 +36,7 @@
             android:parentActivityName=".View.StartPage.LoginPage.LoginActivity" />
 
         <service
-            android:name=".Service.SmartHomeService"
+            android:name=".Service.MainService"
             android:exported="false" />
 
         <activity android:name=".View.DevicesPage.DeviceDetails.ModuleDetail"></activity>

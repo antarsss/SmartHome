@@ -18,27 +18,15 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.github.nkzawa.emitter.Emitter;
-import com.google.gson.Gson;
-import com.n8plus.smarthome.Model.Device;
 import com.n8plus.smarthome.Model.Notification;
 import com.n8plus.smarthome.Model.User;
-import com.n8plus.smarthome.Presenter.HomePresenter.DoorPresenter.DoorList.DoorListPresenter;
-import com.n8plus.smarthome.Presenter.HomePresenter.LightPresenter.LightList.LightListPresenter;
 import com.n8plus.smarthome.Presenter.MainPresenter.MainPresenter;
 import com.n8plus.smarthome.R;
-import com.n8plus.smarthome.Service.SmartHomeService;
-import com.n8plus.smarthome.Utils.common.DeviceConverter;
+import com.n8plus.smarthome.Service.MainService;
 import com.n8plus.smarthome.View.DevicesPage.DeviceList.DeviceListFragment;
-import com.n8plus.smarthome.View.HomePage.DoorPage.DoorList.DoorListView;
 import com.n8plus.smarthome.View.HomePage.Fragment.Fragment_Home;
-import com.n8plus.smarthome.View.HomePage.LightPage.LightListView;
 import com.n8plus.smarthome.View.NotificationPage.Fragment.NotificationFragment;
 import com.n8plus.smarthome.View.ProfilePage.Fragment.Fragment_Profile;
-import com.n8plus.smarthome.View.StartPage.LoadingPage.StartViewActivity;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -46,8 +34,6 @@ import java.util.HashMap;
 
 public class MainView extends AppCompatActivity implements MainViewImpl {
 
-    public static final DeviceConverter deviceConvert = new DeviceConverter();
-    public static final DeviceConverter doorConvert = new DeviceConverter();
     final HashMap<String, String> map = new HashMap<>();
     FrameLayout frmContent;
     View badge;
@@ -55,8 +41,6 @@ public class MainView extends AppCompatActivity implements MainViewImpl {
     TextView txtCount;
     ArrayList<Notification> notificationList;
     MainPresenter mainPresenter;
-    LightListPresenter lightListPresenter;
-    DoorListPresenter doorListPresenter;
     User user;
 
     {
@@ -136,8 +120,7 @@ public class MainView extends AppCompatActivity implements MainViewImpl {
             MenuItem item = bottomNavigationView.getMenu().getItem(0);
             bottomNavigationView.setSelectedItemId(item.getItemId());
         }
-        startService(new Intent(MainView.this, SmartHomeService.class));
-        OnEmitterEvent();
+        startService(new Intent(MainView.this, MainService.class));
     }
 
 
@@ -174,46 +157,5 @@ public class MainView extends AppCompatActivity implements MainViewImpl {
     @Override
     public void updateNotification() {
         mainPresenter.countNotification(map);
-    }
-
-    public void OnEmitterEvent() {
-        StartViewActivity.mSocket.on("s2c-change", new Emitter.Listener() {
-            @Override
-            public void call(final Object... args) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        lightListPresenter = LightListView.lightListPresenter;
-                        doorListPresenter = DoorListView.loadDoorPresenter;
-                        Log.v("Device", args[0].toString());
-                        try {
-                            JSONObject jsonObject = new JSONObject(args[0].toString());
-                            boolean success = jsonObject.getBoolean("success");
-                            if (success) {
-                                JSONObject device1 = jsonObject.getJSONObject("device");
-                                Device device = new Gson().fromJson(device1.toString(), Device.class);
-                                if (device != null) {
-                                    switch (device.getDeviceType()) {
-                                        case DOOR:
-                                            if (doorListPresenter != null) {
-                                                doorListPresenter.receveDevice(device);
-                                            }
-                                            break;
-                                        case LIGHT:
-                                            if (lightListPresenter != null) {
-                                                lightListPresenter.receveDevice(device);
-                                            }
-                                            break;
-                                        case CAMERA:
-                                            break;
-                                    }
-                                }
-                            }
-                        } catch (JSONException e) {
-                        }
-                    }
-                });
-            }
-        });
     }
 }

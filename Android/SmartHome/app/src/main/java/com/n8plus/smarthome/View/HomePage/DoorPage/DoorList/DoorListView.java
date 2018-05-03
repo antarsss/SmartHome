@@ -38,13 +38,19 @@ public class DoorListView extends AppCompatActivity implements DoorListViewImpl 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detection_door);
         setTitle("Detection Door");
-
         Mount();
         loadDoorPresenter = new DoorListPresenter(this);
         loadAllDoor();
         animRolate = AnimationUtils.loadAnimation(this, R.anim.anim_scan);
-
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        loadDoorPresenter = null;
+        finish();
     }
 
     public void Mount() {
@@ -52,7 +58,10 @@ public class DoorListView extends AppCompatActivity implements DoorListViewImpl 
         doorLivingRoom = (RecyclerView) findViewById(R.id.doorLivingRoom);
         doorDiningRoom = (RecyclerView) findViewById(R.id.doorDiningRoom);
         doorBathRoom = (RecyclerView) findViewById(R.id.doorBathRoom);
-
+        listBedRoom = new HashMap<>();
+        listDiningRoom = new HashMap<>();
+        listBathRoom = new HashMap<>();
+        listLivingRoom = new HashMap<>();
     }
 
     public void loadAllDoor() {
@@ -71,18 +80,18 @@ public class DoorListView extends AppCompatActivity implements DoorListViewImpl 
         loadDoorPresenter.loadDeviceProperty(params);
     }
 
-    public void initView(HashMap<String, Device> arrayList, ArrayList<Device> doors, RecyclerView recyclerView) {
+    public void initView(HashMap<String, Device> deviceHashMap, ArrayList<Device> doors, RecyclerView recyclerView) {
         if (!doors.isEmpty()) {
             recyclerView.setVisibility(View.VISIBLE);
             ((LinearLayout) recyclerView.getParent().getParent()).setVisibility(View.VISIBLE);
             recyclerView.setHasFixedSize(true);
             LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
             recyclerView.setLayoutManager(layoutManager);
-            arrayList = new HashMap<>();
+            deviceHashMap.clear();
             for (Device door : doors) {
-                arrayList.put(door.get_id(), door);
+                deviceHashMap.put(door.get_id(), door);
             }
-            doorListAdapter = new DoorListAdapter(new ArrayList<Device>(arrayList.values()), DoorListView.this);
+            doorListAdapter = new DoorListAdapter(new ArrayList<Device>(deviceHashMap.values()), DoorListView.this);
             recyclerView.setAdapter(doorListAdapter);
         } else {
             ((LinearLayout) recyclerView.getParent().getParent()).setVisibility(View.INVISIBLE);
@@ -148,6 +157,10 @@ public class DoorListView extends AppCompatActivity implements DoorListViewImpl 
 
     @Override
     public void checkResponse(Device device) {
+        System.out.println(listLivingRoom);
+        System.out.println(listBedRoom);
+        System.out.println(listDiningRoom);
+        System.out.println(listBathRoom);
         switch (device.getPosition()) {
             case LIVINGROOM:
                 if (listLivingRoom.containsKey(device.get_id())) {
