@@ -11,6 +11,7 @@ public class Constant {
     public static final String GET_USERS = URL + "/users/";
     public static final String UPDATE_USER = URL + "/user/";
     public static final String SIGNIN = URL + "/signin/";
+    public static final String SIGNUP = URL + "/signup/";
     public static final String PUSH_NOTIFICATION = URL + "/push";
     public static final String GET_NOTIFICATION = URL + "/notifications/";
     public static final String UPDATE_NOTIFICATION = URL + "/notification/";

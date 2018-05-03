@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.n8plus.smarthome.Model.User;
 import com.n8plus.smarthome.Presenter.StartPresenter.LoadingPage.StartPresenter;
@@ -76,17 +77,21 @@ public class StartViewActivity extends AppCompatActivity implements ScreenViewIm
 
     @Override
     public void loginFailure(String message) {
+        failed++;
         btnTryLogin.setVisibility(View.VISIBLE);
         pbar_loading.setVisibility(View.GONE);
-        if (failed > 0) {
+        if (failed >= 3) {
+            Toast.makeText(StartViewActivity.this, "Please login again!", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(StartViewActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
 
     public void tryLogin(View view) {
-        failed++;
         startPresenter.checkLogin(user);
         btnTryLogin.setVisibility(View.GONE);
         pbar_loading.setVisibility(View.VISIBLE);
+
     }
 }

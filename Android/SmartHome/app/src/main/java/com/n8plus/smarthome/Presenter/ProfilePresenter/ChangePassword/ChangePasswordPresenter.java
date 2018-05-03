@@ -34,8 +34,8 @@ public class ChangePasswordPresenter implements ChangePasswordPresenterImpl {
                             @Override
                             public void onResponse(JSONObject response) {
                                 try {
-                                    String result = (String) response.get("message");
-                                    if (result.equals("OK")) {
+                                    boolean result = (boolean) response.get("success");
+                                    if (result) {
                                         changePasswordView.changePasswordSuccess();
                                     }
                                 } catch (JSONException e) {

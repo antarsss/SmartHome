@@ -19,6 +19,6 @@ public class ControlCameraPresenter implements ControlCameraPresenterImpl {
     @Override
     public void loadVideoRTSP() {
         videoFragment.setVideoVLC((Context) cameraView, Constant.URLVideo);
-        cameraView.loadStreamSuccess();
+//        cameraView.loadStreamSuccess();
     }
 }
