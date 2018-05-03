@@ -7,8 +7,9 @@ const byte rx = 3, tx = 2;
 SoftwareSerial mySerial(rx, tx);
 SerialCommand sCmd(mySerial);
 Servo servo;
-int digitalPin[] = {4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
-int servoPin = digitalPin[7];
+int servoPin = 11;
+const int trig = 12;
+const int echo = 13;
 
 
 // sử dụng cho cảm biến hồng ngoại A0 -> A3
@@ -49,7 +50,7 @@ void classify(JsonObject& obj)
     Door(pin, state);
   }
 }
- 
+
 void parseJsonObject(String data)
 {
   StaticJsonBuffer<256> bufferred;
@@ -65,7 +66,7 @@ void pinSetup()
 {
   for (int i = 0; i < 10; i++)
   {
-    pinMode(digitalPin[i], OUTPUT);
+    //    pinMode(digitalPin[i], OUTPUT);
   }
 
 }
@@ -99,6 +100,35 @@ void sendJson(String event, String type, int pin, boolean state)
   data.printTo(mySerial);
   mySerial.print('\r');
 }
+
+void turnOnSensor()
+{
+  digitalWrite(trig, 0);
+  delayMicroseconds(2);
+  digitalWrite(trig, 1);  // phát xung từ chân trig
+  delayMicroseconds(10);   // xung có độ dài 5 microSeconds
+  digitalWrite(trig, 0);
+}
+
+void checkDistance(boolean s)
+{
+  long duration;
+  int distance;
+  if (s)
+  {
+    turnOnSensor();
+    duration = pulseIn(echo, HIGH);
+    distance = int(duration / 2 / 29.412);
+    delay(100);
+    Serial.println(distance);
+    if (distance < 8)
+    {
+      Serial.println("Alert!!");
+      sendJson("SEN-A2E", "SENSOR", echo, true);
+    }
+  }
+}
+
 void checkDoor()
 {
   // main door
@@ -124,9 +154,8 @@ void checkDoor()
       lastState[i] = firstState[i];
       delay(300);
     }
-
   }
-  Serial.println(D4);
+  checkDistance(firstState[2]);
 }
 
 void setup() {
@@ -141,6 +170,8 @@ void setup() {
   Serial.println("Ready...");
   servo.attach(servoPin);
   servo.write(0);
+  pinMode(trig, OUTPUT);
+  pinMode(echo, INPUT);
 }
 int ko = 0;
 void loop()
